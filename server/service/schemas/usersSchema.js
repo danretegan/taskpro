@@ -1,27 +1,27 @@
 import { Schema, model } from 'mongoose';
 
-// todo: modificat schema aici
 const schema = new Schema(
   {
     name: {
       type: String,
-      minlength: [3, 'Name must be at least 3 characters'],
-      maxlength: [50, 'Name must be less than 50 characters long'],
-      required: [true, '=> this field is required'],
+      minlength: [2, 'Name must be at least 2 characters'],
+      maxlength: [32, 'Name must be less than 32 characters long'],
+      required: [true, 'Name is required'],
     },
     email: {
       type: String,
-      match: [/^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'Invalid email address'],
-      required: [true, '=> this field is required'],
+      maxlength: [255, 'Email must be less than 255 characters long'],
+      match: [/^([\w-.]+@([\w-]+\.)+[\w-]{2,4})$/, 'Invalid email address'],
+      required: [true, 'Email is required'],
       unique: true,
     },
     password: {
       type: String,
       match: [
-        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-        '=> Password must be at least 8 characters and must include an uppercase, a lowercase and a digit',
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/,
+        'Password must be between 8 and 32 characters and must include an uppercase letter, a lowercase letter, and a digit',
       ],
-      required: [true, '=> this field is required'],
+      required: [true, 'Password is required'],
     },
     token: {
       type: String,
@@ -31,6 +31,6 @@ const schema = new Schema(
   { versionKey: false }
 );
 
-const User = model('user', schema);
+const User = model('User', schema);
 
 export default User;
