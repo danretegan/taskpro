@@ -3,6 +3,7 @@ import logger from 'morgan';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import { configDotenv } from 'dotenv';
+import colors from 'colors';
 
 import usersRouter from './routes/api/users.js';
 
@@ -24,12 +25,19 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });
 });
 
-const connection = mongoose.connect(process.env.DB_HOST);
+const connection = mongoose.connect(process.env.DB_HOST, {
+  useNewUrlParser: true, // Utilizează noul parser de URL-uri pentru a procesa URL-ul de conexiune.
+  useUnifiedTopology: true, // Utilizează noul motor de topologie unificată pentru a gestiona conexiunea și topologia cluster-ului.
+});
 
 connection
-  .then(() => console.log('Database connection successful'))
+  .then(() => {
+    console.log(colors.bgGreen.italic.bold('Database connection successful!'));
+  })
   .catch(error => {
-    console.log(`Database connection failed. Error: ${error}`);
+    console.log(
+      colors.red.bold(`Database connection failed. Error: ${error.message}`)
+    );
     process.exit(1);
   });
 
