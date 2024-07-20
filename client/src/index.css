@@ -1,0 +1,65 @@
+@import '../node_modules/modern-normalize/modern-normalize.css';
+/* todo: fonduri aici */
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* todo: setat stilurile genearale */
+body {
+  margin: 0;
+  /* display: flex;
+  place-items: center; */
+  /* min-width: 320px; */
+  min-height: 100vh;
+  background-color: rgba(255, 255, 255, 1);
+  font-weight: 700;
+  font-family: Arimo, sans-serif, Arial, Helvetica;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  main:has(> section):has(> aside) {
+    display: flex;
+    width: 1280px;
+    margin: 0 auto;
+  }
+}
