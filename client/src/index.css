@@ -6,11 +6,7 @@
 /* todo: setat stilurile genearale */
 body {
   margin: 0;
-  /* display: flex;
-  place-items: center; */
-  /* min-width: 320px; */
   min-height: 100dvh;
-  background: linear-gradient(to bottom, #F6F6F7 0%, #F6F6F7 8%, #C4C4C4 50%, #BEDBB0 92%, #BEDBB0 100%);
   font-family: Poppins, sans-serif;
 }
 
@@ -56,10 +52,4 @@ input::-ms-clear {
   display: none;
 }
 
-@media (min-width: 1280px) {
-  main:has(> section):has(> aside) {
-    display: flex;
-    width: 1280px;
-    margin: 0 auto;
-  }
-}
+
