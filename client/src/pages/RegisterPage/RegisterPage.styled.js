@@ -1,24 +1,21 @@
+// client/src/pages/RegisterPage/RegisterPage.styled.js
 import styled from 'styled-components';
 import RegisterPage from './RegisterPage';
 
-// todo: => stilurile pentur home page, doar pentru pagina (exterior cum ar veni), nu pentru componentele salte
-
 const StyledRegisterPage = styled(RegisterPage)`
-  padding-top: 50px;
-  padding-bottom: 120px;
+  padding-top: 224px;
+  padding-bottom: 225px;
+  background: linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, #BEDBB0 92.19%);
+  min-height: 100vh;
 
   @media (min-width: 768px) {
-    padding-top: 100px;
-    padding-bottom: 400px;
-    width: 768px;
-    margin: 0 auto;
+    padding-top: 314px;
+    padding-bottom: 315px;
   }
 
-  @media (min-width: 1280px) {
-    width: 1280px;
-    position: relative;
-    padding-bottom: 140px;
-    padding-top: calc(45px + 85px);
+  @media (min-width: 1440px) {
+    padding-top: 188px;
+    padding-bottom: 187px;
   }
 `;
 
