@@ -1,185 +1,79 @@
+// RegisterForm.jsx
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Form, Formik, Field, ErrorMessage } from 'formik';
+import { useNavigate, Link } from 'react-router-dom';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import UseAnimations from 'react-useanimations';
-import visibility from 'react-useanimations/lib/visibility';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
 import { toast } from 'react-toastify';
-import {
-  OrangeButton,
-  WhiteButton,
-} from '../common/FormButton/FormButton.styled';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-// todo: => se modifica in functie de noul proiect
-
-const RegisterForm = ({ className: styles }) => {
+const RegisterForm = ({ className }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [passwordIsVisible, setPasswordIsVisible] = useState(false);
-  const [confimPasswordIsVisible, setConfimPasswordIsVisible] = useState(false);
-
-  const initialValues = {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
-
-  const emailRegex = /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  const [showPassword, setShowPassword] = useState(false);
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(3, 'Name must be at least 3 characters')
-      .max(50, 'Name must be less than 50 characters long')
-      .required('Required *'),
+      .min(2, 'Name must be at least 2 characters')
+      .max(32, 'Name must be 32 characters or less')
+      .required('Required'),
     email: Yup.string()
-      .matches(emailRegex, { message: 'Invalid email address' })
-      .required('Required *'),
+      .email('Invalid email address')
+      .required('Required'),
     password: Yup.string()
       .min(8, 'Password must be at least 8 characters')
-      .matches(passwordRegex, {
-        message: 'Must include an uppercase, a lowercase and a digit',
-      })
-      .required('Required *'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], "Password doesn't match")
-      .required('Required *'),
+      .max(64, 'Password must be 64 characters or less')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/,
+        'Must contain at least one uppercase, one lowercase, one number and one special character'
+      )
+      .required('Required'),
   });
 
-  const handleSubmit = (values, formikBag) => {
-    const { name, email, password } = values;
-    const { setSubmitting, setFieldError, resetForm } = formikBag;
-
-    setSubmitting(true);
-
-    dispatch(register({ name, email, password }))
-      .unwrap()
-      .then(value => {
-        toast.success(value.message);
-        resetForm();
-        navigate('/login');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
-      .catch(error => {
-        const errorNotification =
-          error?.response?.data?.message || 'Internal server error';
-        toast.error(errorNotification);
-
-        if (error?.response?.status === 409) {
-          setFieldError('email', 'This email is already used');
-          document.querySelector('form').scrollIntoView();
-        }
-      })
-      .finally(() => setSubmitting(false));
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      await dispatch(register(values)).unwrap();
+      toast.success('Registration successful!');
+      navigate('/login');
+    } catch (error) {
+      toast.error(error.message || 'Registration failed');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className={styles}>
+    <div className={className}>
+      <div className="form-header">
+        <Link to="/register" className="active">Registration</Link>
+        <Link to="/login">Log In</Link>
+      </div>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ name: '', email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, errors, values }) => (
-          <Form autoComplete="off">
-            <h1>Register</h1>
-
-            <div className={`field ${errors.name ? 'onError' : ''}`}>
-              <label htmlFor="nameInput">Name *</label>
-              <Field
-                autoComplete="off"
-                id="nameInput"
-                type="text"
-                name="name"
-                placeholder="Please, enter your name !"
-              />
-              <div className="error">
-                <ErrorMessage name="name" component="span" />
-              </div>
+        {({ errors, touched, isSubmitting }) => (
+          <Form className="form-fields">
+            <div className="form-group name-field">
+              <Field name="name" type="text" placeholder="Enter your name" autoComplete="off"/>
+              {errors.name && touched.name && <div className="error">{errors.name}</div>}
             </div>
-
-            <div className={`field ${errors.email ? 'onError' : ''}`}>
-              <label htmlFor="emailInput">Email *</label>
-              <Field
-                autoComplete="off"
-                id="emailInput"
-                type="email"
-                name="email"
-                placeholder="Please, enter your email !"
-              />
-              <div className="error">
-                <ErrorMessage name="email" component="span" />
-              </div>
+            <div className="form-group email-field">
+              <Field name="email" type="email" placeholder="Enter your email" autoComplete="off"/>
+              {errors.email && touched.email && <div className="error">{errors.email}</div>}
             </div>
-
-            <div className={`field ${errors.password ? 'onError' : ''}`}>
-              <label htmlFor="passwordInput">Password *</label>
-              <Field
-                autoComplete="off"
-                id="passwordInput"
-                type={passwordIsVisible ? 'text' : 'password'}
-                name="password"
-                placeholder="Please, enter your password !"
-              />
-              <div className="error">
-                <ErrorMessage name="password" component="span" />
-              </div>
-              {values.password && (
-                <UseAnimations
-                  animation={visibility}
-                  onClick={() => setPasswordIsVisible(prev => !prev)}
-                  size={30}
-                  className="showPassword"
-                />
-              )}
+            <div className="form-group password-field">
+              <Field name="password" type={showPassword ? "text" : "password"} placeholder="Create a password" className="password-input"/>
+              <button type="button" onClick={() => setShowPassword(!showPassword)} className="password-toggle">
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+              {errors.password && touched.password && <div className="error">{errors.password}</div>}
             </div>
-
-            <div
-              className={`field ${
-                errors.password || errors.confirmPassword ? 'onError' : ''
-              }`}
-            >
-              <label htmlFor="confirmPasswordInput">Confirm Password *</label>
-              <Field
-                autoComplete="off"
-                id="confirmPasswordInput"
-                type={confimPasswordIsVisible ? 'text' : 'password'}
-                name="confirmPassword"
-                placeholder="Please, confirm your password !"
-              />
-              <div className="error">
-                <ErrorMessage name="confirmPassword" component="span" />
-              </div>
-              {values.confirmPassword && (
-                <UseAnimations
-                  animation={visibility}
-                  onClick={() => setConfimPasswordIsVisible(prev => !prev)}
-                  size={30}
-                  className="showPassword"
-                />
-              )}
-            </div>
-
-            <div className="buttonWrapper">
-              <OrangeButton
-                type={'submit'}
-                text={isSubmitting ? 'Loading...' : 'Register'}
-                isDisabled={isSubmitting ? true : false}
-              />
-
-              <WhiteButton
-                type="button"
-                text={'Log in'}
-                handlerFunction={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  navigate('/login');
-                }}
-              />
-            </div>
+            <button type="submit" disabled={isSubmitting} className="submit-button">
+              {isSubmitting ? 'Registering...' : 'Register Now'}
+            </button>
           </Form>
         )}
       </Formik>
