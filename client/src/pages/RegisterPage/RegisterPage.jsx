@@ -1,4 +1,4 @@
-import Container from '../../components/common/Container/Container.styled';
+// import Container from '../../components/common/Container/Container.styled';
 import StyledRegisterForm from '../../components/RegisterForm/RegisterForm.styled';
 
 const RegisterPage = ({ className: styles }) => {
