@@ -1,6 +1,7 @@
 @import '../node_modules/modern-normalize/modern-normalize.css';
-/* todo: fonduri aici */
-@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* Poppins, regular, medium, semibold */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 /* todo: setat stilurile genearale */
 body {
@@ -8,10 +9,9 @@ body {
   /* display: flex;
   place-items: center; */
   /* min-width: 320px; */
-  min-height: 100vh;
-  background-color: rgba(255, 255, 255, 1);
-  font-weight: 700;
-  font-family: Arimo, sans-serif, Arial, Helvetica;
+  min-height: 100dvh;
+  background: linear-gradient(to bottom, #F6F6F7 0%, #F6F6F7 8%, #C4C4C4 50%, #BEDBB0 92%, #BEDBB0 100%);
+  font-family: Poppins, sans-serif;
 }
 
 h1,
