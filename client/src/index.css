@@ -1,13 +1,13 @@
 @import '../node_modules/modern-normalize/modern-normalize.css';
 
 /* Poppins, regular, medium, semibold */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import './assets/fonts/fonts.css';
 
 /* todo: setat stilurile genearale */
 body {
   margin: 0;
   min-height: 100dvh;
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 input:-webkit-autofill,
@@ -73,5 +73,3 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
-
-
