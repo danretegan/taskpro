@@ -43,7 +43,7 @@ const login = createAsyncThunk('auth/login', async (userData, thunkAPI) => {
 const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await new Promise(resolve => setTimeout(resolve, 2000));
-    await axios.get('/api/users/logout');
+    await axios.post('/api/users/logout');
 
     utils.clearAuthHeader();
 
