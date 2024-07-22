@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch } from 'react-redux';
-import { register } from '../../redux/auth/operations';
+import { login } from '../../redux/auth/operations';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -13,9 +13,9 @@ const LoginForm = ({ className }) => {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      await dispatch(register(values)).unwrap();
+      await dispatch(login(values)).unwrap();
       toast.success('Login successful!');
-      navigate('/login');
+      navigate('/home'); //* dashboard
     } catch (error) {
       toast.error(error.message || 'Login failed');
     } finally {
