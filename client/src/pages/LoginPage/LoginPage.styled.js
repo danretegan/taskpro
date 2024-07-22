@@ -2,22 +2,18 @@ import styled from 'styled-components';
 import LoginPage from './LoginPage';
 
 const StyledLoginPage = styled(LoginPage)`
-  padding-top: 50px;
-  padding-bottom: 120px;
-
-  @media (min-width: 768px) {
-    padding-top: 100px;
-    padding-bottom: 400px;
-    width: 768px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 1280px) {
-    width: 1280px;
-    position: relative;
-    padding-bottom: 340px;
-    padding-top: calc(45px + 85px);
-  }
+  background: linear-gradient(
+    180deg,
+    rgba(196, 196, 196, 0) 25%,
+    #bedbb0 92.19%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  height: 100dvh;
 `;
 
 export default StyledLoginPage;

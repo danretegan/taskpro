@@ -1,172 +1,102 @@
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
 
-// todo: se adauga stilurile pentru login form
-
 const StyledLoginForm = styled(LoginForm)`
-  & {
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+  width: 100%;
+  max-width: 335px;
+  padding: 24px;
+  color: white;
+  background-color: #151515;
+  border-radius: 8px;
 
-      & {
-        h1 {
-          text-transform: uppercase;
-          color: #fc842d;
-          font-size: 18px;
-          line-height: 25.2px;
-          text-align: center;
-          letter-spacing: 0.04em;
-          margin-bottom: 30px;
-        }
+  .form-header {
+    display: flex;
+    margin-bottom: 40px;
+    gap: 14px;
 
-        div.field {
-          width: 100%;
-          height: 70px;
-          margin-bottom: 15px;
-          position: relative;
+    a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: bold;
+      font-size: 18px;
 
-          & {
-            label {
-              display: inline-block;
-              line-height: 17px;
-              letter-spacing: 0.04em;
-              transition: all 0.45s ease-in-out;
-              font-size: 14px;
-              font-weight: 400;
-              color: #9b9faa;
-
-              transform: translate(20px, 27px);
-              cursor: pointer;
-
-              & {
-                &:has(+ input:not(:placeholder-shown)),
-                &:has(+ input:focus) {
-                  transform: translate(0, 0);
-                  /* cursor: pointer; */
-                  font-size: 16px;
-                  font-weight: 700;
-                  color: black;
-                  transition: all 0.45s ease-in-out;
-                }
-              }
-            }
-
-            input {
-              width: 100%;
-              appearance: none;
-              border: none;
-              outline: none;
-              background-color: transparent;
-              border-bottom: 1px solid #e0e0e0;
-              font-size: 14px;
-              font-weight: 700;
-              line-height: 17px;
-              letter-spacing: 0.04em;
-              color: black;
-              margin-top: 5px;
-              padding: 5px 40px 5px 20px;
-              transition: all 0.45s ease-in-out;
-              color: #20b602;
-
-              & {
-                &:focus {
-                  border-bottom: 1px solid black;
-                  transition: all 0.45s ease-in-out;
-                }
-
-                &::placeholder {
-                  opacity: 0;
-                  transition: all 0.45s ease-in-out;
-                }
-
-                &:focus::placeholder {
-                  color: #9b9faa;
-                  opacity: 1;
-                  transition: all 0.45s ease-in-out;
-                }
-              }
-            }
-
-            div.error {
-              color: #ff003b;
-              font-style: italic;
-              font-size: 12px;
-              margin-top: 2px;
-              text-transform: lowercase;
-            }
-
-            div.showPassword {
-              position: absolute;
-              bottom: 20px;
-              right: 0;
-            }
-          }
-        }
-
-        div.field.onError {
-          & {
-            input {
-              color: #ff003b;
-            }
-          }
-        }
-
-        div.buttonWrapper {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-          margin-top: 40px;
-        }
+      &.active {
+        color: white;
       }
     }
   }
 
-  @media (min-width: 768px) {
-    & {
-      form {
-        width: 396px;
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+  }
 
-        & {
-          h1 {
-            font-size: 34px;
-            line-height: 47.6px;
-            margin-bottom: 35px;
-          }
+  .form-group.email-field {
+    padding-bottom: 15px;
+  }
 
-          div.field {
-            margin-bottom: 35px;
+  .form-group.password-field {
+    padding-bottom: 15px;
+    position: relative;
+  }
 
-            & {
-              label {
-                font-size: 17px;
+  input {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(31, 31, 31, 0.4);
+    border: 1px solid rgba(190, 219, 176, 0.4);
+    border-radius: 8px;
+    color: white;
+    outline: none;
+  }
 
-                & {
-                  &:has(+ input:not(:placeholder-shown)),
-                  &:has(+ input:focus) {
-                    font-size: 20px;
-                  }
-                }
-              }
+  .password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 29px;
+    padding: 0 10px;
+  }
 
-              input {
-                font-size: 17px;
-              }
+  .error {
+    color: #ff6b6b;
+    font-size: 10px;
+    margin-top: 4px;
+    display: block;
+  }
 
-              div.error {
-                font-size: 14px;
-              }
-            }
-          }
+  .password-input {
+    padding-right: 40px;
+  }
 
-          div.buttonWrapper {
-            margin-top: 15px;
-            flex-direction: row;
-          }
-        }
-      }
+  .submit-button {
+    width: 100%;
+    padding: 16.5px;
+    background-color: #bedbb0;
+    border: none;
+    border-radius: 8px;
+    color: #161616;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
+  }
+
+  @media (min-width: 768px) {
+    max-width: 424px;
+    padding: 40px;
   }
 `;
 

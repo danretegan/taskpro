@@ -10,6 +10,28 @@ body {
   font-family: Poppins, sans-serif;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill::first-line {
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+input:-moz-autofill,
+textarea:-moz-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+input:-ms-autofill,
+textarea:-ms-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
 h1,
 h2,
 h3,
