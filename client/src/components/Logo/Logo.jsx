@@ -1,5 +1,5 @@
 const Logo = ({ className: styles }) => {
-  return;
+  return <div className={styles}></div>;
 };
 
 export default Logo;

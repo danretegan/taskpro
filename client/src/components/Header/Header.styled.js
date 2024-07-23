@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Header from './Header';
-import useAuth from '../../hooks/useAuth';
 
 const StyledHeader = styled(Header)`
   border: 2px solid black;

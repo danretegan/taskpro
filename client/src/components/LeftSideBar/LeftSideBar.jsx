@@ -1,5 +1,5 @@
 const LeftSideBar = ({ className: styles }) => {
-  return;
+  return <div className={styles}></div>;
 };
 
 export default LeftSideBar;

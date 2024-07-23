@@ -12,7 +12,7 @@ const ThemeDropdown = ({ className: styles }) => {
   ];
 
   return (
-    <div>
+    <div className={styles}>
       <Select
         isSearchable={false}
         placeholder="Theme"
