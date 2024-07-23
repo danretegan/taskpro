@@ -15,7 +15,7 @@ const LoginForm = ({ className }) => {
     try {
       await dispatch(login(values)).unwrap();
       toast.success('Login successful!');
-      navigate('/home'); //* dashboard
+      navigate('/dashboard'); //* dashboard
     } catch (error) {
       toast.error(error.message || 'Login failed');
     } finally {
