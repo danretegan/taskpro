@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import LoadingScreen from "./LoadingScreen";
+import styled from 'styled-components';
+import LoadingScreen from './LoadingScreen';
 
 const StyledLoadingScreen = styled(LoadingScreen)`
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   position: fixed;
   top: 0;
   right: 0;
   z-index: 80;
-  background-color: #ac141c;
+  background-color: #093222;
   overflow: auto;
   display: flex;
   justify-content: center;

@@ -1,72 +1,135 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { Form, Formik, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import UseAnimations from 'react-useanimations';
+import visibility from 'react-useanimations/lib/visibility';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operations';
 import { toast } from 'react-toastify';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { GreenButton } from '../common/FormButton/FormButton.styled';
+import StyledAuthNavigation from '../AuthNavigation/AuthNavigation.styled';
+import 'animate.css';
 
-const LoginForm = ({ className }) => {
+const LoginForm = ({ className: styles }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      await dispatch(login(values)).unwrap();
-      toast.success('Login successful!');
-      navigate('/dashboard'); //* dashboard
-    } catch (error) {
-      toast.error(error.message || 'Login failed');
-    } finally {
-      setSubmitting(false);
-    }
+  const [passwordIsVisible, setPasswordIsVisible] = useState(false);
+
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
+  const emailRegex = /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .matches(emailRegex, { message: 'Invalid email address' })
+      .required('Required *'),
+    password: Yup.string()
+      .min(8, 'Password must be at least 8 characters')
+      .matches(passwordRegex, {
+        message: 'must include an uppercase, a lowercase and a digit',
+      })
+      .required('Required *'),
+  });
+
+  const handleSubmit = (values, formikBag) => {
+    const { email, password } = values;
+    const { setSubmitting, setFieldError, resetForm } = formikBag;
+
+    setSubmitting(true);
+
+    dispatch(login({ email, password }))
+      .unwrap()
+      .then(value => {
+        toast.success(value.message);
+        resetForm();
+        navigate('/dashboard');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(error => {
+        const errorNotification =
+          error?.response?.data?.message || 'Internal server error';
+        toast.error(errorNotification);
+
+        if (error?.response?.data?.message === 'email is wrong') {
+          setFieldError('email', 'Email is wrong');
+          document.querySelector('form').scrollIntoView();
+        }
+
+        if (error?.response?.data?.message === 'password is wrong') {
+          setFieldError('password', 'Password is wrong');
+          document.querySelector('form').scrollIntoView();
+        }
+      })
+      .finally(() => setSubmitting(false));
   };
 
   return (
-    <div className={className}>
-      <div className="form-header">
-        <Link to="/register">Registration</Link>
-        <Link to="/login" className="active">
-          Log In
-        </Link>
-      </div>
+    <div
+      className={`${styles} animate__animated animate__zoomIn  animate__slow"`}
+    >
+      <StyledAuthNavigation />
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
-          <Form className="form-fields">
-            <div className="form-group email-field">
-              <Field
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                autoComplete="off"
-              />
-            </div>
-            <div className="form-group password-field">
-              <Field
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Confirm a password"
-                className="password-input"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="password-toggle"
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="submit-button"
+        {({ isSubmitting, errors, values, touched }) => (
+          <Form autoComplete="off">
+            <div
+              className={`field ${
+                touched.email && errors.email ? 'onError' : ''
+              }`}
             >
-              {isSubmitting ? 'Logging in...' : 'Log In Now'}
-            </button>
+              <Field
+                autoComplete="off"
+                id="emailInput"
+                type="email"
+                name="email"
+                placeholder="Please, enter your email !"
+              />
+              <div className="error">
+                <ErrorMessage name="email" component="span" />
+              </div>
+            </div>
+
+            <div
+              className={`field ${
+                touched.password && errors.password ? 'onError' : ''
+              }`}
+            >
+              <Field
+                autoComplete="off"
+                id="passwordInput"
+                type={passwordIsVisible ? 'text' : 'password'}
+                name="password"
+                placeholder="Please, enter your password !"
+              />
+              <div className="error">
+                <ErrorMessage name="password" component="span" />
+              </div>
+              {values.password && (
+                <UseAnimations
+                  animation={visibility}
+                  onClick={() => setPasswordIsVisible(prev => !prev)}
+                  size={30}
+                  className="showPassword"
+                  strokeColor="rgba(255, 255, 255, 1)"
+                  speed={2}
+                />
+              )}
+            </div>
+
+            <GreenButton
+              type={'submit'}
+              text={isSubmitting ? 'Loading...' : 'Log In Now'}
+              isDisabled={isSubmitting}
+            />
           </Form>
         )}
       </Formik>

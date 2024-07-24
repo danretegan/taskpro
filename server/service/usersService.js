@@ -2,8 +2,6 @@ import User from './schemas/usersSchema.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-// Todo: modificat chrstile pe aici in functie de noul proiect
-
 async function addUsertoDB(data) {
   await User.validate(data);
 

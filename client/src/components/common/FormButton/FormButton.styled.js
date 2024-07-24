@@ -1,19 +1,23 @@
-import styled from "styled-components";
-import FormButton from "./FormButton";
+import styled from 'styled-components';
+import FormButton from './FormButton';
 
 const StyledFormButton = styled(FormButton)`
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 17px;
-  letter-spacing: 0.04em;
-  border-radius: 30px;
   overflow: hidden;
   position: relative;
   z-index: 1;
   transition: all 0.35s ease-in-out;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  border-radius: 8px;
+  width: 100%;
+  height: 49px;
+  color: #161616;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
@@ -37,92 +41,50 @@ const StyledFormButton = styled(FormButton)`
     cursor: not-allowed;
     transition: all 0.35s ease-in-out;
   }
-
-  @media (min-width: 768px) {
-    font-size: 17px;
-  }
 `;
 
-const CTAButton = styled(StyledFormButton)`
-  padding: 13px 35px;
-  background-color: #fc842d;
-  color: #ffffff;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0px 4px 10px 0px #fc842d80;
+const GreenButton = styled(StyledFormButton)`
+  background-color: #bedbb0;
 
   &:before {
-    background-color: #ffffff;
-  }
-
-  &:hover:not(:disabled) {
-    color: #fc842d;
-    border: 1px solid #fc842d;
-    scale: 1.07;
-  }
-
-  &:active:not(:disabled) {
-    scale: 1.1;
-    transition: all 0.35s ease-in-out;
-  }
-
-  @media (min-width: 768px) {
-    padding-top: 16px;
-    padding-bottom: 16px;
-    position: absolute;
-    bottom: -60px;
-    left: 0;
-    width: 190px;
-  }
-
-  @media (min-width: 1280px) {
-    transform: translateX(-50%);
-    left: 50%;
-  }
-`;
-
-const OrangeButton = styled(StyledFormButton)`
-  width: 182px;
-  height: 44px;
-  background-color: #fc842d;
-  color: #ffffff;
-  border: 1px solid black;
-
-  &:before {
-    background-color: rgba(33, 33, 33, 0.2);
-  }
-
-  &:hover:not(:disabled) {
-    color: blanchedalmond;
-    border: 2px solid #ffffff;
-    box-shadow: 0px 4px 10px 0px #fc842d80;
-    transform: scale(1.1);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(1.2);
-  }
-`;
-const WhiteButton = styled(StyledFormButton)`
-  width: 182px;
-  height: 44px;
-  background-color: #ffffff;
-  color: #fc842d;
-  border: 1px solid #fc842d;
-
-  &:before {
-    background-color: rgba(33, 33, 33, 0.3);
+    background-color: #9dc888;
   }
 
   &:hover:not(:disabled) {
     color: #ffffff;
-    border: 2px solid #ffffff;
-    box-shadow: 0px 4px 10px 0px #fc842d80;
-    transform: scale(1.1);
+    scale: 1.02;
+    box-shadow: 0px 4px 10px 0px #bedbb0;
+    border: 2px solid #e0e0e0;
   }
 
   &:active:not(:disabled) {
-    transform: scale(1.2);
+    scale: 1.04;
+    transition: all 0.35s ease-in-out;
   }
 `;
 
-export { CTAButton, OrangeButton, WhiteButton };
+const ButtonOnHomePage = styled(StyledFormButton)`
+  width: 335px;
+  background-color: #ffffff;
+
+  &:before {
+    background-color: #161616;
+  }
+
+  &:hover:not(:disabled) {
+    color: #ffffff;
+    box-shadow: 0px 4px 10px 0px #161616;
+    scale: 1.02;
+  }
+
+  &:active:not(:disabled) {
+    scale: 1.05;
+    transition: all 0.35s ease-in-out;
+  }
+
+  @media (min-width: 768px) {
+    width: 344px;
+  }
+`;
+
+export { GreenButton, ButtonOnHomePage };

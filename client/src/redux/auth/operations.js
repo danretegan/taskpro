@@ -20,6 +20,8 @@ const register = createAsyncThunk(
       await new Promise(resolve => setTimeout(resolve, 2500));
       const response = await axios.post('/api/users/register', userData);
 
+      utils.setAuthHeader(response.data.data.token);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -43,7 +45,7 @@ const login = createAsyncThunk('auth/login', async (userData, thunkAPI) => {
 const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await new Promise(resolve => setTimeout(resolve, 2000));
-    await axios.post('/api/users/logout');
+    await axios.get('/api/users/logout');
 
     utils.clearAuthHeader();
 
@@ -73,41 +75,4 @@ const refreshUser = createAsyncThunk(
   }
 );
 
-const getDailyRate = createAsyncThunk(
-  'auth/getDailyRate',
-  async (userData, thunkAPI) => {
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2500));
-      const response = await axios.post('/api/users/calcDailyRate', userData);
-
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-const updateUserWithDailyRate = createAsyncThunk(
-  'auth/updateUserDailyRate',
-  async (dailyCalorieIntake, thunkAPI) => {
-    try {
-      const response = await axios.patch(
-        '/api/users/current/dailyRate',
-        dailyCalorieIntake
-      );
-
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export {
-  register,
-  login,
-  logout,
-  refreshUser,
-  getDailyRate,
-  updateUserWithDailyRate,
-};
+export { register, login, logout, refreshUser };
