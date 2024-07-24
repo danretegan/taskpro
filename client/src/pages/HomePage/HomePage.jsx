@@ -24,7 +24,7 @@ const HomePage = ({ className: styles }) => {
 
         <p>
           Supercharge your productivity and take control of your tasks with
-          TaskPro - Dont wait, start achieving your goals now!
+          TaskPro - Don’t wait, start achieving your goals now!
         </p>
 
         <div className="buttonsWrapper">
