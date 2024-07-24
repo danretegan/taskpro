@@ -14,7 +14,7 @@ import {
 } from './LeftSideBar.styled';
 import icons from '../../assets/icons/icons.svg';
 import useAuth from '../../hooks/useAuth';
-import cactusPot from '../../assets/images/cactusPot.png';
+import cactusPot from '../../assets/imagini/cactusPot.png';
 
 const LeftSideBar = ({ className: styles }) => {
   const { theme } = useAuth();
