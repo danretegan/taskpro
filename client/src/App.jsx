@@ -5,6 +5,8 @@ import StyledRegisterPage from './pages/RegisterPage/RegisterPage.styled';
 import StyledLoginPage from './pages/LoginPage/LoginPage.styled';
 import Notification from './components/common/Notification/Notification';
 import SharedLayout from './components/common/SharedLayout/SharedLayout';
+import StyledNewBoard from './components/NewBoard/NewBoard.styled';
+import StyledEditBoard from './components/EditBoard/EditBoard.styled';
 
 // todo: => Importuri lazy, restricted/private pages
 
@@ -18,8 +20,9 @@ const App = () => {
 
         <Route path="/dashboard" element={<SharedLayout />}></Route>
 
-        {/* <Route path="/cristina1" element={< />}></Route>
-        <Route path="/cristina2" element={< />}></Route>
+        <Route path="/newboard" element={< StyledNewBoard/>}></Route>
+        <Route path="/editboard" element={< StyledEditBoard/>}></Route>
+        {/*<Route path="/cristina2" element={< />}></Route>
 
         <Route path="/marius1" element={</>}></Route>
         <Route path="/marius2" element={</>}></Route> */}
