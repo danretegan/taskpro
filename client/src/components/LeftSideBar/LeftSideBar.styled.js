@@ -24,16 +24,16 @@ export const Logo = styled.span`
   }
 `;
 
+//* Task Pro
 export const Title1 = styled.h4`
-  /* Task Pro */
   font-size: 16px;
   font-weight: 600;
   display: flex;
   align-items: center;
 `;
 
+//* My boards
 export const Title2 = styled.p`
-  /* My boards */
   padding-left: 14px;
   margin-bottom: 8px;
   color: rgba(255, 255, 255, 0.5);
@@ -42,6 +42,7 @@ export const Title2 = styled.p`
   padding-top: 70px;
 `;
 
+//* Create A New Board:
 export const CreateANewBoard = styled.div`
   display: flex;
   flex-direction: row;
@@ -56,12 +57,7 @@ export const CreateANewBoard = styled.div`
   align-items: center;
 `;
 
-export const ProjectList = styled.div`
-  height: 282px;
-`;
-
 export const Title3 = styled.p`
-  /* Create a new board */
   font-size: 14px;
   font-weight: 500;
 `;
@@ -75,8 +71,13 @@ export const Button = styled.button`
   border-radius: 6px;
   padding: 8px;
   border: none;
+
+  &:hover {
+    background-color: #979CEA ;
+  }
 `;
 
+//* Need Help:
 export const NeedHelp = styled.div`
   background-color: rgba(236, 237, 253, 0.4);
   border-radius: 8px;
@@ -90,6 +91,7 @@ export const NeedHelp = styled.div`
   height: 197px;
 `;
 
+//* Logout Section:
 export const LogoutSection = styled.div`
   display: flex;
   flex-direction: row;
@@ -101,14 +103,21 @@ export const Logout = styled.svg`
   width: 32px;
   height: 32px;
   margin-right: 14px;
-  stroke: currentColor; /* Folosim currentColor pentru a moșteni culoarea textului părinte */
+/* Folosim currentColor pentru a moșteni culoarea textului părinte */
+  stroke: currentColor; 
   fill: none; /* Ne asigurăm că interiorul este gol */
   color: white;
+
+  &:hover svg {
+    color: #B8BCFD;
+  }
 `;
 
 export const Text = styled.span`
   font-size: 14px;
   font-weight: 500;
+
+
 `;
 
 export default StyledLeftSideBar;
