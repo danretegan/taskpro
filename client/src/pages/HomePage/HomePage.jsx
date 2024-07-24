@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import logoImg from '../../assets/imagini/Logobun.png';
+import logo from '../../assets/images/logo.png';
 import icons from '../../assets/icons/icons.svg';
 import Container from '../../components/common/Container/Container.styled';
 import { ButtonOnHomePage } from '../../components/common/FormButton/FormButton.styled';
@@ -12,7 +12,7 @@ const HomePage = ({ className: styles }) => {
       <Container>
         <div className="logo">
           <a href="/" className="logo">
-            <img src={logoImg} alt="computer" />
+            <img src={logo} alt="computer" />
             <div className="logo-text">
               <svg>
                 <use href={`${icons}#icon-logoBlackWhite`}></use>
@@ -22,7 +22,7 @@ const HomePage = ({ className: styles }) => {
           </a>
         </div>
 
-        <p>
+        <p className="test">
           Supercharge your productivity and take control of your tasks with
           TaskPro - Don&apos;t wait, start achieving your goals now!
         </p>
