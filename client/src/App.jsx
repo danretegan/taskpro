@@ -3,6 +3,8 @@ import { lazy, Suspense } from 'react';
 
 import Notification from './components/common/Notification/Notification';
 import SharedLayout from './components/common/SharedLayout/SharedLayout';
+import StyledNewBoard from './components/NewBoard/NewBoard.styled';
+import StyledEditBoard from './components/EditBoard/EditBoard.styled';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.styled'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage.styled'));
@@ -23,10 +25,10 @@ const App = () => {
 
           <Route path="/dashboard" element={<SharedLayout />}></Route>
 
-          {/* <Route path="/cristina1" element={< />}></Route>
-        <Route path="/cristina2" element={< />}></Route>
+          <Route path="/newboard" element={< StyledNewBoard/>}></Route>
+          <Route path="/editboard" element={< StyledEditBoard/>}></Route>
 
-        <Route path="/marius1" element={</>}></Route>
+        {/*<Route path="/marius1" element={</>}></Route>
         <Route path="/marius2" element={</>}></Route> */}
         </Routes>
       </Suspense>
