@@ -12,9 +12,9 @@ import {
   Title2,
   Title3,
 } from './LeftSideBar.styled';
-import icons from '../../assets/symbol-defs.svg';
+import icons from '../../assets/icons/icons.svg';
 import useAuth from '../../hooks/useAuth';
-import cactusPot from '../../assets/Images/cactusPot.png';
+import cactusPot from '../../assets/images/cactusPot.png';
 
 const LeftSideBar = ({ className: styles }) => {
   const { theme } = useAuth();

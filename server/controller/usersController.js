@@ -1,8 +1,6 @@
 import usersService from '../service/usersService.js';
 import utils from '../utils/utils.js';
 
-// TODO: => Corectat rutele in functie de noul proiect
-
 async function register(req, res, next) {
   try {
     const result = await usersService.addUsertoDB({ ...req.body });
@@ -16,17 +14,20 @@ async function register(req, res, next) {
       return;
     }
 
-    // todo: modificat codul in asa fel incat sa ma logheze direct, adica trebuie sa creez tokenul si aici
+    const token = await usersService.addUserToken(result);
 
     res.status(201).json({
       status: 'success',
       code: 201,
-      user: {
-        name: result.name,
-        email: result.email,
+      message: 'User created successfully.',
+      data: {
+        token,
+        user: {
+          email: result.email,
+          name: result.name,
+          avatarUrl: result.avatarUrl,
+        },
       },
-      message:
-        'User created successfully. Now, check your email and confirm the registration.',
     });
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -62,15 +63,6 @@ async function login(req, res, next) {
       return;
     }
 
-    if (result.verify === false) {
-      res.status(400).json({
-        status: 'failed',
-        code: 400,
-        message: 'Confirm your registration first, then you can log in.',
-      });
-      return;
-    }
-
     const token = await usersService.addUserToken(result);
 
     res.status(200).json({
@@ -82,7 +74,7 @@ async function login(req, res, next) {
         user: {
           email: result.email,
           name: result.name,
-          dailyCalorieIntake: result.dailyCalorieIntake,
+          avatarUrl: result.avatarUrl,
         },
       },
     });
@@ -107,7 +99,7 @@ async function logout(req, res, next) {
 
 async function getCurrentUserData(req, res, next) {
   try {
-    const { email, name, dailyCalorieIntake } = req.user;
+    const { email, name, avatarUrl } = req.user;
 
     res.status(200).json({
       status: 'success',
@@ -116,7 +108,7 @@ async function getCurrentUserData(req, res, next) {
         user: {
           name,
           email,
-          dailyCalorieIntake,
+          avatarUrl,
         },
       },
     });

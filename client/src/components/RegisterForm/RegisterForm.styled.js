@@ -1,114 +1,94 @@
-// RegisterForm.styled.js
 import styled from 'styled-components';
 import RegisterForm from './RegisterForm';
 
 const StyledRegisterForm = styled(RegisterForm)`
-  max-width: 335px;
-  margin: 0 auto;
-  padding: 24px;
-  background-color: #151515;
+  background-color: rgba(21, 21, 21, 1);
   border-radius: 8px;
+  padding: 24px;
 
-  .form-header {
-    display: flex;
-    margin-bottom: 40px;
-    gap: 14px;
+  & {
+    form {
+      & {
+        div.field {
+          margin-bottom: 14px;
+          height: 67px;
+          position: relative;
 
-    a {
-      text-decoration: none;
-      color: rgba(255, 255, 255, 0.3);
-      // padding: 1px 20px;
-      font-weight: bold;
-      font-size: 18px;
+          & {
+            input {
+              background-color: rgba(31, 31, 31, 1);
+              border-radius: 8px;
+              appearance: none;
+              outline: none;
+              width: 100%;
+              padding: 14px 18px;
+              border: 1px solid rgba(190, 219, 176, 1);
+              box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 21px;
+              letter-spacing: -0.02em;
+              opacity: 0.4;
+              transition: all 0.35s ease-in-out;
+              color: rgba(255, 255, 255, 1);
 
-      &.active {
-        color: #FFFFFF;
+              &::placeholder {
+                color: rgba(255, 255, 255, 1);
+                transition: all 0.35s ease-in-out;
+              }
+
+              &:focus {
+                transition: all 0.35s ease-in-out;
+                opacity: 1;
+              }
+            }
+
+            div.error {
+              color: #ff003b;
+              font-style: italic;
+              font-size: 12px;
+              margin-top: 2px;
+              text-transform: lowercase;
+            }
+
+            div.showPassword {
+              position: absolute;
+              top: 11px;
+              right: 18px;
+              opacity: 0.4;
+              transition: all 0.35s ease-in-out;
+              cursor: pointer;
+
+              &:hover {
+                opacity: 1;
+                transition: all 0.35s ease-in-out;
+              }
+            }
+          }
+        }
+
+        div.field:nth-last-of-type(1) {
+          margin-bottom: 24px;
+        }
+
+        div.field.onError {
+          & {
+            input {
+              border: 1px solid #ff003b;
+              opacity: 1;
+            }
+            div.showPassword {
+              opacity: 1;
+            }
+          }
+        }
       }
     }
   }
 
-  .form-fields {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .form-group.name-field {
-    padding-bottom: 15px;
-  }
-
-  .form-group.email-field {
-    padding-bottom: 15px;
-  }
-
-  .form-group.password-field {
-  padding-bottom: 15px}
-
-  input {
-    width: 100%;
-    padding: 10px;
-    background-color: rgba(31, 31, 31, 0.4);
-    border: 1px solid rgba(190, 219, 176, 0.4);
-    border-radius: 8px;
-    color: #FFFFFF;
-    box-shadow: 0 4px 16px 0 rgba(22, 22, 22, 0.08);
-    outline: none;
-  }
-
-  .form-group.password-field {
-    position: relative;
-  }
-
-  .password-toggle {
-    position: absolute;
-    right: 10px;
-    top: 8px;
-    background: none;
-    border: none;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 29px;
-    padding: 0 10px;
-  }
-
-  .error {
-    color: #FF6B6B;
-    font-size: 10px;
-    margin-top: 4px;
-    display: block;
-  }
-
-  .password-input {
-  padding-right: 40px;
-  }
-
-  .submit-button {
-    width: 100%;
-    padding: 16.5px;
-    background-color: #BEDBB0;
-    border: none;
-    border-radius: 4px;
-    color: #000000;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 14px;
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
-
   @media (min-width: 768px) {
-    max-width: 424px;
-    padding: 40px;
-  }
-
-  @media (min-width: 1440px) {
-    max-width: 424px;
+    width: 424px;
+    margin: 0 auto;
     padding: 40px;
   }
 `;

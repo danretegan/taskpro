@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import { ThreeDots } from "react-loader-spinner";
-import "animate.css";
-import loadingScreenVideo from "../../../assets/loadingScreen/loadingScreen.mp4";
+import { useEffect } from 'react';
+import { ThreeDots } from 'react-loader-spinner';
+import 'animate.css';
+import loadingScreenVideo from '../../../assets/loadingScreen/loadingScreen.mp4';
 
 const LoadingScreen = ({ className: styles }) => {
   useEffect(() => {
-    document.querySelector("video").playbackRate = 2;
-    document.body.style.overflow = "hidden";
+    document.querySelector('video').playbackRate = 2;
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     };
   });
 

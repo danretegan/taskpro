@@ -1,21 +1,23 @@
-// client/src/pages/RegisterPage/RegisterPage.styled.js
 import styled from 'styled-components';
 import RegisterPage from './RegisterPage';
 
 const StyledRegisterPage = styled(RegisterPage)`
-  padding-top: 224px;
-  padding-bottom: 225px;
-  background: linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, #BEDBB0 92.19%);
-  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  background: linear-gradient(
+    180deg,
+    rgba(196, 196, 196, 0) 25%,
+    #bedbb0 92.19%
+  );
 
-  @media (min-width: 768px) {
-    padding-top: 314px;
-    padding-bottom: 315px;
-  }
+  padding-top: 30px;
+  padding-bottom: 30px;
 
-  @media (min-width: 1440px) {
-    padding-top: 188px;
-    padding-bottom: 187px;
+  & > div {
+    flex: 1;
+    max-height: 100%;
   }
 `;
 

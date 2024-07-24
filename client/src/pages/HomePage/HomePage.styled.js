@@ -1,110 +1,115 @@
 import styled from 'styled-components';
 import HomePage from './HomePage';
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 437px;
-  background: linear-gradient(to bottom, #ffffff, #ccffcc);
-  padding-top: 32px;
-  padding-bottom: 100px;
-
-  @media (min-width: 768px) {
-    padding-top: 100px;
-    padding-bottom: 400px;
-    width: 768px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 1440px) {
-    width: 1280px;
-    position: relative;
-    padding-bottom: 190px;
-    padding-top: calc(90px + 85px);
-  }
-`;
-
-export const Image = styled.img`
-  width: 150px;
-  margin-bottom: 20px;
-`;
-
-export const Logo = styled.span`
-  svg {
-    width: 50px; /* Adjust the width as needed */
-    height: 50px; /* Adjust the height as needed */
-    margin-right: 10px; /* Adjust margin as needed */
-  }
-`;
-
-export const Title = styled.h1`
-  font-size: 2rem;
-  color: #333;
-  display: flex;
-  align-items: center;
-`;
-
-export const Subtitle = styled.p`
-  font-size: 14px;
-  color: #161616;
-  text-align: center;
-  max-width: 335px;
-  margin-bottom: 40px;
-  margin-top: 20px;
-
-  @media (min-width: 768px) {
-    max-width: 473px;
-  }
-`;
-
-export const Button = styled.button`
-  width: 335px;
-  height: 49px;
-  background-color: #fff;
-  color: #000;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: medium;
-  margin: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-
-  &:hover {
-    background-color: #000;
-    color: #fff;
-  }
-
-  @media (min-width: 768px) {
-    width: 344px;
-  }
-`;
-
 const StyledHomePage = styled(HomePage)`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(to bottom, #ffffff, #bedbb0);
-  padding-top: 32px;
-  padding-bottom: 100px;
-  background-size: cover; /* This will make the background image cover the entire container */
-  height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
+  min-height: 100dvh;
+  background: linear-gradient(
+    180deg,
+    rgba(196, 196, 196, 0) 25%,
+    #bedbb0 92.19%
+  );
+  padding-top: 30px;
+  padding-bottom: 30px;
 
-  @media (min-width: 768px) {
-    min-width: 768px;
-    margin: 0 auto;
+  & > div {
+    flex: 1;
+    max-height: 100%;
+
+    & {
+      div.logo {
+        & {
+          a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+
+            & {
+              div.logo-text {
+                display: flex;
+                gap: 14px;
+                align-items: center;
+
+                & {
+                  svg {
+                    width: 40px;
+                    height: 40px;
+                  }
+
+                  span {
+                    font-size: 28px;
+                    font-weight: 600;
+                    line-height: 42px;
+                    letter-spacing: -0.04em;
+                    color: #161616;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: #161616;
+        width: 335px;
+        margin: 24px auto 48px auto;
+      }
+
+      div.buttonsWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+    }
   }
 
-  @media (min-width: 1440px) {
-    min-width: 1440px;
-    position: relative;
-    padding-bottom: 190px;
-    padding-top: calc(90px + 85px);
+  @media (min-width: 768px) {
+    & > div {
+      & {
+        div.logo {
+          & {
+            a {
+              gap: 24px;
+
+              & {
+                img {
+                  height: 162px;
+                }
+
+                div.logo-text {
+                  & {
+                    svg {
+                      width: 48px;
+                      height: 48px;
+                    }
+
+                    span {
+                      font-size: 40px;
+                      line-height: 60px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        p {
+          width: 473px;
+        }
+      }
+    }
   }
 `;
 

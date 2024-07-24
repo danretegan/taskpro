@@ -7,7 +7,7 @@ const initialState = {
   user: {
     name: null,
     email: null,
-    dailyCalorieIntake: null,
+    avatarUrl: null,
   },
   token: null,
   isLoggedIn: false,
@@ -41,43 +41,51 @@ const authSlice = createSlice({
       // *Register
       .addCase(register.pending, utils.handlePending)
       .addCase(register.rejected, utils.handleRejected)
-      .addCase(register.fulfilled, state => {
+      .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
+
+        state.user = {
+          name: action.payload.data.user.name,
+          email: action.payload.data.user.email,
+        };
+
+        state.token = action.payload.data.token;
+        state.isLoggedIn = true;
       })
 
       // *Login
       .addCase(login.pending, utils.handlePending)
       .addCase(login.rejected, utils.handleRejected)
       .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+
         state.user = {
           name: action.payload.data.user.name,
           email: action.payload.data.user.email,
-          dailyCalorieIntake: action.payload.data.user.dailyCalorieIntake,
+          avatarUrl: action.payload.data.user.avatarUrl,
         };
 
         state.token = action.payload.data.token;
         state.isLoggedIn = true;
-
-        state.isLoading = false;
-        state.error = null;
       })
 
       // *Logout
       .addCase(logout.pending, utils.handlePending)
       .addCase(logout.rejected, utils.handleRejected)
       .addCase(logout.fulfilled, state => {
+        state.isLoading = false;
+        state.error = null;
+
         state.user = {
           name: null,
           email: null,
-          dailyCalorieIntake: null,
+          avatarUrl: null,
         };
 
         state.token = null;
         state.isLoggedIn = false;
-
-        state.isLoading = false;
-        state.error = null;
       })
 
       // *Refresh User
@@ -88,7 +96,7 @@ const authSlice = createSlice({
         state.user = {
           name: action.payload.data.user.name,
           email: action.payload.data.user.email,
-          dailyCalorieIntake: action.payload.data.user.dailyCalorieIntake,
+          avatarUrl: action.payload.data.user.avatarUrl,
         };
 
         state.isLoggedIn = true;
