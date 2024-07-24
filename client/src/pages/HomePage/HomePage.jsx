@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/images/Logo.png';
+import logo from '../../assets/images/logo.png';
 import icons from '../../assets/icons/icons.svg';
 import Container from '../../components/common/Container/Container.styled';
 import { ButtonOnHomePage } from '../../components/common/FormButton/FormButton.styled';
