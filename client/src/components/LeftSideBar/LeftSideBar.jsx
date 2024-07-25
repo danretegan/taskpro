@@ -1,7 +1,7 @@
 import useAuth from '../../hooks/useAuth';
 import StyledTaskProLogo from './TaskProLogo/TaskProLogo.styled';
 import StyledCreateNewBoard from './CreateNewBoard/CreateNewBoard.styled';
-import ProjectList from '../ProjectList/ProjectList'; // Import corect
+import ProjectList from './ProjectList/ProjectList'; // Import corect
 import StyledNeedHelp from './NeedHelp/NeedHelp.styled';
 import StyledLogoutSection from './LogoutSection/LogoutSection.styled';
 

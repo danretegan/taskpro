@@ -5,7 +5,7 @@ import {
   ProjectSection,
   StyledProjectListItem,
 } from './ProjectListItem.styled';
-import icons from '../../assets/icons/icons.svg';
+import icons from '../../../assets/icons/icons.svg';
 
 const ProjectListItem = ({ className: styles, project }) => {
   return (
