@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import NewBoard from './NewBoard';
+import AddColumn from './AddColumn';
 
-const StyledNewBoard = styled(NewBoard)`
+const StyledAddColumn = styled(AddColumn)`
   &.modal-overlay {
     position: fixed;
     top: 0;
@@ -81,64 +81,8 @@ const StyledNewBoard = styled(NewBoard)`
     border-color: #8385D1;
   }
 
-  .icons-section, .backgrounds-section {
-    margin-bottom: 24px;
-  }
 
-  .icons-section h3, .backgrounds-section h3 {
-    margin-bottom: 14px;
-    color: #161616;
-  }
-
-  .icons-container, .backgrounds-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .icon-button {
-    background-color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-
-    svg {
-      color: #16161680;
-    }
-
-    &.selected {
-      svg {
-        color: #161616;
-      }
-    }
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-
-  .backgrounds-container {
-    padding-right: 25px;
-    gap: 4px;
-  }
-  .backgrounds-container img {
-    width: 28px;
-    height: 28px;
-    object-fit: cover;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-
-    &.selected {
-      border: 3px solid #5255BC;
-    }
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-
-  .create-button {
+  .add-button {
     height: 49px;
     padding: 14px;
     background-color: #5255BC;
@@ -170,7 +114,8 @@ const StyledNewBoard = styled(NewBoard)`
        stroke: #5255BC;
       }
     }
+
   }
 `;
 
-export default StyledNewBoard;
+export default StyledAddColumn;
