@@ -6,6 +6,7 @@ const StyledNeedHelp = styled(NeedHelp)`
   margin: 0 14px;
   padding: 0 14px;
   border-radius: 8px;
+  cursor: pointer;
 
   & > p {
     font-size: 12px;
