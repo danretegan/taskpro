@@ -5,8 +5,8 @@ import Notification from './components/common/Notification/Notification';
 import SharedLayout from './components/common/SharedLayout/SharedLayout';
 import StyledNewBoard from './components/NewBoard/NewBoard.styled';
 import StyledEditBoard from './components/EditBoard/EditBoard.styled';
-import StyledAddColumn from './components/AddColumn/AddColumn.styled';
-import StyledEditColumn from './components/EditColumn/EditColumn.styled';
+import StyledAddCard from './components/common/AddCard/AddCard.styled';
+import StyledEditCard from './components/common/EditCard/EditCard.styled';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.styled'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage.styled'));
@@ -26,14 +26,11 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
 
           <Route path="/dashboard" element={<SharedLayout />}></Route>
+          <Route path="/addcard" element={<StyledAddCard />}></Route>
+          <Route path="/editcard" element={<StyledEditCard />}></Route>
 
-          <Route path="/newboard" element={< StyledNewBoard/>}></Route>
-          <Route path="/editboard" element={< StyledEditBoard/>}></Route>
-          <Route path="/addcolumn" element={< StyledAddColumn/>}></Route>
-          <Route path="/editcolumn" element={< StyledEditColumn/>}></Route>
-
-        {/*<Route path="/marius1" element={</>}></Route>
-        <Route path="/marius2" element={</>}></Route> */}
+          <Route path="/newboard" element={<StyledNewBoard />}></Route>
+          <Route path="/editboard" element={<StyledEditBoard />}></Route>
         </Routes>
       </Suspense>
 
