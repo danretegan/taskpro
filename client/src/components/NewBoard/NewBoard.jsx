@@ -74,7 +74,7 @@ const NewBoard = ({ className, isOpen, onClose, onCreate }) => {
 <button className="create-button" onClick={handleCreate}>
   <span className="plus-icon">
     <svg width="28" height="28">
-      <use href={`${sprite}#icon-plus`}></use>
+      <use href={`${sprite}#icon-plusWhite`}></use>
     </svg>
   </span>
   Create

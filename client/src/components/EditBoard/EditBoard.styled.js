@@ -15,20 +15,34 @@ const StyledEditBoard = styled(EditBoard)`
   }
 
   .modal-content {
-    background-color: white;
-    border-radius: 8px;
-    padding: 24px;
-    width: 335px;
-    max-height: 433px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    position: relative;
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  max-width: 90%;
+  height: auto;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
 
-    @media (min-width: 768px) {
-      width: 350px;
-    }
+  // Design flexibil pentru ecrane foarte mici (320px - 374px)
+  @media (min-width: 320px) and (max-width: 374px) {
+    padding: 20px;
   }
+
+  // Design adaptabil incepand de la 375px
+  @media (min-width: 375px) and (max-width: 767px) {
+    max-width: 335px;
+  }
+
+  // Tableta si desktop
+  @media (min-width: 768px) {
+    width: 350px;
+    max-height: 433px;
+  }
+}
 
   h2 {
     color: #161616;
@@ -56,7 +70,7 @@ const StyledEditBoard = styled(EditBoard)`
   input {
     margin-bottom: 24px;
     padding: 14px 18px;
-    border: 1px solid #BEDBB0;
+    border: 1px solid #5255BC;
     border-radius: 8px;
     background-color: white;
     color: #161616;
@@ -64,7 +78,7 @@ const StyledEditBoard = styled(EditBoard)`
 
   input:focus {
     outline: none;
-    border-color: #9DC888;
+    border-color: #8385D1;
   }
 
   .icons-section, .backgrounds-section {
@@ -116,7 +130,7 @@ const StyledEditBoard = styled(EditBoard)`
     transition: transform 0.2s ease-in-out;
 
     &.selected {
-      border: 2px solid #9DC888;
+      border: 3px solid #5255BC;
     }
 
     &:hover {
@@ -124,11 +138,11 @@ const StyledEditBoard = styled(EditBoard)`
     }
   }
 
-  .create-button {
+  .edit-button {
     height: 49px;
     padding: 14px;
-    background-color: #BEDBB0;
-    color: #161616;
+    background-color: #5255BC;
+    color: #FFFFFF;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -141,7 +155,7 @@ const StyledEditBoard = styled(EditBoard)`
     transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
     &:hover {
-      background-color: #9DC888;
+      background-color: #6A6DC8;
       transform: scale(1.01);
     }
 

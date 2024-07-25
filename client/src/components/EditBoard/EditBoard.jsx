@@ -71,10 +71,10 @@ const EditBoard = ({ className, isOpen, onClose, onCreate }) => {
   </div>
 </div>
 
-<button className="create-button" onClick={handleCreate}>
+<button className="edit-button" onClick={handleCreate}>
   <span className="plus-icon">
     <svg width="28" height="28">
-      <use href={`${sprite}#icon-plus`}></use>
+      <use href={`${sprite}#icon-plusWhite`}></use>
     </svg>
   </span>
   Edit
