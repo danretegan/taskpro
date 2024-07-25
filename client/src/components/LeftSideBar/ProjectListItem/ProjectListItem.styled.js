@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const ProjectIcon = styled.div`
   width: 18px;
   height: 18px;
@@ -32,7 +33,6 @@ export const StyledProjectListItem = styled.div`
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.5);
-    color: white;
 
     ${IconsSection} {
       display: flex;
@@ -44,16 +44,27 @@ export const StyledProjectListItem = styled.div`
   }
 `;
 
-export const ProjectSection = styled.div`
+export const ProjectSectionButton = styled.button`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    color: white;
+  }
 `;
 
-export const EditIcon = styled.div`
+export const EditIconButton = styled.button`
   width: 16px;
   height: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
 
   svg {
     width: 100%;
@@ -62,10 +73,6 @@ export const EditIcon = styled.div`
     fill: none;
     color: rgba(255, 255, 255, 0.5);
     transition: fill 0.3s, color 0.3s;
-  }
-
-  ${IconsSection}:hover & {
-    color: white;
   }
 
   &:hover svg {
