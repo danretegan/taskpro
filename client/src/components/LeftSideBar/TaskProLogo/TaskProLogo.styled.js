@@ -6,6 +6,7 @@ const StyledTaskProLogo = styled(TaskProLogo)`
   align-items: center;
   padding-left: 14px;
   padding-top: 14px;
+  cursor: pointer;
 
   & > svg {
     height: 32px;
