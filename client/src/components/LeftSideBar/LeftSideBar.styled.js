@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import LeftSideBar from './LeftSideBar';
+import StyledNeedHelp from './NeedHelp/NeedHelp.styled';
+import StyledLogoutSection from './LogoutSection/LogoutSection.styled';
 
 const StyledLeftSideBar = styled(LeftSideBar)`
   display: flex;
@@ -9,7 +11,20 @@ const StyledLeftSideBar = styled(LeftSideBar)`
   color: white;
   height: 100dvh;
   width: 225px;
-  /* z-index: 1;  */
+
+  .project-list-container {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  /* Position Need Help and Logout Section from bottom */
+  ${StyledNeedHelp} {
+    /* margin-top: auto; */
+  }
+
+  ${StyledLogoutSection} {
+    margin-top: 1px; /* Add some space between Need Help and Logout Section */
+  }
 `;
 
 export default StyledLeftSideBar;

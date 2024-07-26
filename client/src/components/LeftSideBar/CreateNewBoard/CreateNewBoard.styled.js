@@ -4,6 +4,7 @@ import CreateNewBoard from './CreateNewBoard';
 const StyledCreateNewBoard = styled(CreateNewBoard)`
   padding-left: 14px;
   padding-right: 14px;
+  margin-bottom: 20px;
 
   & > h4 {
     color: rgba(255, 255, 255, 0.5);
