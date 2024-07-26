@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import LeftSideBar from './LeftSideBar';
-import StyledNeedHelp from './NeedHelp/NeedHelp.styled';
-import StyledLogoutSection from './LogoutSection/LogoutSection.styled';
 
 const StyledLeftSideBar = styled(LeftSideBar)`
   display: flex;
@@ -15,15 +13,24 @@ const StyledLeftSideBar = styled(LeftSideBar)`
   .project-list-container {
     flex: 1;
     overflow-y: auto;
-  }
 
-  /* Position Need Help and Logout Section from bottom */
-  ${StyledNeedHelp} {
-    /* margin-top: auto; */
-  }
+    /* Scrollbar styling */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
 
-  ${StyledLogoutSection} {
-    margin-top: 1px; /* Add some space between Need Help and Logout Section */
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+    }
   }
 `;
 
