@@ -9,6 +9,7 @@ const StyledLeftSideBar = styled(LeftSideBar)`
   color: white;
   height: 100dvh;
   width: 225px;
+  /* z-index: 1;  */
 `;
 
 export default StyledLeftSideBar;
