@@ -6,8 +6,11 @@ import {
   StyledProjectListItem,
 } from './ProjectListItem.styled';
 import icons from '../../../assets/icons/icons.svg';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectListItem = ({ className: styles, project }) => {
+  const navigate = useNavigate();
+
   return (
     <StyledProjectListItem className={styles}>
       <ProjectSectionButton
@@ -21,7 +24,7 @@ const ProjectListItem = ({ className: styles, project }) => {
         {project.name}
       </ProjectSectionButton>
       <IconsSection>
-        <EditIconButton onClick={() => console.log('Edit button clicked')}>
+        <EditIconButton onClick={() => navigate('/editboard')}>
           <svg>
             <use href={`${icons}#icon-pencil`}></use>
           </svg>
