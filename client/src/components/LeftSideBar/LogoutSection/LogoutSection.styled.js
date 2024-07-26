@@ -5,7 +5,7 @@ const StyledLogoutSection = styled(LogoutSection)`
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 24px 0 0 24px;
+  padding: 24px 0 24px 24px;
 
   button {
     background: none;

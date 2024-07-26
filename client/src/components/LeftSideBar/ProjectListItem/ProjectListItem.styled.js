@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const ProjectIcon = styled.div`
   width: 18px;
   height: 18px;
@@ -31,16 +30,30 @@ export const StyledProjectListItem = styled.div`
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 
+  position: relative; /* Necesare pentru bara albă */
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.5);
 
     ${IconsSection} {
       display: flex;
     }
-  }
 
-  &:hover ${ProjectIcon} svg {
-    color: white;
+    ${ProjectIcon} svg {
+      color: white;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: white;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
   }
 `;
 

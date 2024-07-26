@@ -3,7 +3,7 @@ import NeedHelp from './NeedHelp';
 
 const StyledNeedHelp = styled(NeedHelp)`
   background-color: rgba(236, 237, 253, 0.4);
-  margin: 0 14px;
+  margin: 20px 14px 0 14px;
   padding: 0 14px;
   border-radius: 8px;
   cursor: pointer;
