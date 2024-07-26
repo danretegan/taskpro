@@ -61,7 +61,7 @@ const StyledLoadingScreen = styled(LoadingScreen)`
     }
   }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 1440px) {
     h1 {
       font-size: 80px;
 

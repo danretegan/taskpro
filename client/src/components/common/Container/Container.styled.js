@@ -13,8 +13,8 @@ const Container = styled.div`
     padding-right: 32px;
   }
 
-  @media (min-width: 1280px) {
-    /* width: 1280px; */
+  @media (min-width: 1440px) {
+    /* width: 1440px; */
     padding-left: 24px;
     padding-right: 24px;
   }
