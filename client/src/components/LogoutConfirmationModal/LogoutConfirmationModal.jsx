@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/auth/operations';
 import { GreenButton } from '../../components/common/FormButton/FormButton.styled';
 import { toast } from 'react-toastify';
@@ -7,6 +8,7 @@ import 'animate.css';
 
 const LogoutConfirmationModal = ({ className: styles, closeModal }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleKeyDown = event => {
@@ -30,6 +32,7 @@ const LogoutConfirmationModal = ({ className: styles, closeModal }) => {
       await dispatch(logout()).unwrap();
       toast.success('Logged out successfully!');
       closeModal();
+      navigate('/'); // Navighează la pagina principală după logout
     } catch (error) {
       toast.error('Failed to log out!');
       console.error(error);
