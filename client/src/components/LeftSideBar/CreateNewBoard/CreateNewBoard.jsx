@@ -1,7 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import NewBoard from '../../NewBoard/NewBoard.styled'; 
 
 const CreateNewBoard = ({ className: styles }) => {
-  const navigate = useNavigate();
+  const [isNewBoardOpen, setIsNewBoardOpen] = useState(false);
+
+  const handleOpenNewBoard = () => setIsNewBoardOpen(true);
+  const handleCloseNewBoard = () => setIsNewBoardOpen(false);
+  const handleCreateBoard = (boardData) => {
+    console.log('New board created:', boardData);
+    handleCloseNewBoard();
+  };
 
   return (
     <div className={styles}>
@@ -11,8 +19,15 @@ const CreateNewBoard = ({ className: styles }) => {
           Create a <br />
           new board
         </span>
-        <button onClick={() => navigate('/newboard')}>+</button>
+        <button onClick={handleOpenNewBoard}>+</button>
       </section>
+      {isNewBoardOpen && (
+        <NewBoard
+          isOpen={isNewBoardOpen}
+          onClose={handleCloseNewBoard}
+          onCreate={handleCreateBoard}
+        />
+      )}
     </div>
   );
 };
