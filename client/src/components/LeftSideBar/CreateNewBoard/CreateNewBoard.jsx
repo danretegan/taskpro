@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createProject } from '../../../redux/projects/projectsSlice';
 import NewBoard from '../../NewBoard/NewBoard.styled';
+import { createProject } from '../../../redux/projects/projectsSlice';
 
 const CreateNewBoard = ({ className: styles }) => {
   const [isNewBoardOpen, setIsNewBoardOpen] = useState(false);
@@ -10,8 +10,15 @@ const CreateNewBoard = ({ className: styles }) => {
   const handleOpenNewBoard = () => setIsNewBoardOpen(true);
   const handleCloseNewBoard = () => setIsNewBoardOpen(false);
   const handleCreateBoard = (boardData) => {
-    dispatch(createProject(boardData));
-    handleCloseNewBoard();
+    dispatch(createProject(boardData))
+      .unwrap()
+      .then(() => {
+        console.log('New board created:', boardData);
+        handleCloseNewBoard();
+      })
+      .catch(error => {
+        console.error('Failed to create new board:', error);
+      });
   };
 
   return (
