@@ -10,12 +10,10 @@ import icons from '../../../assets/icons/icons.svg';
 const ProjectListItem = ({ project }) => {
   return (
     <StyledProjectListItem>
-      <ProjectSectionButton
-        onClick={() => console.log('Project button clicked')}
-      >
+      <ProjectSectionButton onClick={() => console.log('Project button clicked')}>
         <ProjectIcon>
           <svg>
-            <use href={`${icons}#icon-fourCircles`}></use>
+            <use href={`${icons}#${project.icon}`}></use>
           </svg>
         </ProjectIcon>
         {project.title}

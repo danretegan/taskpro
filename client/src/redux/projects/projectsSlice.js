@@ -1,53 +1,33 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Async Thunk pentru a prelua proiectele (boards) ale utilizatorului
-export const fetchUserProjects = createAsyncThunk(
-  'projects/fetchUserProjects',
-  async (_, thunkAPI) => {
+// Define async thunk for creating a new project
+export const createProject = createAsyncThunk('projects/createProject', async (projectData, thunkAPI) => {
+  try {
     const state = thunkAPI.getState();
     const token = state.auth.token;
-
-    if (!token) {
-      return thunkAPI.rejectWithValue('No token found');
-    }
-
-    try {
-      const response = await axios.get('/api/boards', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.message);
-    }
+    const response = await axios.post('/api/boards', projectData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
-// Async Thunk pentru a crea un nou proiect (board)
-export const createProject = createAsyncThunk(
-  'projects/createProject',
-  async (projectData, thunkAPI) => {
+// Define async thunk for fetching user projects
+export const fetchUserProjects = createAsyncThunk('projects/fetchUserProjects', async (_, thunkAPI) => {
+  try {
     const state = thunkAPI.getState();
     const token = state.auth.token;
-
-    if (!token) {
-      return thunkAPI.rejectWithValue('No token found');
-    }
-
-    try {
-      const response = await axios.post('/api/boards', projectData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.message);
-    }
+    const response = await axios.get('/api/boards', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
 const projectsSlice = createSlice({
   name: 'projects',
@@ -57,27 +37,27 @@ const projectsSlice = createSlice({
     error: null,
   },
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(fetchUserProjects.pending, state => {
+      .addCase(fetchUserProjects.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(fetchUserProjects.fulfilled, (state, action) => {
-        state.items = action.payload;
         state.isLoading = false;
+        state.items = action.payload;
       })
       .addCase(fetchUserProjects.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(createProject.pending, state => {
+      .addCase(createProject.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(createProject.fulfilled, (state, action) => {
-        state.items.push(action.payload);
         state.isLoading = false;
+        state.items.push(action.payload);
       })
       .addCase(createProject.rejected, (state, action) => {
         state.isLoading = false;
@@ -86,4 +66,4 @@ const projectsSlice = createSlice({
   },
 });
 
-export const projectsReducer = projectsSlice.reducer;
+export default projectsSlice.reducer;
