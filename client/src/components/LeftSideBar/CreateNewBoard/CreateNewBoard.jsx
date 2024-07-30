@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import NewBoard from '../../NewBoard/NewBoard.styled'; 
+import { useDispatch } from 'react-redux';
+import { createProject } from '../../../redux/projects/projectsSlice';
+import NewBoard from '../../NewBoard/NewBoard.styled';
 
 const CreateNewBoard = ({ className: styles }) => {
   const [isNewBoardOpen, setIsNewBoardOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleOpenNewBoard = () => setIsNewBoardOpen(true);
   const handleCloseNewBoard = () => setIsNewBoardOpen(false);
   const handleCreateBoard = (boardData) => {
-    console.log('New board created:', boardData);
+    dispatch(createProject(boardData));
     handleCloseNewBoard();
   };
 

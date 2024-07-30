@@ -6,13 +6,10 @@ import {
   StyledProjectListItem,
 } from './ProjectListItem.styled';
 import icons from '../../../assets/icons/icons.svg';
-import { useNavigate } from 'react-router-dom';
 
-const ProjectListItem = ({ className: styles, project }) => {
-  const navigate = useNavigate();
-
+const ProjectListItem = ({ project }) => {
   return (
-    <StyledProjectListItem className={styles}>
+    <StyledProjectListItem>
       <ProjectSectionButton
         onClick={() => console.log('Project button clicked')}
       >
@@ -21,10 +18,10 @@ const ProjectListItem = ({ className: styles, project }) => {
             <use href={`${icons}#icon-fourCircles`}></use>
           </svg>
         </ProjectIcon>
-        {project.name}
+        {project.title}
       </ProjectSectionButton>
       <IconsSection>
-        <EditIconButton onClick={() => navigate('/editboard')}>
+        <EditIconButton onClick={() => console.log('Edit button clicked')}>
           <svg>
             <use href={`${icons}#icon-pencil`}></use>
           </svg>

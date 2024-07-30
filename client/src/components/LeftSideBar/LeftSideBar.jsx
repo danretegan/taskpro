@@ -1,23 +1,14 @@
 import useAuth from '../../hooks/useAuth';
+import { useSelector } from 'react-redux'; // Importăm useSelector pentru a accesa state-ul global
 import StyledTaskProLogo from './TaskProLogo/TaskProLogo.styled';
 import StyledCreateNewBoard from './CreateNewBoard/CreateNewBoard.styled';
-import ProjectList from './ProjectList/ProjectList'; // Import corect
+import ProjectList from './ProjectList/ProjectList'; 
 import StyledNeedHelp from './NeedHelp/NeedHelp.styled';
 import StyledLogoutSection from './LogoutSection/LogoutSection.styled';
 
 const LeftSideBar = ({ className: styles }) => {
   const { theme } = useAuth();
-
-  const projects = [
-    { id: 1, name: 'Project office 1' },
-    { id: 2, name: 'Project office 2' },
-    { id: 3, name: 'Project office 3' },
-    { id: 4, name: 'Project office 4' },
-    { id: 5, name: 'Project office 5' },
-    { id: 6, name: 'Project office 6' },
-    { id: 7, name: 'Project office 7' },
-    { id: 8, name: 'Project office 8' },
-  ];
+  const projects = useSelector(state => state.projects); // Accesăm proiectele din state-ul global
 
   return (
     <div className={`${styles} ${theme}`}>

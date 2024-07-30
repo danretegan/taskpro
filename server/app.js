@@ -3,8 +3,10 @@ import logger from 'morgan';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import { configDotenv } from 'dotenv';
+import passport from 'passport';
 
 import usersRouter from './routes/api/users.js';
+import boardsRouter from './routes/api/boards.js'; // Importăm ruta board-urilor
 
 configDotenv({ path: './environment/.env' });
 
@@ -14,7 +16,10 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 
+app.use(passport.initialize()); // Inițializăm Passport
+
 app.use('/api/users', usersRouter);
+app.use('/api/boards', boardsRouter); // Utilizăm ruta board-urilor
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
