@@ -5,7 +5,7 @@ import { backgroundImages } from '../../assets/images/background_icons/index.js'
 
 const NewBoard = ({ className, isOpen, onClose, onCreate }) => {
   const [title, setTitle] = useState('');
-  const [selectedIcon, setSelectedIcon] = useState(null);
+  const [selectedIcon, setSelectedIcon] = useState("icon-fourCircles");
   const [selectedBackground, setSelectedBackground] = useState('noImage.jpg');
 
   const handleCreate = () => {
