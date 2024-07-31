@@ -23,3 +23,24 @@ export const getBoardsByUser = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const updateBoard = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, icon, background } = req.body;
+
+    const updatedBoard = await Board.findByIdAndUpdate(
+      id,
+      { title, icon, background },
+      { new: true }
+    );
+
+    if (!updatedBoard) {
+      return res.status(404).json({ message: 'Board not found' });
+    }
+
+    res.status(200).json(updatedBoard);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
