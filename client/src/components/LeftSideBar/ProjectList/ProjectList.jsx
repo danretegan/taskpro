@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUserProjects } from '../../../redux/projects/projectsSlice';
+import { fetchUserProjects, deleteProject } from '../../../redux/projects/projectsSlice';
 import ProjectListItem from '../ProjectListItem/ProjectListItem';
 import StyledEditBoard from '../../EditBoard/EditBoard.styled';
 
@@ -33,6 +33,12 @@ const ProjectList = () => {
     handleCloseEditBoard();
   };
 
+  const handleDelete = (projectId) => {
+    dispatch(deleteProject(projectId)).unwrap().then(() => {
+      console.log('Project deleted:', projectId);
+    });
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -40,7 +46,12 @@ const ProjectList = () => {
     <div>
       <ul>
         {projects.map(project => (
-          <ProjectListItem key={project._id} project={project} onEdit={handleEdit} />
+          <ProjectListItem
+            key={project._id}
+            project={project}
+            onEdit={handleEdit}
+            onDelete={() => handleDelete(project._id)}
+          />
         ))}
       </ul>
       {isEditBoardOpen && (

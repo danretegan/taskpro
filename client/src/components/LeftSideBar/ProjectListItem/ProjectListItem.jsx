@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import {
   EditIconButton,
   IconsSection,
@@ -7,22 +6,8 @@ import {
   StyledProjectListItem,
 } from './ProjectListItem.styled';
 import icons from '../../../assets/icons/icons.svg';
-import { deleteProject } from '../../../redux/projects/projectsSlice';
 
-const ProjectListItem = ({ project, onEdit }) => {
-  const dispatch = useDispatch();
-
-  const handleDelete = (projectId) => {
-    dispatch(deleteProject(projectId))
-      .unwrap()
-      .then(() => {
-        console.log('Project deleted:', projectId);
-      })
-      .catch((error) => {
-        console.error('Failed to delete project:', error);
-      });
-  };
-
+const ProjectListItem = ({ project, onEdit, onDelete }) => {
   return (
     <StyledProjectListItem>
       <ProjectSectionButton onClick={() => console.log('Project button clicked')}>
@@ -39,7 +24,7 @@ const ProjectListItem = ({ project, onEdit }) => {
             <use href={`${icons}#icon-pencil`}></use>
           </svg>
         </EditIconButton>
-        <EditIconButton onClick={() => handleDelete(project._id)}>
+        <EditIconButton onClick={onDelete}>
           <svg>
             <use href={`${icons}#icon-trash`}></use>
           </svg>
