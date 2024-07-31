@@ -46,6 +46,20 @@ export const updateProject = createAsyncThunk(
   }
 );
 
+// Define async thunk for deleting a project
+export const deleteProject = createAsyncThunk('projects/deleteProject', async (projectId, thunkAPI) => {
+  try {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+    await axios.delete(`/api/boards/${projectId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return projectId;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
 const projectsSlice = createSlice({
   name: 'projects',
   initialState: {
