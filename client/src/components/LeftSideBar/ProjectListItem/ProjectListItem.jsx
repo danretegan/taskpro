@@ -7,7 +7,7 @@ import {
 } from './ProjectListItem.styled';
 import icons from '../../../assets/icons/icons.svg';
 
-const ProjectListItem = ({ project, onEdit }) => {
+const ProjectListItem = ({ project, onEdit, onDelete }) => {
   return (
     <StyledProjectListItem>
       <ProjectSectionButton onClick={() => console.log('Project button clicked')}>
@@ -24,7 +24,7 @@ const ProjectListItem = ({ project, onEdit }) => {
             <use href={`${icons}#icon-pencil`}></use>
           </svg>
         </EditIconButton>
-        <EditIconButton onClick={() => console.log('Delete button clicked')}>
+        <EditIconButton onClick={onDelete}>
           <svg>
             <use href={`${icons}#icon-trash`}></use>
           </svg>
