@@ -29,6 +29,23 @@ export const fetchUserProjects = createAsyncThunk('projects/fetchUserProjects', 
   }
 });
 
+// Define async thunk pentru actualizarea unui proiect
+export const updateProject = createAsyncThunk(
+  'projects/updateProject',
+  async (projectData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      const response = await axios.patch(`/api/boards/${projectData.id}`, projectData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 const projectsSlice = createSlice({
   name: 'projects',
   initialState: {
@@ -60,6 +77,21 @@ const projectsSlice = createSlice({
         state.items.push(action.payload);
       })
       .addCase(createProject.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateProject.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateProject.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const index = state.items.findIndex(project => project._id === action.payload._id);
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
+      })
+      .addCase(updateProject.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

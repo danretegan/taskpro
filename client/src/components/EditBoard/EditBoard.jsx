@@ -1,25 +1,37 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useDispatch } from 'react-redux';
+import { updateProject } from '../../redux/projects/projectsSlice';
 import sprite from '../../assets/icons/icons.svg';
 import { backgroundImages } from '../../assets/images/background_icons/index.js';
 
-const EditBoard = ({ className, isOpen, onClose, onCreate, project }) => {
+const EditBoard = ({ className, isOpen, onClose, project }) => {
   const [title, setTitle] = useState(project?.title || '');
   const [selectedIcon, setSelectedIcon] = useState(project?.icon || 'icon-fourCircles');
   const [selectedBackground, setSelectedBackground] = useState(project?.background || 'noImage.jpg');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('Current project:', project); // Adăugat console.log
   }, [project]);
 
-  const handleCreate = () => {
-    console.log('Editing board:', { title, icon: selectedIcon, background: selectedBackground });
-    if (onCreate) {
-      onCreate({ title, icon: selectedIcon, background: selectedBackground });
-    }
-    if (onClose) {
-      onClose();
-    }
+  const handleUpdate = () => {
+    const updatedData = {
+      id: project._id, // asigură-te că ID-ul este inclus
+      title,
+      icon: selectedIcon,
+      background: selectedBackground,
+    };
+
+    dispatch(updateProject(updatedData))
+      .unwrap()
+      .then(() => {
+        console.log('Board updated:', updatedData);
+        onClose();
+      })
+      .catch(error => {
+        console.error('Error updating board:', error);
+      });
   };
 
   useEffect(() => {
@@ -95,7 +107,7 @@ const EditBoard = ({ className, isOpen, onClose, onCreate, project }) => {
           </div>
         </div>
 
-        <button className="edit-button" onClick={handleCreate}>
+        <button className="edit-button" onClick={handleUpdate}>
           <span className="plus-icon">
             <svg width="28" height="28">
               <use href={`${sprite}#icon-plusWhite`}></use>
