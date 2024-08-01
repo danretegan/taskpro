@@ -14,6 +14,7 @@ import {
   HeaderWrapper,
   ContentWrapper,
   StyledParagraph,
+  RightSideDesktop,
 } from './SharedLayout.styled';
 
 const SharedLayout = () => {
@@ -28,23 +29,27 @@ const SharedLayout = () => {
 
   return (
     <SharedLayoutContainer>
-      <HeaderWrapper>
-        <StyledHeader />
+      {isOnDesktop && <StyledLeftSideBar />}
 
-        {/* <Suspense>
+      <RightSideDesktop>
+        <HeaderWrapper>
+          <StyledHeader />
+
+          {/* <Suspense>
   {isLoading && createPortal(<StyledLoadingScreen />, document.body)}
 </Suspense> */}
-      </HeaderWrapper>
-      {isOnDesktop && <StyledLeftSideBar />}
-      <ContentWrapper>
-        <StyledParagraph>
-          Before starting your project, it is essential{' '}
-          <span> to create a board </span> to visualize and track all the
-          necessary tasks and milestones. This board serves as a powerful tool
-          to organize the workflow and ensure effective collaboration among team
-          members.
-        </StyledParagraph>
-      </ContentWrapper>
+        </HeaderWrapper>
+
+        <ContentWrapper>
+          <StyledParagraph>
+            Before starting your project, it is essential{' '}
+            <span> to create a board </span> to visualize and track all the
+            necessary tasks and milestones. This board serves as a powerful tool
+            to organize the workflow and ensure effective collaboration among
+            team members.
+          </StyledParagraph>
+        </ContentWrapper>
+      </RightSideDesktop>
     </SharedLayoutContainer>
   );
 };
