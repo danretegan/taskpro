@@ -32,6 +32,10 @@ const StyledLeftSideBar = styled(LeftSideBar)`
       background: rgba(0, 0, 0, 0.1);
     }
   }
+
+  @media (min-width: 768px) {
+    width: 260px;
+  }
 `;
 
 export default StyledLeftSideBar;
