@@ -1,26 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
+import { Formik, Form, Field } from 'formik';
 import { updateProject } from '../../redux/projects/projectsSlice';
 import sprite from '../../assets/icons/icons.svg';
 import { backgroundImages } from '../../assets/images/background_icons/index.js';
+import { GreenButton } from '../common/FormButton/FormButton.styled.js';
 
-const EditBoard = ({ className, isOpen, onClose, project }) => {
-  const [title, setTitle] = useState(project?.title || '');
-  const [selectedIcon, setSelectedIcon] = useState(project?.icon || 'icon-fourCircles');
-  const [selectedBackground, setSelectedBackground] = useState(project?.background || 'noImage.jpg');
+const EditBoard = ({ className, isOpen = true, onClose, project }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('Current project:', project); // Adăugat console.log
+    console.log('Current project:', project);
   }, [project]);
 
-  const handleUpdate = () => {
+  const handleUpdate = (values) => {
     const updatedData = {
-      id: project._id, // asigură-te că ID-ul este inclus
-      title,
-      icon: selectedIcon,
-      background: selectedBackground,
+      id: project._id,
+      ...values,
     };
 
     dispatch(updateProject(updatedData))
@@ -54,8 +51,6 @@ const EditBoard = ({ className, isOpen, onClose, project }) => {
     }
   };
 
-  console.log('EditBoard rendering, isOpen:', isOpen);
-
   if (!isOpen) return null;
 
   const modalContent = (
@@ -68,53 +63,74 @@ const EditBoard = ({ className, isOpen, onClose, project }) => {
           </svg>
         </button>
 
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
-        <div className="icons-section">
-          <h3>Icons</h3>
-          <div className="icons-container">
-            {['icon-fourCircles', 'icon-star', 'icon-loading', 'icon-puzzlePiece', 'icon-cube', 'icon-lightning', 'icon-threeCircles', 'icon-hexagon'].map((icon) => (
-              <button
-                key={icon}
-                className={`icon-button ${selectedIcon === icon ? 'selected' : ''}`}
-                onClick={() => setSelectedIcon(icon)}
-              >
-                <svg width="18" height="18">
-                  <use href={`${sprite}#${icon}`}></use>
-                </svg>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="backgrounds-section">
-          <h3>Background</h3>
-          <div className="backgrounds-container">
-            {backgroundImages.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt={`Fundal ${index}`}
-                className={selectedBackground === image ? 'selected' : ''}
-                onClick={() => setSelectedBackground(image)}
+        <Formik
+          initialValues={{
+            title: project?.title || '',
+            icon: project?.icon || 'icon-fourCircles',
+            background: project?.background || 'noImage.jpg',
+          }}
+          onSubmit={handleUpdate}
+        >
+          {({ values, setFieldValue }) => (
+            <Form>
+              <Field
+                name="title"
+                type="text"
+                placeholder="Title"
               />
-            ))}
-          </div>
-        </div>
 
-        <button className="edit-button" onClick={handleUpdate}>
-          <span className="plus-icon">
-            <svg width="28" height="28">
-              <use href={`${sprite}#icon-plusWhite`}></use>
-            </svg>
-          </span>
-          Edit
-        </button>
+              <div className="icons-section">
+                <h3>Icons</h3>
+                <div className="icons-container">
+                  {['icon-fourCircles', 'icon-star', 'icon-loading', 'icon-puzzlePiece', 'icon-cube', 'icon-lightning', 'icon-threeCircles', 'icon-hexagon'].map((icon) => (
+                    <button
+                      key={icon}
+                      type="button"
+                      className={`icon-button ${values.icon === icon ? 'selected' : ''}`}
+                      onClick={() => setFieldValue('icon', icon)}
+                    >
+                      <svg width="18" height="18">
+                        <use href={`${sprite}#${icon}`}></use>
+                      </svg>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="backgrounds-section">
+                <h3>Background</h3>
+                <div className="backgrounds-container">
+                  {backgroundImages.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      alt={`Fundal ${index}`}
+                      className={values.background === image ? 'selected' : ''}
+                      onClick={() => setFieldValue('background', image)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <GreenButton
+  type="submit"
+  text={
+    <>
+      <span className="plus-icon">
+        <svg width="28" height="28">
+          <use href={`${sprite}#icon-plusWhite`}></use>
+        </svg>
+      </span>
+      Edit
+    </>
+  }
+  handlerFunction={() => {}}
+  isDisabled={false}
+  className="edit-button"
+/>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

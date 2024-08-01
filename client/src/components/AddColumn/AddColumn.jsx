@@ -1,21 +1,20 @@
-import { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
 import sprite from '../../assets/icons/icons.svg';
-
+import { GreenButton } from '../common/FormButton/FormButton.styled.js';
 
 const AddColumn = ({ className, isOpen, onClose, onCreate }) => {
-  const [title, setTitle] = useState('');
-
-  const handleCreate = () => {
-    console.log('Creating board:', { title });
+  const handleSubmit = (values, { resetForm }) => {
+    console.log('Creating column:', values);
     if (onCreate) {
-      onCreate({ title });
+      onCreate(values);
     }
+    resetForm();
     if (onClose) {
       onClose();
     }
   };
 
-  console.log('NewBoard rendering, isOpen:', isOpen);
+  console.log('AddColumn rendering, isOpen:', isOpen);
 
   // Pentru testare, linia este comentata
   // if (!isOpen) return null;
@@ -30,21 +29,37 @@ const AddColumn = ({ className, isOpen, onClose, onCreate }) => {
           </svg>
         </button>
 
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <Formik
+  initialValues={{ title: '' }}
+  onSubmit={handleSubmit}
+>
+  {({ isSubmitting }) => (
+    <Form>
+      <Field
+        type="text"
+        name="title"
+        placeholder="Title"
+      />
 
-<button className="add-button" onClick={handleCreate}>
-  <span className="plus-icon">
-    <svg width="28" height="28">
-      <use href={`${sprite}#icon-plusWhite`}></use>
-    </svg>
-  </span>
-  Add
-</button>
+      <GreenButton
+        type="submit"
+        text={
+          <>
+            <span className="plus-icon">
+              <svg width="28" height="28">
+                <use href={`${sprite}#icon-plusWhite`}></use>
+              </svg>
+            </span>
+            Add
+          </>
+        }
+        handlerFunction={() => {}}
+        isDisabled={isSubmitting}
+        className="add-button"
+      />
+    </Form>
+  )}
+</Formik>
       </div>
     </div>
   );
