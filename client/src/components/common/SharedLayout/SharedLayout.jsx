@@ -9,6 +9,13 @@ import StyledLeftSideBar from '../../LeftSideBar/LeftSideBar.styled';
 // const StyledLoadingScreen = lazy(() =>
 //   import('../LoadingScreen/LoadingScreen.styled')
 // );
+import {
+  SharedLayoutContainer,
+  HeaderWrapper,
+  ContentWrapper,
+  StyledParagraph,
+  RightSideDesktop,
+} from './SharedLayout.styled';
 
 const SharedLayout = () => {
   const dispatch = useDispatch();
@@ -21,14 +28,29 @@ const SharedLayout = () => {
   const { isOnDesktop } = useResponsive();
 
   return (
-    <>
+    <SharedLayoutContainer>
       {isOnDesktop && <StyledLeftSideBar />}
-      <StyledHeader />
 
-      {/* <Suspense>
-        {isLoading && createPortal(<StyledLoadingScreen />, document.body)}
-      </Suspense> */}
-    </>
+      <RightSideDesktop>
+        <HeaderWrapper>
+          <StyledHeader />
+
+          {/* <Suspense>
+  {isLoading && createPortal(<StyledLoadingScreen />, document.body)}
+</Suspense> */}
+        </HeaderWrapper>
+
+        <ContentWrapper>
+          <StyledParagraph>
+            Before starting your project, it is essential{' '}
+            <span> to create a board </span> to visualize and track all the
+            necessary tasks and milestones. This board serves as a powerful tool
+            to organize the workflow and ensure effective collaboration among
+            team members.
+          </StyledParagraph>
+        </ContentWrapper>
+      </RightSideDesktop>
+    </SharedLayoutContainer>
   );
 };
 
