@@ -2,10 +2,10 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 //! VERCEL:
-// axios.defaults.baseURL = 'https://taskpro-server-mu.vercel.app';
+axios.defaults.baseURL = 'https://taskpro-server-mu.vercel.app';
 
 //! LOCAL:
-axios.defaults.baseURL = 'http://localhost:3000';
+//axios.defaults.baseURL = 'http://localhost:3000';
 
 const utils = {
   setAuthHeader: token =>
