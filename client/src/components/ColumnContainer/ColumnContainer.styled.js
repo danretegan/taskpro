@@ -123,6 +123,16 @@ const StyledColumnContainer = styled(ColumnContainer)`
       transform: scale(1.01);
     }
 
+    &:before {
+      background-color: #8385D1;
+    }
+
+    &:hover:not(:disabled) {
+      scale: 1.02;
+      box-shadow: 0px 4px 10px 0px #8385D1;
+      border: 0;
+    }
+
     svg {
       margin-right: 8px;
 
