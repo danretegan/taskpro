@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import StyledCardContent from '../CardContent/CardContent.styled';
 import sprite from '../../assets/icons/icons.svg';
+import { GreenButton } from '../common/FormButton/FormButton.styled.js';
 
 const ColumnContainer = ({ className, columnId,onEdit, onDelete }) => {
   const [title, setTitle] = useState('');
@@ -78,14 +79,22 @@ const ColumnContainer = ({ className, columnId,onEdit, onDelete }) => {
       <div className="cards-list">
         {cards.map(card => card.component)}
       </div>
-      <button className="add-button" onClick={handleAddCard}>
-        <span className="plus-icon">
-          <svg width="28" height="28">
-            <use href={`${sprite}#icon-plusWhite`}></use>
-          </svg>
-        </span>
-        Add another card
-      </button>
+      <GreenButton
+  type="button"
+  text={
+    <>
+      <span className="plus-icon">
+        <svg width="28" height="28">
+          <use href={`${sprite}#icon-plusWhite`}></use>
+        </svg>
+      </span>
+      Add another card
+    </>
+  }
+  handlerFunction={handleAddCard}
+  isDisabled={false}
+  className="add-button"
+/>
       </div>
     </div>
   );

@@ -10,6 +10,8 @@ import StyledEditCard from './components/common/EditCard/EditCard.styled';
 import StyledColumnContainer from './components/ColumnContainer/ColumnContainer.styled';
 import StyledCardContent from './components/CardContent/CardContent.styled';
 import StyledBoard from './components/Board/Board.styled';
+import StyledAddColumn from './components/AddColumn/AddColumn.styled';
+import StyledEditColumn from './components/EditColumn/EditColumn.styled';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.styled'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage.styled'));
@@ -82,6 +84,8 @@ const App = () => {
           <Route path="/dashboard" element={<SharedLayout />}></Route>
           <Route path="/addcard" element={<StyledAddCard />}></Route>
           <Route path="/editcard" element={<StyledEditCard />}></Route>
+          <Route path="/addcolumn" element={<StyledAddColumn />}></Route>
+          <Route path="/editcolumn" element={<StyledEditColumn />}></Route>
           <Route path="/newboard" element={<StyledNewBoard />}></Route>
           <Route path="/editboard" element={<StyledEditBoard />}></Route>
           <Route

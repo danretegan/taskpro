@@ -15,34 +15,31 @@ const StyledAddColumn = styled(AddColumn)`
   }
 
   .modal-content {
-  background-color: white;
-  border-radius: 8px;
-  padding: 24px;
-  width: 100%;
-  max-width: 90%;
-  height: auto;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  position: relative;
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    width: 100%;
+    max-width: 90%;
+    height: auto;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    position: relative;
 
-  // Design flexibil pentru ecrane foarte mici (320px - 374px)
-  @media (min-width: 320px) and (max-width: 374px) {
-    padding: 20px;
-  }
+    @media (min-width: 320px) and (max-width: 374px) {
+      padding: 20px;
+    }
 
-  // Design adaptabil incepand de la 375px
-  @media (min-width: 375px) and (max-width: 767px) {
-    max-width: 335px;
-  }
+    @media (min-width: 375px) and (max-width: 767px) {
+      max-width: 335px;
+    }
 
-  // Tableta si Desktop
-  @media (min-width: 768px) {
-    width: 350px;
-    max-height: 433px;
+    @media (min-width: 768px) {
+      width: 350px;
+      max-height: 433px;
+    }
   }
-}
 
   h2 {
     color: #161616;
@@ -67,23 +64,26 @@ const StyledAddColumn = styled(AddColumn)`
     }
   }
 
-  input {
+  input,
+  .field {
     margin-bottom: 24px;
     padding: 14px 18px;
     border: 1px solid #5255BC;
     border-radius: 8px;
     background-color: white;
     color: #161616;
+    width: 100%;
   }
 
-  input:focus {
+  input:focus,
+  .field:focus {
     outline: none;
     border-color: #8385D1;
   }
 
-
   .add-button {
     height: 49px;
+    width: 100%;
     padding: 14px;
     background-color: #5255BC;
     color: #FFFFFF;
@@ -103,6 +103,16 @@ const StyledAddColumn = styled(AddColumn)`
       transform: scale(1.01);
     }
 
+    &:before {
+      background-color: #8385D1;
+    }
+
+    &:hover:not(:disabled) {
+      scale: 1.02;
+      box-shadow: 0px 4px 10px 0px #8385D1;
+      border: 0;
+    }
+
     svg {
       margin-right: 8px;
 
@@ -111,10 +121,9 @@ const StyledAddColumn = styled(AddColumn)`
       }
 
       .icon-plus-symbol {
-       stroke: #5255BC;
+        stroke: #5255BC;
       }
     }
-
   }
 `;
 
