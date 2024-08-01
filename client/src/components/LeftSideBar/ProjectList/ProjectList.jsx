@@ -33,12 +33,6 @@ const ProjectList = () => {
     handleCloseEditBoard();
   };
 
-  const handleDelete = (projectId) => {
-    dispatch(deleteProject(projectId)).unwrap().then(() => {
-      console.log('Project deleted:', projectId);
-    });
-  };
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -50,7 +44,7 @@ const ProjectList = () => {
             key={project._id}
             project={project}
             onEdit={handleEdit}
-            onDelete={() => handleDelete(project._id)}
+            onDelete={id => dispatch(deleteProject(id))}
           />
         ))}
       </ul>
