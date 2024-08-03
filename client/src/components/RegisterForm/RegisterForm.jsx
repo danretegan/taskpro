@@ -55,8 +55,8 @@ const RegisterForm = ({ className: styles }) => {
 
     dispatch(register({ name, email, password }))
       .unwrap()
-      .then(value => {
-        toast.success(value.message);
+      .then(() => {
+        toast.success(`Welcome, ${name} !`);
         resetForm();
         navigate('/dashboard');
         window.scrollTo({ top: 0, behavior: 'smooth' });

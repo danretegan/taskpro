@@ -1,4 +1,4 @@
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from 'react-responsive';
 
 const useResponsive = () => {
   const isOnMobile = useMediaQuery({ maxWidth: 767 });
