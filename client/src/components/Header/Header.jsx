@@ -9,14 +9,14 @@ const Header = ({ className: styles }) => {
   const { theme } = useAuth();
 
   return (
-    <div className={`${styles} ${theme}`}>
+    <header className={`${styles} ${theme}`}>
       {(isOnMobile || isOnTablet) && <StyledBurgerMenuBtn />}
 
       <div className="dropdownAndUser">
         <StyledThemeDropdown />
         <StyledUserInfo />
       </div>
-    </div>
+    </header>
   );
 };
 

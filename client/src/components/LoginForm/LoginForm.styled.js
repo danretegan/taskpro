@@ -43,6 +43,10 @@ const StyledLoginForm = styled(LoginForm)`
               }
             }
 
+            input#passwordInput {
+              padding: 14px 64px 14px 18px;
+            }
+
             div.error {
               color: #ff003b;
               font-style: italic;
