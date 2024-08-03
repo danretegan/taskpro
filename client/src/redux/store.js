@@ -8,7 +8,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'theme'],
+  whitelist: ['token'],
 };
 
 const store = configureStore({

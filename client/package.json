@@ -26,6 +26,7 @@
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.24.0",
     "react-select": "^5.8.0",
+    "react-simple-widgets": "^6.7.0",
     "react-toastify": "^10.0.5",
     "react-useanimations": "^2.10.0",
     "redux-persist": "^6.0.0",

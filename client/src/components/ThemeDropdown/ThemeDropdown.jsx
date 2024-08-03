@@ -1,27 +1,36 @@
-import Select from 'react-select';
-import { setTheme } from '../../redux/auth/slice';
 import { useDispatch } from 'react-redux';
+import { updateTheme } from '../../redux/auth/operations';
+
+import icons from '../../assets//icons/icons.svg';
+import { PopupMenu } from 'react-simple-widgets';
+import useAuth from '../../hooks/useAuth';
 
 const ThemeDropdown = ({ className: styles }) => {
   const dispatch = useDispatch();
-
-  const ThemeOptions = [
-    { value: 'light', label: 'Light' },
-    { value: 'dark', label: 'Dark' },
-    { value: 'violet', label: 'Violet' },
-  ];
+  const { theme } = useAuth();
 
   return (
     <div className={styles}>
-      <Select
-        isSearchable={false}
-        placeholder="Theme"
-        className="react-select-container"
-        classNamePrefix="react-select"
-        options={ThemeOptions}
-        value={'Theme'}
-        onChange={selectedOption => dispatch(setTheme(selectedOption.value))}
-      />
+      <PopupMenu>
+        <button type="button" className={`chooseThemeBtn ${theme}`}>
+          <span>Theme</span>
+          <svg width="16" height="16">
+            <use href={`${icons}#icon-dropDown`}></use>
+          </svg>
+        </button>
+
+        <div className={`dropdownOptions ${theme}`}>
+          <button type="button" onClick={() => dispatch(updateTheme('light'))}>
+            Light
+          </button>
+          <button type="button" onClick={() => dispatch(updateTheme('dark'))}>
+            Dark
+          </button>
+          <button type="button" onClick={() => dispatch(updateTheme('violet'))}>
+            Violet
+          </button>
+        </div>
+      </PopupMenu>
     </div>
   );
 };

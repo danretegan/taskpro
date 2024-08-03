@@ -1,6 +1,7 @@
 import User from './schemas/usersSchema.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import utils from '../utils/utils.js';
 
 async function addUsertoDB(data) {
   await User.validate(data);
@@ -10,13 +11,10 @@ async function addUsertoDB(data) {
     return 'user already exists';
   }
 
-  const salt = bcrypt.genSaltSync(10);
-  const encryptedPassword = bcrypt.hashSync(data.password, salt);
-
   const newUser = {
     name: data.name,
     email: data.email,
-    password: encryptedPassword,
+    password: utils.encrypt(data.password),
   };
 
   return User.create(newUser);
@@ -59,12 +57,17 @@ async function addUserToken(data) {
   return token;
 }
 
+async function validateData(data) {
+  await User.validate(data);
+}
+
 const usersService = {
   addUsertoDB,
   findUser,
   updateUser,
   checkUserLoginData,
   addUserToken,
+  validateData,
 };
 
 export default usersService;
