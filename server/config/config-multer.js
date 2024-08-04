@@ -1,8 +1,21 @@
 import multer from 'multer';
 import path from 'path';
 
+const temporaryDir = path.join(process.cwd(), 'tmp');
+checkFolder(temporaryDir);
+
+async function checkFolder(folderPath) {
+  try {
+    await fs.access(folderPath);
+  } catch (error) {
+    await fs.mkdir(folderPath);
+  }
+}
+
 const storage = multer.diskStorage({
-  destination: 'tmp',
+  destination: (req, file, cb) => {
+    cb(null, temporaryDir);
+  },
   filename: (req, file, cb) => {
     const fileExtension = path.extname(file.originalname);
     const fileUniqueName = `${req.user.id}${fileExtension}`;
