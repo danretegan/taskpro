@@ -115,13 +115,8 @@ const authSlice = createSlice({
       })
 
       // *Update User
-      .addCase(updateUser.pending, utils.handlePending)
       .addCase(updateUser.rejected, utils.handleRejected)
       .addCase(updateUser.fulfilled, (state, action) => {
-        // todo => loading spinner ?!
-        state.isLoading = false;
-        state.error = null;
-
         state.user = {
           name: action.payload.data.user.name,
           email: action.payload.data.user.email,
