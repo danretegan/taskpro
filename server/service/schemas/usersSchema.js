@@ -26,17 +26,9 @@ const schema = new Schema(
       type: String,
       default: null,
     },
-    profilePhotoUrl: {
+    avatarUrl: {
       type: String,
       default: null,
-    },
-    theme: {
-      type: String,
-      default: 'dark',
-      enum: {
-        values: ['light', 'dark', 'violet'],
-        message: '=> is either: light, dark or violet',
-      },
     },
   },
   { versionKey: false }

@@ -54,27 +54,7 @@ const GreenButton = styled(StyledFormButton)`
     color: #ffffff;
     scale: 1.02;
     box-shadow: 0px 4px 10px 0px #bedbb0;
-    border: 1px solid #ffffff;
-  }
-
-  &:active:not(:disabled) {
-    scale: 1.04;
-    transition: all 0.35s ease-in-out;
-  }
-`;
-
-const VioletButton = styled(StyledFormButton)`
-  background-color: #b8bcfd;
-
-  &:before {
-    background-color: #5255bc;
-  }
-
-  &:hover:not(:disabled) {
-    color: #ffffff;
-    scale: 1.02;
-    box-shadow: 0px 4px 10px 0px #b8bcfd;
-    border: 1px solid #ffffff;
+    border: 2px solid #e0e0e0;
   }
 
   &:active:not(:disabled) {
@@ -107,4 +87,4 @@ const ButtonOnHomePage = styled(StyledFormButton)`
   }
 `;
 
-export { GreenButton, VioletButton, ButtonOnHomePage };
+export { GreenButton, ButtonOnHomePage };

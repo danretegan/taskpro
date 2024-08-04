@@ -29,37 +29,30 @@ const AddColumn = ({ className, isOpen, onClose, onCreate }) => {
           </svg>
         </button>
 
-        <Formik
-  initialValues={{ title: '' }}
-  onSubmit={handleSubmit}
->
-  {({ isSubmitting }) => (
-    <Form>
-      <Field
-        type="text"
-        name="title"
-        placeholder="Title"
-      />
+        <Formik initialValues={{ title: '' }} onSubmit={handleSubmit}>
+          {({ isSubmitting }) => (
+            <Form>
+              <Field type="text" name="title" placeholder="Title" />
 
-      <GreenButton
-        type="submit"
-        text={
-          <>
-            <span className="plus-icon">
-              <svg width="28" height="28">
-                <use href={`${sprite}#icon-plusWhite`}></use>
-              </svg>
-            </span>
-            Add
-          </>
-        }
-        handlerFunction={() => {}}
-        isDisabled={isSubmitting}
-        className="add-button"
-      />
-    </Form>
-  )}
-</Formik>
+              <GreenButton
+                type="submit"
+                text={
+                  <>
+                    <span className="plus-icon">
+                      <svg width="28" height="28">
+                        <use href={`${sprite}#icon-plusWhite`}></use>
+                      </svg>
+                    </span>
+                    Add
+                  </>
+                }
+                handlerFunction={() => {}}
+                isDisabled={isSubmitting}
+                className="add-button"
+              />
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

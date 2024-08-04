@@ -2,26 +2,28 @@ import { useEffect } from 'react';
 import StyledLeftSideBar from '.././LeftSideBar/LeftSideBar.styled';
 
 const BurgerMenu = ({ className: styles, closeModal }) => {
+  // Adăugăm un event listener pentru tasta Esc
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('keydown', addCloseEvent);
-
-    function addCloseEvent(event) {
-      event.key === 'Escape' && closeModal();
-    }
-
-    return () => {
-      document.body.style.overflow = 'auto';
-      document.removeEventListener('keydown', addCloseEvent);
+    const handleKeyDown = event => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
     };
-  });
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup event listener la demontarea componentului
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [closeModal]);
 
   return (
     <div
       className={styles}
       onClick={event => event.currentTarget === event.target && closeModal()}
     >
-      <StyledLeftSideBar closeBurgerMenu={closeModal} />
+      <StyledLeftSideBar />
     </div>
   );
 };

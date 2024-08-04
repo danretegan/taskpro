@@ -2,38 +2,38 @@ import styled from 'styled-components';
 import Header from './Header';
 
 const StyledHeader = styled(Header)`
+  border: 2px solid black;
   padding: 14px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 375px;
-  transition: all 0.35s ease-in-out;
 
-  &.dark {
-    background-color: rgba(22, 22, 22, 1);
+  &.light {
+    background-color: wheat;
   }
 
-  &.light,
+  &.dark {
+    background-color: black;
+  }
+
   &.violet {
-    background-color: rgba(252, 252, 252, 1);
+    background-color: blue;
+  }
+
+  button {
+    padding: 50px;
+  }
+
+  button.violet {
+    background-color: violet;
   }
 
   & {
     div.dropdownAndUser {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 14px;
     }
-  }
-
-  @media (min-width: 768px) {
-    padding: 18px 32px;
-  }
-
-  @media (min-width: 1440px) {
-    padding: 18px 24px;
-    justify-content: flex-end;
-    margin-left: 260px;
   }
 `;
 

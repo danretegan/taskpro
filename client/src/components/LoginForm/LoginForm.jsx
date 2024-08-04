@@ -46,7 +46,7 @@ const LoginForm = ({ className: styles }) => {
     dispatch(login({ email, password }))
       .unwrap()
       .then(value => {
-        toast.success(`Welcome, ${value.data.user.name} !`);
+        toast.success(value.message);
         resetForm();
         navigate('/dashboard');
         window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -5,7 +5,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 axios.defaults.baseURL = 'https://taskpro-server-mu.vercel.app';
 
 //! LOCAL:
-// axios.defaults.baseURL = 'http://localhost:3000';
+//axios.defaults.baseURL = 'http://localhost:3000';
 
 const utils = {
   setAuthHeader: token =>
@@ -44,12 +44,12 @@ const login = createAsyncThunk('auth/login', async (userData, thunkAPI) => {
 
 const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    const response = await axios.get('/api/users/logout');
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    await axios.get('/api/users/logout');
 
     utils.clearAuthHeader();
 
-    return response.data;
+    return;
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -75,34 +75,4 @@ const refreshUser = createAsyncThunk(
   }
 );
 
-const updateUser = createAsyncThunk(
-  'auth/updateUser',
-  async (userData, thunkAPI) => {
-    try {
-      const response = await axios.put('/api/users/profile', userData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-const updateTheme = createAsyncThunk(
-  'auth/updateTheme',
-  async (data, thunkAPI) => {
-    try {
-      const response = await axios.patch('/api/users/theme', { theme: data });
-
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export { register, login, logout, refreshUser, updateUser, updateTheme };
+export { register, login, logout, refreshUser };
