@@ -64,9 +64,13 @@ const StyledEditColumn = styled(EditColumn)`
     }
   }
 
-  input,
   .field {
+    position: relative;
     margin-bottom: 24px;
+  }
+
+  input,
+  .field input {
     padding: 14px 18px;
     border: 1px solid #5255BC;
     border-radius: 8px;
@@ -76,9 +80,21 @@ const StyledEditColumn = styled(EditColumn)`
   }
 
   input:focus,
-  .field:focus {
+  .field input:focus {
     outline: none;
     border-color: #8385D1;
+  }
+
+  .field.onError input {
+    border-color: #E74A3B;
+  }
+
+  .error {
+    position: absolute;
+    bottom: -20px;
+    left: 14px;
+    color: #E74A3B;
+    font-size: 12px;
   }
 
   .edit-button {
@@ -111,6 +127,11 @@ const StyledEditColumn = styled(EditColumn)`
       scale: 1.02;
       box-shadow: 0px 4px 10px 0px #8385D1;
       border: 0;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     svg {

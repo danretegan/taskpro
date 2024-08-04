@@ -64,9 +64,13 @@ const StyledEditBoard = styled(EditBoard)`
     }
   }
 
-  input,
   .field {
+    position: relative;
     margin-bottom: 24px;
+  }
+
+  input,
+  .field input {
     padding: 14px 18px;
     border: 1px solid #5255BC;
     border-radius: 8px;
@@ -76,21 +80,35 @@ const StyledEditBoard = styled(EditBoard)`
   }
 
   input:focus,
-  .field:focus {
+  .field input:focus {
     outline: none;
     border-color: #8385D1;
   }
 
-  .icons-section, .backgrounds-section {
+  .field.onError input {
+    border-color: #E74A3B;
+  }
+
+  .error {
+    position: absolute;
+    bottom: -20px;
+    left: 14px;
+    color: #E74A3B;
+    font-size: 12px;
+  }
+
+  .icons-section,
+  .backgrounds-section {
     margin-bottom: 24px;
   }
 
-  .icons-section h3, .backgrounds-section h3 {
+  .icons-section h3,
+  .backgrounds-section h3 {
     margin-bottom: 14px;
     color: #161616;
   }
 
-  .icons-container, .backgrounds-container {
+  .icons-container {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -98,6 +116,7 @@ const StyledEditBoard = styled(EditBoard)`
 
   .icon-button {
     background-color: white;
+    border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
@@ -120,21 +139,47 @@ const StyledEditBoard = styled(EditBoard)`
   .backgrounds-container {
     padding-right: 25px;
     gap: 4px;
+    display: flex;
+    flex-wrap: wrap;
   }
-  .backgrounds-container img {
+
+  .background-option {
+    position: relative;
     width: 28px;
     height: 28px;
-    object-fit: cover;
     border-radius: 6px;
+    overflow: hidden;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
 
-    &.selected {
-      border: 3px solid #5255BC;
-    }
-
     &:hover {
       transform: scale(1.1);
+    }
+
+    &.selected {
+      box-shadow: 0 0 0 3px #5255BC;
+    }
+  }
+
+  .backgrounds-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .selected-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: rgba(82, 85, 188, 0.5); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      fill: white;
     }
   }
 
@@ -168,6 +213,11 @@ const StyledEditBoard = styled(EditBoard)`
       scale: 1.02;
       box-shadow: 0px 4px 10px 0px #8385D1;
       border: 0;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     svg {
