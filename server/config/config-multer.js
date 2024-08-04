@@ -1,5 +1,6 @@
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs/promises';
 
 const temporaryDir = path.join(process.cwd(), 'tmp');
 checkFolder(temporaryDir);
