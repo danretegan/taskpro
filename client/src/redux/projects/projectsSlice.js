@@ -39,10 +39,18 @@ export const updateProject = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
       const token = state.auth.token;
-      const response = await axios.patch(`/api/boards/${projectData.id}`, projectData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.patch(
+        `/api/boards/${projectData.id}`,
+        projectData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       toast.success('Project updated successfully');
+
+      // Set the updated project as selected project
+      thunkAPI.dispatch(setSelectedProject(response.data));
+
       return response.data;
     } catch (error) {
       toast.error('Failed to update project');
@@ -52,20 +60,35 @@ export const updateProject = createAsyncThunk(
 );
 
 // Define async thunk for deleting a project
-export const deleteProject = createAsyncThunk('projects/deleteProject', async (projectId, thunkAPI) => {
-  try {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-    await axios.delete(`/api/boards/${projectId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    toast.success('Project deleted successfully');
-    return projectId;
-  } catch (error) {
-    toast.error('Failed to delete project');
-    return thunkAPI.rejectWithValue(error.message);
+export const deleteProject = createAsyncThunk(
+  'projects/deleteProject',
+  async (projectId, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      await axios.delete(`/api/boards/${projectId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success('Project deleted successfully');
+      return projectId;
+    } catch (error) {
+      toast.error('Failed to delete project');
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
-});
+);
+
+// Define action to set selected project
+export const setSelectedProject = createAsyncThunk(
+  'projects/setSelectedProject',
+  async (project, thunkAPI) => {
+    try {
+      return project;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 const projectsSlice = createSlice({
   name: 'projects',
@@ -73,11 +96,12 @@ const projectsSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
+    selectedProject: null,
   },
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchUserProjects.pending, (state) => {
+      .addCase(fetchUserProjects.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -89,7 +113,7 @@ const projectsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(createProject.pending, (state) => {
+      .addCase(createProject.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -101,13 +125,15 @@ const projectsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(updateProject.pending, (state) => {
+      .addCase(updateProject.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(updateProject.fulfilled, (state, action) => {
         state.isLoading = false;
-        const index = state.items.findIndex(project => project._id === action.payload._id);
+        const index = state.items.findIndex(
+          project => project._id === action.payload._id
+        );
         if (index !== -1) {
           state.items[index] = action.payload;
         }
@@ -116,17 +142,22 @@ const projectsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(deleteProject.pending, (state) => {
+      .addCase(deleteProject.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(deleteProject.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = state.items.filter(project => project._id !== action.payload);
+        state.items = state.items.filter(
+          project => project._id !== action.payload
+        );
       })
       .addCase(deleteProject.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(setSelectedProject.fulfilled, (state, action) => {
+        state.selectedProject = action.payload;
       });
   },
 });

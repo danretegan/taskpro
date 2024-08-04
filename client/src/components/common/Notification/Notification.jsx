@@ -1,21 +1,20 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Slide } from 'react-toastify';
-import useAuth from '../../../hooks/useAuth';
 
 const Notification = () => {
-  const { theme } = useAuth();
-
   return (
     <ToastContainer
       position="top-right"
       autoClose={2500}
+      hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
-      draggable
+      rtl={false}
       pauseOnFocusLoss
+      draggable
       pauseOnHover
-      theme={theme === 'dark' ? 'dark' : 'light'}
+      theme="light"
       transition={Slide}
     />
   );
