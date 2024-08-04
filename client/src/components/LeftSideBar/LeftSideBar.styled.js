@@ -2,39 +2,45 @@ import styled from 'styled-components';
 import LeftSideBar from './LeftSideBar';
 
 const StyledLeftSideBar = styled(LeftSideBar)`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #5255bc;
-  color: white;
+  padding-top: 14px;
+  padding-bottom: 14px;
   height: 100dvh;
   width: 225px;
+  position: relative;
+  transition: all 0.35s ease-in-out;
+  overflow-y: auto;
+  display: grid;
+  grid-template-rows: min-content min-content minmax(100px, 1fr) min-content min-content;
 
-  .project-list-container {
-    flex: 1;
-    overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-    /* Scrollbar styling */
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(255, 255, 255, 0.5);
-      border-radius: 2px;
-    }
+  &.dark {
+    background-color: rgba(18, 18, 18, 1);
+  }
 
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: rgba(255, 255, 255, 0.7);
-    }
+  &.light {
+    background-color: rgba(250, 250, 250, 1);
+  }
 
-    &::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.1);
-    }
+  &.violet {
+    background-color: rgba(82, 85, 188, 1);
   }
 
   @media (min-width: 768px) {
     width: 260px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  @media (min-width: 1440px) {
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 `;
 

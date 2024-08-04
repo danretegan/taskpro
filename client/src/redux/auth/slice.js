@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login, logout, refreshUser } from './operations';
+import {
+  register,
+  login,
+  logout,
+  refreshUser,
+  updateUser,
+  updateTheme,
+} from './operations';
 
 const initialState = {
   isLoading: false,
@@ -7,12 +14,13 @@ const initialState = {
   user: {
     name: null,
     email: null,
-    avatarUrl: null,
+    password: null,
+    profilePhotoUrl: null,
   },
   token: null,
   isLoggedIn: false,
 
-  theme: 'light',
+  theme: null,
 };
 
 const utils = {
@@ -30,11 +38,6 @@ const utils = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setTheme: (state, action) => {
-      state.theme = action.payload;
-    },
-  },
   extraReducers: builder => {
     builder
 
@@ -48,8 +51,10 @@ const authSlice = createSlice({
         state.user = {
           name: action.payload.data.user.name,
           email: action.payload.data.user.email,
+          password: action.payload.data.user.password,
         };
 
+        state.theme = action.payload.data.user.theme;
         state.token = action.payload.data.token;
         state.isLoggedIn = true;
       })
@@ -64,9 +69,11 @@ const authSlice = createSlice({
         state.user = {
           name: action.payload.data.user.name,
           email: action.payload.data.user.email,
-          avatarUrl: action.payload.data.user.avatarUrl,
+          password: action.payload.data.user.password,
+          profilePhotoUrl: action.payload.data.user.profilePhotoUrl,
         };
 
+        state.theme = action.payload.data.user.theme;
         state.token = action.payload.data.token;
         state.isLoggedIn = true;
       })
@@ -81,9 +88,11 @@ const authSlice = createSlice({
         state.user = {
           name: null,
           email: null,
-          avatarUrl: null,
+          password: null,
+          profilePhotoUrl: null,
         };
 
+        state.theme = null;
         state.token = null;
         state.isLoggedIn = false;
       })
@@ -94,16 +103,40 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = {
+          ...state.user,
           name: action.payload.data.user.name,
           email: action.payload.data.user.email,
-          avatarUrl: action.payload.data.user.avatarUrl,
+          profilePhotoUrl: action.payload.data.user.profilePhotoUrl,
         };
 
+        state.theme = action.payload.data.user.theme;
         state.isLoggedIn = true;
         state.error = null;
+      })
+
+      // *Update User
+      .addCase(updateUser.rejected, utils.handleRejected)
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = {
+          name: action.payload.data.user.name,
+          email: action.payload.data.user.email,
+          password: action.payload.data.user.password,
+          profilePhotoUrl: action.payload.data.user.profilePhotoUrl,
+        };
+      })
+
+      // *Update Theme
+      // .addCase(updateTheme.pending, utils.handlePending)
+      .addCase(updateTheme.rejected, utils.handleRejected)
+      .addCase(updateTheme.fulfilled, (state, action) => {
+        // state.isLoading = false;
+        // state.error = null;
+
+        state.error = null;
+
+        state.theme = action.payload.data.user.theme;
       });
   },
 });
 
-export const { setTheme } = authSlice.actions;
 export const authReducer = authSlice.reducer;

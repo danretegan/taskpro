@@ -1,8 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { refreshUser } from './redux/auth/operations';
 
 import Notification from './components/common/Notification/Notification';
 import SharedLayout from './components/common/SharedLayout/SharedLayout';
+import PrivatePage from './pages/PrivatePage/PrivatePage';
+import RestrictedPage from './pages/RestrictedPage/RestrictedPage';
+
+import ProjectPage from './pages/ProjectPage/ProjectPage.styled';
+
+// todo : => de integrat
 import StyledNewBoard from './components/NewBoard/NewBoard.styled';
 import StyledEditBoard from './components/EditBoard/EditBoard.styled';
 import StyledAddCard from './components/common/AddCard/AddCard.styled';
@@ -18,8 +26,15 @@ const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage.styled'));
 const RegisterPage = lazy(() =>
   import('./pages/RegisterPage/RegisterPage.styled')
 );
+const DashboardPage = lazy(() =>
+  import('./pages/DashboardPage/DashboardPage.styled')
+);
+// const ProjectPage = lazy(() =>
+//   import('./pages/ProjectPage/ProjectPage.styled')
+// );
 
-// todo: =>  restricted/private pages
+// todo => verificat shared layout cu lazy, verificat use effect daor atunci cand nu sunt logat
+// todo => project page cu lazy la sfarsit, dupa ce este stilizat, gata
 
 const columnsData = [
   {
@@ -74,14 +89,32 @@ const columnsData = [
 ];
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
     <>
       <Suspense>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<SharedLayout />}></Route>
+          <Route path="/" element={<RestrictedPage page={HomePage} />} />
+          <Route
+            path="/register"
+            element={<RestrictedPage page={RegisterPage} />}
+          />
+          <Route path="/login" element={<RestrictedPage page={LoginPage} />} />
+
+          <Route path="/dashboard" element={<SharedLayout />}>
+            <Route index element={<PrivatePage page={DashboardPage} />} />
+            <Route
+              path=":projectId"
+              element={<PrivatePage page={ProjectPage} />}
+            />
+          </Route>
+
+          {/* todo: => astea sterse si intorduse elementele acolo unde trebuie */}
           <Route path="/addcard" element={<StyledAddCard />}></Route>
           <Route path="/editcard" element={<StyledEditCard />}></Route>
           <Route path="/addcolumn" element={<StyledAddColumn />}></Route>
