@@ -72,7 +72,7 @@ const StyledAddColumn = styled(AddColumn)`
   input,
   .field input {
     padding: 14px 18px;
-    border: 1px solid #5255BC;
+    border: 1px solid #5255bc;
     border-radius: 8px;
     background-color: white;
     color: #161616;
@@ -82,18 +82,18 @@ const StyledAddColumn = styled(AddColumn)`
   input:focus,
   .field input:focus {
     outline: none;
-    border-color: #8385D1;
+    border-color: #8385d1;
   }
 
   .field.onError input {
-    border-color: #E74A3B;
+    border-color: #e74a3b;
   }
 
   .error {
     position: absolute;
     bottom: -20px;
     left: 14px;
-    color: #E74A3B;
+    color: #e74a3b;
     font-size: 12px;
   }
 
@@ -101,8 +101,8 @@ const StyledAddColumn = styled(AddColumn)`
     height: 49px;
     width: 100%;
     padding: 14px;
-    background-color: #5255BC;
-    color: #FFFFFF;
+    background-color: #5255bc;
+    color: #ffffff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -115,17 +115,17 @@ const StyledAddColumn = styled(AddColumn)`
     transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
     &:hover {
-      background-color: #8385D1;
+      background-color: #8385d1;
       transform: scale(1.01);
     }
 
     &:before {
-      background-color: #8385D1;
+      background-color: #8385d1;
     }
 
     &:hover:not(:disabled) {
       scale: 1.02;
-      box-shadow: 0px 4px 10px 0px #8385D1;
+      box-shadow: 0px 4px 10px 0px #8385d1;
       border: 0;
     }
 
@@ -142,7 +142,7 @@ const StyledAddColumn = styled(AddColumn)`
       }
 
       .icon-plus-symbol {
-        stroke: #5255BC;
+        stroke: #5255bc;
       }
     }
   }

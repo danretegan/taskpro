@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import StyledLeftSideBar from '.././LeftSideBar/LeftSideBar.styled';
+import StyledLeftSideBar from '../LeftSideBar/LeftSideBar.styled';
 
 const BurgerMenu = ({ className: styles, closeModal }) => {
   // Adăugăm un event listener pentru tasta Esc
