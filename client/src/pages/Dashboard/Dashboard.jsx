@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useResponsive from '../../hooks/useResponsive';
-import {
-  DashboardContainer,
-  StyledParagraph,
-  AddColumnButton,
-} from './Dashboard.styled';
-import AddColumn from '../../components/AddColumn/AddColumn.styled';
+import { DashboardContainer, StyledParagraph } from './Dashboard.styled';
 import { loadImage } from '../../assets/images/loadImage';
 
 const Dashboard = () => {
   const selectedProject = useSelector(state => state.projects.selectedProject);
   const { isOnMobile, isOnTablet, isOnDesktop } = useResponsive();
-  const [isAddColumnOpen, setIsAddColumnOpen] = useState(false);
   const [backgroundPath, setBackgroundPath] = useState(null);
 
   let screenSize;
@@ -36,13 +30,6 @@ const Dashboard = () => {
     fetchBackground();
   }, [selectedProject, screenSize, isRetina]);
 
-  const handleOpenAddColumn = () => setIsAddColumnOpen(true);
-  const handleCloseAddColumn = () => setIsAddColumnOpen(false);
-  const handleCreateColumn = columnData => {
-    console.log('New column created:', columnData);
-    handleCloseAddColumn();
-  };
-
   return (
     <DashboardContainer
       $selectedProject={selectedProject}
@@ -53,16 +40,6 @@ const Dashboard = () => {
           <StyledParagraph $selectedProject={selectedProject}>
             {selectedProject.title}
           </StyledParagraph>
-          <AddColumnButton onClick={handleOpenAddColumn}>
-            Add another column
-          </AddColumnButton>
-          {isAddColumnOpen && (
-            <AddColumn
-              isOpen={isAddColumnOpen}
-              onClose={handleCloseAddColumn}
-              onCreate={handleCreateColumn}
-            />
-          )}
         </>
       ) : (
         <StyledParagraph>

@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   EditIconButton,
   IconsSection,
@@ -7,13 +10,12 @@ import {
 } from './ProjectListItem.styled';
 import icons from '../../../assets/icons/icons.svg';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { setSelectedProject } from '../../../redux/projects/projectsSlice';
 
 const ProjectListItem = ({ project, onEdit, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -26,6 +28,7 @@ const ProjectListItem = ({ project, onEdit, onDelete }) => {
   const handleProjectClick = () => {
     dispatch(setSelectedProject(project));
     console.log(`Project button clicked: ${project.title}`);
+    navigate(`/dashboard/${project._id}`);
   };
 
   return (

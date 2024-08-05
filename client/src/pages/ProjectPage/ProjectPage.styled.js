@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const DashboardContainer = styled.div`
+export const ProjectPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: ${props => (props.$selectedProject ? 'flex-start' : 'center')};
   justify-content: ${props =>
     props.$selectedProject ? 'flex-start' : 'center'};
-  height: calc(100vh - 64px); //! Ajustați în funcție de înălțimea Header-ului
+  height: calc(100vh - 64px);
   background-color: #ecedfd;
   padding: 20px;
   text-align: ${props => (props.$selectedProject ? 'left' : 'center')};
@@ -17,20 +17,17 @@ export const DashboardContainer = styled.div`
   background-position: center;
 `;
 
-export const StyledParagraph = styled.p`
-  font-size: 12px;
-  font-weight: 500;
-  color: #161616;
-  max-width: 335px;
-  margin-top: ${props => (props.$selectedProject ? '20px' : '0')};
+export const AddColumnButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: white;
+  background-color: #5255bc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 
-  span {
-    font-weight: bold;
-    color: #5255bc;
-  }
-
-  @media (min-width: 768px) {
-    font-size: 14px;
-    max-width: 486px;
+  &:hover {
+    background-color: #4146a3;
   }
 `;

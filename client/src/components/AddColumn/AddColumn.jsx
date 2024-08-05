@@ -1,11 +1,12 @@
 import { Formik, Form, Field } from 'formik';
+import { createPortal } from 'react-dom';
 import * as Yup from 'yup';
 import sprite from '../../assets/icons/icons.svg';
-import { GreenButton } from '../common/FormButton/FormButton.styled.js';
+import { GreenButton } from '../common/FormButton/FormButton.styled';
 
 const AddColumn = ({ className, isOpen, onClose, onCreate }) => {
   const validationSchema = Yup.object({
-    title: Yup.string().required('Required *')
+    title: Yup.string().required('Required *'),
   });
 
   const handleSubmit = (values, { resetForm, setSubmitting }) => {
@@ -23,11 +24,9 @@ const AddColumn = ({ className, isOpen, onClose, onCreate }) => {
     }
   };
 
-  console.log('AddColumn rendering, isOpen:', isOpen);
-
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div className={`${className} modal-overlay`}>
       <div className="modal-content">
         <h2>Add column</h2>
@@ -44,7 +43,11 @@ const AddColumn = ({ className, isOpen, onClose, onCreate }) => {
         >
           {({ isSubmitting, errors, touched }) => (
             <Form>
-              <div className={`field ${touched.title && errors.title ? 'onError' : ''}`}>
+              <div
+                className={`field ${
+                  touched.title && errors.title ? 'onError' : ''
+                }`}
+              >
                 <Field type="text" name="title" placeholder="Title" />
                 <div className="error">
                   {touched.title && errors.title && <span>{errors.title}</span>}
@@ -73,6 +76,8 @@ const AddColumn = ({ className, isOpen, onClose, onCreate }) => {
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.getElementById('modal-root'));
 };
 
 export default AddColumn;
