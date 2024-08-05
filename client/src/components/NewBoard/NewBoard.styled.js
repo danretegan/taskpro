@@ -64,15 +64,33 @@ const StyledNewBoard = styled(NewBoard)`
     }
   }
 
-  input,
   .field {
-    margin-bottom: 24px;
+    position: relative;
+    margin-bottom: 10px;
+    height: 67px;
+  }
+
+  input {
     padding: 14px 18px;
     border: 1px solid #5255BC;
     border-radius: 8px;
     background-color: white;
     color: #161616;
     width: 100%;
+  }
+
+  .error {
+    color: #ff003b;
+    font-style: italic;
+    font-size: 12px;
+    margin-top: 2px;
+    text-transform: lowercase;
+  }
+
+  .field.onError {
+    input {
+      border-color: #ff003b;
+    }
   }
 
   input:focus,
@@ -165,13 +183,13 @@ const StyledNewBoard = styled(NewBoard)`
     }
 
     &:before {
-    background-color: #8385D1;
+      background-color: #8385D1;
     }
 
     &:hover:not(:disabled) {
-    scale: 1.02;
-    box-shadow: 0px 4px 10px 0px #8385D1;
-    border: 0;
+      scale: 1.02;
+      box-shadow: 0px 4px 10px 0px #8385D1;
+      border: 0;
     }
 
     svg {

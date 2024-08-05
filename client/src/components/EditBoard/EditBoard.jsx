@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import { updateProject } from '../../redux/projects/projectsSlice';
 import sprite from '../../assets/icons/icons.svg';
 import { backgroundImages } from '../../assets/images/background_icons/index.js';
@@ -10,25 +11,32 @@ import { GreenButton } from '../common/FormButton/FormButton.styled.js';
 const EditBoard = ({ className, isOpen = true, onClose, project }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log('Current project:', project);
-  }, [project]);
+  const validationSchema = Yup.object({
+    title: Yup.string().required('Required *')
+  });
 
-  const handleUpdate = (values) => {
-    const updatedData = {
-      id: project._id,
-      ...values,
-    };
+  const handleUpdate = (values, { setSubmitting }) => {
+    if (values.title.trim() !== '') {
+      const updatedData = {
+        id: project._id,
+        ...values,
+      };
 
-    dispatch(updateProject(updatedData))
-      .unwrap()
-      .then(() => {
-        console.log('Board updated:', updatedData);
-        onClose();
-      })
-      .catch(error => {
-        console.error('Error updating board:', error);
-      });
+      dispatch(updateProject(updatedData))
+        .unwrap()
+        .then(() => {
+          console.log('Board updated:', updatedData);
+          onClose();
+        })
+        .catch(error => {
+          console.error('Error updating board:', error);
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
+    } else {
+      setSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -67,17 +75,23 @@ const EditBoard = ({ className, isOpen = true, onClose, project }) => {
           initialValues={{
             title: project?.title || '',
             icon: project?.icon || 'icon-fourCircles',
-            background: project?.background || 'noImage.jpg',
+            background: project?.background || backgroundImages[0],
           }}
+          validationSchema={validationSchema}
           onSubmit={handleUpdate}
         >
-          {({ values, setFieldValue }) => (
+          {({ values, setFieldValue, errors, touched, isSubmitting }) => (
             <Form>
-              <Field
-                name="title"
-                type="text"
-                placeholder="Title"
-              />
+              <div className={`field ${touched.title && errors.title ? 'onError' : ''}`}>
+                <Field
+                  name="title"
+                  type="text"
+                  placeholder="Title"
+                />
+                <div className="error">
+                  {touched.title && errors.title && <span>{errors.title}</span>}
+                </div>
+              </div>
 
               <div className="icons-section">
                 <h3>Icons</h3>
@@ -87,7 +101,7 @@ const EditBoard = ({ className, isOpen = true, onClose, project }) => {
                       key={icon}
                       type="button"
                       className={`icon-button ${values.icon === icon ? 'selected' : ''}`}
-                      onClick={() => setFieldValue('icon', icon)}
+                      onClick={() => setFieldValue('icon', values.icon === icon ? 'icon-fourCircles' : icon)}
                     >
                       <svg width="18" height="18">
                         <use href={`${sprite}#${icon}`}></use>
@@ -101,33 +115,43 @@ const EditBoard = ({ className, isOpen = true, onClose, project }) => {
                 <h3>Background</h3>
                 <div className="backgrounds-container">
                   {backgroundImages.map((image, index) => (
-                    <img
+                    <div
                       key={index}
-                      src={image}
-                      alt={`Fundal ${index}`}
-                      className={values.background === image ? 'selected' : ''}
-                      onClick={() => setFieldValue('background', image)}
-                    />
+                      className={`background-option ${values.background === image ? 'selected' : ''}`}
+                    >
+                      <img
+                        src={image}
+                        alt={`Fundal ${index}`}
+                        onClick={() => setFieldValue('background', values.background === image ? backgroundImages[0] : image)}
+                      />
+                      {values.background === image && (
+                        <div className="selected-overlay">
+                          <svg width="18" height="18">
+                            <use href={`${sprite}#icon-checkmark`}></use>
+                          </svg>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
 
               <GreenButton
-  type="submit"
-  text={
-    <>
-      <span className="plus-icon">
-        <svg width="28" height="28">
-          <use href={`${sprite}#icon-plusWhite`}></use>
-        </svg>
-      </span>
-      Edit
-    </>
-  }
-  handlerFunction={() => {}}
-  isDisabled={false}
-  className="edit-button"
-/>
+                type="submit"
+                text={
+                  <>
+                    <span className="plus-icon">
+                      <svg width="28" height="28">
+                        <use href={`${sprite}#icon-plusWhite`}></use>
+                      </svg>
+                    </span>
+                    Edit
+                  </>
+                }
+                handlerFunction={() => {}}
+                isDisabled={isSubmitting}
+                className="edit-button"
+              />
             </Form>
           )}
         </Formik>
