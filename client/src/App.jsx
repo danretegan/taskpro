@@ -5,6 +5,8 @@ import SharedLayout from './components/common/SharedLayout/SharedLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
 
 import StyledAddColumn from './components/AddColumn/AddColumn.styled';
+import StyledAddCard from './components/AddCard/AddCard.styled';
+import StyledEditCard from './components/EditCard/EditCard.styled';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.styled'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage.styled'));
@@ -25,6 +27,8 @@ const App = () => {
             {/* Afișăm Dashboard în /dashboard */}
           </Route>
           <Route path="/addcolumn" element={<StyledAddColumn />}></Route>
+          <Route path="/addcard" element={<StyledAddCard />}></Route>
+          <Route path="/editcard" element={<StyledEditCard />}></Route>
         </Routes>
       </Suspense>
       <Notification />

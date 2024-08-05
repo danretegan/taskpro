@@ -1,6 +1,6 @@
 import {
   BoardContainer,
-  AddCardButton,
+  AddColumnButton,
   BoardHeader,
   BoardTitle,
   Title,
@@ -64,9 +64,16 @@ const Board = ({ columns }) => {
                 deadline={card.deadline}
               />
             ))}
-            <AddCardButton>+ Add another card</AddCardButton>
           </StyledColumnContainer>
         ))}
+        <AddColumnButton>
+          <span className="plus-icon">
+            <svg width="28" height="28">
+              <use href={`${sprite}#icon-plus`}></use>
+            </svg>
+          </span>
+          Add another column
+        </AddColumnButton>
       </BoardContainer>
     </>
   );

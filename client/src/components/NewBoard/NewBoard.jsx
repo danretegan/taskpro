@@ -10,20 +10,30 @@ const NewBoard = ({
   className,
   isOpen = true,
   onClose = () => console.log('Close function not implemented yet'),
-  onCreate = () => console.log('Create function not implemented yet')
+  onCreate = () => console.log('Create function not implemented yet'),
 }) => {
-  const [selectedIcon, setSelectedIcon] = useState("icon-fourCircles");
-  const [selectedBackground, setSelectedBackground] = useState(backgroundImages[0]);
+  const [selectedIcon, setSelectedIcon] = useState('icon-fourCircles');
+  const [selectedBackground, setSelectedBackground] = useState(
+    backgroundImages[0]
+  );
 
   const validationSchema = Yup.object({
-    title: Yup.string().required('Required *')
+    title: Yup.string().required('Required *'),
   });
 
   const handleCreate = (values, { setSubmitting }) => {
     if (values.title.trim() !== '') {
-      console.log('Creating board:', { ...values, icon: selectedIcon, background: selectedBackground });
+      console.log('Creating board:', {
+        ...values,
+        icon: selectedIcon,
+        background: selectedBackground,
+      });
       if (onCreate) {
-        onCreate({ ...values, icon: selectedIcon, background: selectedBackground });
+        onCreate({
+          ...values,
+          icon: selectedIcon,
+          background: selectedBackground,
+        });
       }
       if (onClose) {
         onClose();
@@ -33,16 +43,20 @@ const NewBoard = ({
     }
   };
 
-  const handleIconSelect = (icon) => {
-    setSelectedIcon(prevIcon => prevIcon === icon ? "icon-fourCircles" : icon);
+  const handleIconSelect = icon => {
+    setSelectedIcon(prevIcon =>
+      prevIcon === icon ? 'icon-fourCircles' : icon
+    );
   };
 
-  const handleBackgroundSelect = (image) => {
-    setSelectedBackground(prevImage => prevImage === image ? backgroundImages[0] : image);
+  const handleBackgroundSelect = image => {
+    setSelectedBackground(prevImage =>
+      prevImage === image ? backgroundImages[0] : image
+    );
   };
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = event => {
       if (event.key === 'Escape') {
         onClose();
       }
@@ -55,7 +69,7 @@ const NewBoard = ({
     };
   }, [onClose]);
 
-  const handleOverlayClick = (event) => {
+  const handleOverlayClick = event => {
     if (event.target.classList.contains('modal-overlay')) {
       onClose();
     }
@@ -80,12 +94,12 @@ const NewBoard = ({
         >
           {({ isSubmitting, errors, touched }) => (
             <Form>
-              <div className={`field ${touched.title && errors.title ? 'onError' : ''}`}>
-                <Field
-                  name="title"
-                  type="text"
-                  placeholder="Title"
-                />
+              <div
+                className={`field ${
+                  touched.title && errors.title ? 'onError' : ''
+                }`}
+              >
+                <Field name="title" type="text" placeholder="Title" />
                 <div className="error">
                   {touched.title && errors.title && <span>{errors.title}</span>}
                 </div>
@@ -94,11 +108,22 @@ const NewBoard = ({
               <div className="icons-section">
                 <h3>Icons</h3>
                 <div className="icons-container">
-                  {['icon-fourCircles', 'icon-star', 'icon-loading', 'icon-puzzlePiece', 'icon-cube', 'icon-lightning', 'icon-threeCircles', 'icon-hexagon'].map((icon) => (
+                  {[
+                    'icon-fourCircles',
+                    'icon-star',
+                    'icon-loading',
+                    'icon-puzzlePiece',
+                    'icon-cube',
+                    'icon-lightning',
+                    'icon-threeCircles',
+                    'icon-hexagon',
+                  ].map(icon => (
                     <button
                       key={icon}
                       type="button"
-                      className={`icon-button ${selectedIcon === icon ? 'selected' : ''}`}
+                      className={`icon-button ${
+                        selectedIcon === icon ? 'selected' : ''
+                      }`}
                       onClick={() => handleIconSelect(icon)}
                     >
                       <svg width="18" height="18">
