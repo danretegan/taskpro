@@ -1,38 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useResponsive from '../../hooks/useResponsive';
 import {
   DashboardContainer,
   StyledParagraph,
   AddColumnButton,
-  getBackgroundPath,
 } from './Dashboard.styled';
 import AddColumn from '../../components/AddColumn/AddColumn.styled';
+import { loadImage } from '../../assets/images/loadImage';
 
 const Dashboard = () => {
   const selectedProject = useSelector(state => state.projects.selectedProject);
   const { isOnMobile, isOnTablet, isOnDesktop } = useResponsive();
   const [isAddColumnOpen, setIsAddColumnOpen] = useState(false);
+  const [backgroundPath, setBackgroundPath] = useState(null);
 
   let screenSize;
   if (isOnDesktop) screenSize = 'desktop';
   else if (isOnTablet) screenSize = 'tablet';
   else if (isOnMobile) screenSize = 'mobile';
 
-  // Verificăm densitatea pixelilor pentru ecranele Retina
   const isRetina = window.devicePixelRatio > 1;
 
-  const backgroundPath = getBackgroundPath(
-    selectedProject?.background,
-    screenSize,
-    isRetina
-  );
+  useEffect(() => {
+    const fetchBackground = async () => {
+      if (selectedProject?.background) {
+        const fileName = selectedProject.background
+          .split('/')
+          .pop()
+          .replace('.png', '');
+        const path = await loadImage(fileName, screenSize, isRetina);
+        setBackgroundPath(path);
+      }
+    };
+    fetchBackground();
+  }, [selectedProject, screenSize, isRetina]);
 
   const handleOpenAddColumn = () => setIsAddColumnOpen(true);
   const handleCloseAddColumn = () => setIsAddColumnOpen(false);
   const handleCreateColumn = columnData => {
     console.log('New column created:', columnData);
-    // Adăugați logica de creare a coloanei aici
     handleCloseAddColumn();
   };
 

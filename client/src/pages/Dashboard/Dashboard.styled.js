@@ -1,24 +1,5 @@
 import styled from 'styled-components';
 
-// Funcție pentru a obține calea corectă a imaginii de fundal în funcție de dimensiunea ecranului și densitatea pixelilor
-export const getBackgroundPath = (background, screenSize, isRetina) => {
-  if (!background) return null;
-  const fileName = background
-    .split('/')
-    .pop()
-    .replace('.png', isRetina ? '@2x.jpg' : '.jpg');
-  switch (screenSize) {
-    case 'desktop':
-      return `/src/assets/images/desktop/${fileName}`;
-    case 'tablet':
-      return `/src/assets/images/tablet/${fileName}`;
-    case 'mobile':
-      return `/src/assets/images/mobile/${fileName}`;
-    default:
-      return null;
-  }
-};
-
 export const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
