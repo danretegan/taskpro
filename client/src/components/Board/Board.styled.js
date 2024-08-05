@@ -10,6 +10,7 @@ export const BoardHeader = styled.div`
   padding: 20px;
   background: #f4f5f7;
   border-bottom: 1px solid #e0e0e0;
+  width: 100%;
   @media (max-width: 1268px) {
     display: flex;
     justify-content: space-between;
@@ -68,6 +69,7 @@ export const BoardTitle = styled.h1`
   margin: 0;
   background-color: #ecedfd;
   padding: 20px;
+  width: 100%;
 `;
 
 export const Title = styled.h1`
@@ -94,28 +96,39 @@ export const BoardContainer = styled.div`
   display: flex;
   padding: 20px;
   gap: 20px;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #ecedfd;
+  width: 100%;
+  overflow-x: auto;
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
-export const AddCardButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  background: #556cd6;
-  color: white;
+export const AddColumnButton = styled.button`
+  width: 335px;
+  height: 56px;
+  background-color: #fff;
+  color: #161616;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1em;
-  text-align: center;
-  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5px;
+  font-weight: 500;
 
-  &:hover {
-    background: #4455a6;
+  @media (min-width: 768px) {
+    padding: 14px;
+    min-width: 335px;
+  }
+
+  svg {
+    margin-right: 8px;
+    fill: #5255bc;
   }
 `;
 

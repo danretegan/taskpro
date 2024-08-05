@@ -1,7 +1,19 @@
 import styled from 'styled-components';
-import AddCard from './AddCard';
+import EditCard from './EditCard';
 
-const StyledAddCard = styled(AddCard)``;
+const StyledEditCard = styled(EditCard)`
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    z-index: 0;
+  }
+
+  .plus-icon {
+    display: flex;
+  }
+`;
 
 export const Overlay = styled.div`
   position: fixed;
@@ -72,18 +84,33 @@ export const LabelColors = styled.div`
   margin-bottom: 20px;
 `;
 
-export const ColorButton = styled.button`
+export const LabelButton = styled.button`
+  background: ${props => props.color || 'gray'};
   width: 14px;
   height: 14px;
-  border-radius: 50%;
   border: none;
-  background-color: ${props => props.color};
+  border-radius: 50%;
   cursor: pointer;
   outline: ${props => (props.selected ? '2px solid white' : 'none')};
   box-shadow: ${props =>
     props.selected
       ? `0 0 0 3px ${props.color}, 0 0 5px rgba(0, 0, 0, 0.3)`
       : 'none'};
+`;
+
+export const Button = styled.button`
+  background: #90ee90;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: #76c776;
+  }
 `;
 
 export const AddButton = styled.button`
@@ -158,6 +185,7 @@ export const CustomDatePickerInput = styled.div`
     border: 1px solid #5255bc; /* Change the border color of the calendar container */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust shadow if needed */
+    z-index: 1000;
   }
 
   .react-datepicker__header {
@@ -233,4 +261,4 @@ export const CustomDatePickerInput = styled.div`
   }
 `;
 
-export default StyledAddCard;
+export default StyledEditCard;
