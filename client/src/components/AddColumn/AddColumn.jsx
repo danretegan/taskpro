@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { createPortal } from 'react-dom';
 import * as Yup from 'yup';
@@ -24,10 +25,34 @@ const AddColumn = ({ className, isOpen, onClose, onCreate }) => {
     }
   };
 
+  useEffect(() => {
+    const handleEscape = event => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    } else {
+      document.removeEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
+  const handleOverlayClick = event => {
+    if (event.target.classList.contains('modal-overlay')) {
+      onClose();
+    }
+  };
+
   const modalContent = (
-    <div className={`${className} modal-overlay`}>
+    <div className={`${className} modal-overlay`} onClick={handleOverlayClick}>
       <div className="modal-content">
         <h2>Add column</h2>
         <button className="close-button" onClick={onClose}>
