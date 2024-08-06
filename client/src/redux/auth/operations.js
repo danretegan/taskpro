@@ -5,7 +5,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 axios.defaults.baseURL = 'https://taskpro-server-mu.vercel.app';
 
 //! LOCAL:
-//axios.defaults.baseURL = 'http://localhost:3000';
+// axios.defaults.baseURL = 'http://localhost:3000';
 
 const utils = {
   setAuthHeader: token =>
@@ -75,4 +75,29 @@ const refreshUser = createAsyncThunk(
   }
 );
 
-export { register, login, logout, refreshUser };
+const updateUserProfile = createAsyncThunk(
+  'auth/updateProfile',
+  async (userData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      console.log('Token:', token);  // Verificare token
+      if (!token) {
+        return thunkAPI.rejectWithValue('Token not available');
+      }
+      const response = await axios.patch('/api/users/update', userData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error in updateUserProfile:', error.response?.data || error.message);
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+
+
+export { register, login, logout, refreshUser, updateUserProfile };
