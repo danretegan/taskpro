@@ -30,6 +30,8 @@ const ProjectPage = () => {
           .replace('.png', '');
         const path = await loadImage(fileName, screenSize, isRetina);
         setBackgroundPath(path);
+      } else {
+        setBackgroundPath(null); // Set null if no background is specified
       }
     };
     fetchBackground();

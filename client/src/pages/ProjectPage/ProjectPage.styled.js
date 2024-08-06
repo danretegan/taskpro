@@ -12,7 +12,7 @@ export const ProjectPageContainer = styled.div`
   text-align: ${props => (props.$selectedProject ? 'left' : 'center')};
   width: 100%;
   background-image: ${props =>
-    props.$selectedProject ? `url(${props.$background})` : 'none'};
+    props.$background ? `url(${props.$background})` : 'none'};
   background-size: cover;
   background-position: center;
 `;
