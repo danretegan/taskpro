@@ -117,11 +117,43 @@ async function getCurrentUserData(req, res, next) {
   }
 }
 
+async function updateProfile(req, res, next) {
+  console.log('Received update request:', req.body);
+  try {
+    const { id } = req.user;
+    const { name, email, password } = req.body;
+
+    const updatedUser = await usersService.updateUser(id, { name, email, password });
+    console.log('Updated user:', updatedUser);
+
+    res.status(200).json({
+      status: 'success',
+      code: 200,
+      message: 'Profile updated successfully',
+      data: {
+        user: {
+          name: updatedUser.name,
+          email: updatedUser.email,
+          avatarUrl: updatedUser.avatarUrl,
+        },
+      },
+    });
+  } catch (error) {
+    console.error('Server error in updateProfile:', error);
+    res.status(500).json({
+      status: 'error',
+      code: 500,
+      message: error.message || 'A apărut o eroare la actualizarea profilului',
+    });
+  }
+}
+
 const usersController = {
   register,
   login,
   logout,
   getCurrentUserData,
+  updateProfile,
 };
 
 export default usersController;
