@@ -26,7 +26,12 @@ function findUser(data) {
   return User.findOne(data);
 }
 
-function updateUser(userId, updates) {
+async function updateUser(userId, updates) {
+  if (updates.password) {
+    const salt = bcrypt.genSaltSync(10);
+    updates.password = bcrypt.hashSync(updates.password, salt);
+  }
+
   return User.findByIdAndUpdate(userId, updates, {
     new: true,
     runValidators: true,
