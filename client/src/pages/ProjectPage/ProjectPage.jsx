@@ -30,7 +30,8 @@ const ProjectPage = () => {
         const fileName = selectedProject.background
           .split('/')
           .pop()
-          .replace('.png', '');
+          .replace('.png', '')
+          .replace('.jpg', ''); // Eliminăm extensia fișierului dacă există
         try {
           const path = await loadImage(fileName, screenSize, isRetina);
           setBackgroundPath(path);

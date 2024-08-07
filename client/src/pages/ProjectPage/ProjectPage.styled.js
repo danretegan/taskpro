@@ -7,14 +7,14 @@ export const ProjectPageContainer = styled.div`
   justify-content: ${props =>
     props.$selectedProject ? 'flex-start' : 'center'};
   height: calc(100vh - 64px);
-  background-color: #ecedfd;
-  padding: 20px;
-  text-align: ${props => (props.$selectedProject ? 'left' : 'center')};
-  width: 100%;
+  background-color: ${props => (props.$background ? 'transparent' : '#ecedfd')};
   background-image: ${props =>
     props.$background ? `url(${props.$background})` : 'none'};
   background-size: cover;
   background-position: center;
+  padding: 20px;
+  text-align: ${props => (props.$selectedProject ? 'left' : 'center')};
+  width: 100%;
 `;
 
 export const AddColumnButton = styled.button`
