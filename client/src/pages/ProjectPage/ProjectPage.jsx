@@ -35,9 +35,11 @@ const ProjectPage = () => {
           const path = await loadImage(fileName, screenSize, isRetina);
           setBackgroundPath(path);
         } catch (error) {
-          console.error(`Error loading image: ${fileName}, error`);
+          console.error(`Error loading image: ${fileName}`, error);
           setBackgroundPath(null);
         }
+      } else {
+        setBackgroundPath(null); // No background specified
       }
     };
     fetchBackground();
@@ -66,6 +68,7 @@ const ProjectPage = () => {
     <ProjectPageContainer
       $selectedProject={selectedProject}
       $background={backgroundPath}
+      $hasBackground={!!backgroundPath}
     >
       {selectedProject && (
         <>
