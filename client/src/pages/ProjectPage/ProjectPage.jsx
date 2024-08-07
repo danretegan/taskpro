@@ -52,7 +52,13 @@ const ProjectPage = () => {
   const handleOpenAddColumn = () => setIsAddColumnOpen(true);
   const handleCloseAddColumn = () => setIsAddColumnOpen(false);
   const handleCreateColumn = async columnData => {
-    dispatch(createColumn({ ...columnData, boardId: projectId }));
+    const resultAction = await dispatch(
+      createColumn({ ...columnData, boardId: projectId })
+    );
+    if (createColumn.fulfilled.match(resultAction)) {
+      // Fetch columns to refresh the state
+      dispatch(fetchColumns(projectId));
+    }
     handleCloseAddColumn();
   };
 
