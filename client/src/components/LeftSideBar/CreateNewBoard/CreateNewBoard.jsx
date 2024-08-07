@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import NewBoard from '../../NewBoard/NewBoard.styled';
-import { createProject } from '../../../redux/projects/projectsSlice';
+import { createProject } from '../../../redux/slices/projectsSlice';
 
 const CreateNewBoard = ({ className: styles }) => {
   const [isNewBoardOpen, setIsNewBoardOpen] = useState(false);

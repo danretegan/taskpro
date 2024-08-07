@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setSelectedProject } from '../../../redux/projects/projectsSlice';
+import { setSelectedProject } from '../../../redux/slices/projectsSlice';
 import icons from '../../../assets/icons/icons.svg';
 
 const TaskProLogo = ({ className: styles }) => {

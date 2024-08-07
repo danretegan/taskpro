@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUserProjects, deleteProject } from '../../../redux/projects/projectsSlice';
+import {
+  fetchUserProjects,
+  deleteProject,
+} from '../../../redux/slices/projectsSlice';
 import ProjectListItem from '../ProjectListItem/ProjectListItem';
 import StyledEditBoard from '../../EditBoard/EditBoard.styled';
 

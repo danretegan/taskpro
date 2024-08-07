@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { updateProject } from '../../redux/projects/projectsSlice';
+import { updateProject } from '../../redux/slices/projectsSlice';
 import sprite from '../../assets/icons/icons.svg';
 import { backgroundImages } from '../../assets/images/background_icons/index.js';
 import { GreenButton } from '../common/FormButton/FormButton.styled.js';
