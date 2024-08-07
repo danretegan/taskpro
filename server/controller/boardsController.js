@@ -60,3 +60,37 @@ export const deleteBoard = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const addColumnToBoard = async (req, res) => {
+  try {
+    const { boardId } = req.params;
+    const { title } = req.body;
+
+    const board = await Board.findById(boardId);
+    if (!board) {
+      return res.status(404).json({ message: 'Board not found' });
+    }
+
+    board.columns.push({ title });
+    await board.save();
+
+    res.status(201).json(board.columns);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const getColumnsByBoardId = async (req, res) => {
+  try {
+    const { boardId } = req.params;
+
+    const board = await Board.findById(boardId);
+    if (!board) {
+      return res.status(404).json({ message: 'Board not found' });
+    }
+
+    res.status(200).json(board.columns);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};

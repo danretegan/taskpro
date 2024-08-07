@@ -10,7 +10,7 @@ import {
 } from './ProjectListItem.styled';
 import icons from '../../../assets/icons/icons.svg';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
-import { setSelectedProject } from '../../../redux/projects/projectsSlice';
+import { setSelectedProject } from '../../../redux/slices/projectsSlice';
 
 const ProjectListItem = ({ project, onEdit, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -4,7 +4,9 @@ import {
   createBoard,
   getBoardsByUser,
   updateBoard,
-  deleteBoard,  // Adăugați importul pentru funcția deleteBoard
+  deleteBoard,
+  addColumnToBoard,
+  getColumnsByBoardId,
 } from '../../controller/boardsController.js';
 
 const router = express.Router();
@@ -12,6 +14,10 @@ const router = express.Router();
 router.post('/', validateAuth, createBoard);
 router.get('/', validateAuth, getBoardsByUser);
 router.patch('/:id', validateAuth, updateBoard);
-router.delete('/:id', validateAuth, deleteBoard);  // Ruta pentru ștergere
+router.delete('/:id', validateAuth, deleteBoard);
+
+// Rute pentru gestionarea coloanelor
+router.post('/:boardId/columns', validateAuth, addColumnToBoard);
+router.get('/:boardId/columns', validateAuth, getColumnsByBoardId);
 
 export default router;

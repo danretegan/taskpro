@@ -1,5 +1,16 @@
 import { Schema, model } from 'mongoose';
 
+// Definirea schema pentru coloane
+const columnSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: [true, 'Title is required'],
+    },
+  },
+  { _id: false }
+);
+
 const boardSchema = new Schema(
   {
     title: {
@@ -19,6 +30,7 @@ const boardSchema = new Schema(
       ref: 'user',
       required: true,
     },
+    columns: [columnSchema], // Adăugarea subdocumentelor pentru coloane
   },
   { versionKey: false, timestamps: true }
 );

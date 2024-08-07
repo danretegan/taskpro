@@ -6,7 +6,7 @@ import { configDotenv } from 'dotenv';
 import passport from 'passport';
 
 import usersRouter from './routes/api/users.js';
-import boardsRouter from './routes/api/boards.js'; // Importăm ruta board-urilor
+import boardsRouter from './routes/api/boards.js';
 
 configDotenv({ path: './environment/.env' });
 
@@ -16,10 +16,10 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 
-app.use(passport.initialize()); // Inițializăm Passport
+app.use(passport.initialize());
 
 app.use('/api/users', usersRouter);
-app.use('/api/boards', boardsRouter); // Utilizăm ruta board-urilor
+app.use('/api/boards', boardsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });

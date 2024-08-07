@@ -3,36 +3,42 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 // Define async thunk for creating a new project
-export const createProject = createAsyncThunk('projects/createProject', async (projectData, thunkAPI) => {
-  try {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-    const response = await axios.post('/api/boards', projectData, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    toast.success('Project created successfully');
-    return response.data;
-  } catch (error) {
-    toast.error('Failed to create project');
-    return thunkAPI.rejectWithValue(error.message);
+export const createProject = createAsyncThunk(
+  'projects/createProject',
+  async (projectData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      const response = await axios.post('/api/boards', projectData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success('Project created successfully');
+      return response.data;
+    } catch (error) {
+      toast.error('Failed to create project');
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
-});
+);
 
 // Define async thunk for fetching user projects
-export const fetchUserProjects = createAsyncThunk('projects/fetchUserProjects', async (_, thunkAPI) => {
-  try {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-    const response = await axios.get('/api/boards', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+export const fetchUserProjects = createAsyncThunk(
+  'projects/fetchUserProjects',
+  async (_, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      const response = await axios.get('/api/boards', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
-});
+);
 
-// Define async thunk pentru actualizarea unui proiect
+// Define async thunk for updating a project
 export const updateProject = createAsyncThunk(
   'projects/updateProject',
   async (projectData, thunkAPI) => {
