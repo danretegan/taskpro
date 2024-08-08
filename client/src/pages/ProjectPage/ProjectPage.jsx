@@ -12,6 +12,7 @@ import {
 } from './ProjectPage.styled';
 import StyledAddColumn from '../../components/AddColumn/AddColumn.styled';
 import StyledEditColumn from '../../components/EditColumn/EditColumn.styled';
+import ConfirmModal from '../../components/common/ConfirmModal/ConfirmModal';
 import { loadImage } from '../../assets/images/loadImage';
 import { fetchColumns, createColumn } from '../../redux/slices/columnsSlice';
 import HeaderDashboard from '../../components/HeaderDashboard/HeaderDashboard';
@@ -28,6 +29,9 @@ const ProjectPage = () => {
   const [backgroundPath, setBackgroundPath] = useState(null);
   const columns = useSelector(state => state.columns.items);
   const dispatch = useDispatch();
+
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [columnToDelete, setColumnToDelete] = useState(null);
 
   let screenSize;
   if (isOnDesktop) screenSize = 'desktop';
@@ -89,8 +93,20 @@ const ProjectPage = () => {
     handleOpenEditColumn(title);
   };
 
-  const handleDeleteClick = () => {
-    console.log('Delete button clicked');
+  const handleOpenConfirmModal = column => {
+    setColumnToDelete(column);
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleCloseConfirmModal = () => {
+    setColumnToDelete(null);
+    setIsConfirmModalOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    console.log('Deleting column:', columnToDelete);
+    // Logic to delete the column
+    handleCloseConfirmModal();
   };
 
   return (
@@ -113,7 +129,9 @@ const ProjectPage = () => {
                       <use href={`${sprite}#icon-pencil`}></use>
                     </svg>
                   </EditIconButton>
-                  <EditIconButton onClick={handleDeleteClick}>
+                  <EditIconButton
+                    onClick={() => handleOpenConfirmModal(column)}
+                  >
                     <svg>
                       <use href={`${sprite}#icon-trash`}></use>
                     </svg>
@@ -150,6 +168,18 @@ const ProjectPage = () => {
               onClose={handleCloseEditColumn}
               initialTitle={currentColumnTitle}
               onCreate={handleCreateColumn}
+            />
+          )}
+
+          {isConfirmModalOpen && (
+            <ConfirmModal
+              isOpen={isConfirmModalOpen}
+              onClose={handleCloseConfirmModal}
+              onConfirm={handleConfirmDelete}
+              title="Confirm Deletion"
+              message={`Are you sure you want to delete the column "${columnToDelete?.title}"?`}
+              confirmText="Delete"
+              cancelText="Cancel"
             />
           )}
         </>
