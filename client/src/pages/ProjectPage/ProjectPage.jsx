@@ -22,6 +22,9 @@ const ProjectPage = () => {
   else if (isOnTablet) screenSize = 'tablet';
   else if (isOnMobile) screenSize = 'mobile';
 
+  // Ne asigurăm că `screenSize` are o valoare implicită în caz că toate sunt false:
+  if (!screenSize) screenSize = 'desktop';
+
   const isRetina = window.devicePixelRatio > 1;
 
   useEffect(() => {
@@ -74,9 +77,11 @@ const ProjectPage = () => {
       {selectedProject && (
         <>
           <h1>{selectedProject.title}</h1>
+
           <AddColumnButton onClick={handleOpenAddColumn}>
             Add another column
           </AddColumnButton>
+
           {isAddColumnOpen && (
             <StyledAddColumn
               isOpen={isAddColumnOpen}
