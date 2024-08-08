@@ -6,6 +6,7 @@ import { ProjectPageContainer, AddColumnButton } from './ProjectPage.styled';
 import StyledAddColumn from '../../components/AddColumn/AddColumn.styled';
 import { loadImage } from '../../assets/images/loadImage';
 import { fetchColumns, createColumn } from '../../redux/slices/columnsSlice';
+import HeaderDashboard from '../../components/HeaderDashboard/HeaderDashboard';
 
 const ProjectPage = () => {
   const { projectId } = useParams();
@@ -76,7 +77,7 @@ const ProjectPage = () => {
     >
       {selectedProject && (
         <>
-          <h1>{selectedProject.title}</h1>
+          <HeaderDashboard title={selectedProject.title} />
 
           <AddColumnButton onClick={handleOpenAddColumn}>
             Add another column
