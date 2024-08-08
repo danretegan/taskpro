@@ -1,11 +1,13 @@
+import { useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
+import { createPortal } from 'react-dom';
 import * as Yup from 'yup';
 import sprite from '../../assets/icons/icons.svg';
-import { GreenButton } from '../common/FormButton/FormButton.styled.js';
+import { GreenButton } from '../common/FormButton/FormButton.styled';
 
 const EditColumn = ({ className, isOpen, onClose, onCreate, initialTitle }) => {
   const validationSchema = Yup.object({
-    title: Yup.string().required('Required *')
+    title: Yup.string().required('Required *'),
   });
 
   const handleSubmit = (values, { resetForm, setSubmitting }) => {
@@ -23,12 +25,34 @@ const EditColumn = ({ className, isOpen, onClose, onCreate, initialTitle }) => {
     }
   };
 
-  console.log('EditColumn rendering, isOpen:', isOpen);
+  useEffect(() => {
+    const handleEscape = event => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    } else {
+      document.removeEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
-  return (
-    <div className={`${className} modal-overlay`}>
+  const handleOverlayClick = event => {
+    if (event.target.classList.contains('modal-overlay')) {
+      onClose();
+    }
+  };
+
+  const modalContent = (
+    <div className={`${className} modal-overlay`} onClick={handleOverlayClick}>
       <div className="modal-content">
         <h2>Edit column</h2>
         <button className="close-button" onClick={onClose}>
@@ -44,12 +68,12 @@ const EditColumn = ({ className, isOpen, onClose, onCreate, initialTitle }) => {
         >
           {({ isSubmitting, errors, touched }) => (
             <Form>
-              <div className={`field ${touched.title && errors.title ? 'onError' : ''}`}>
-                <Field
-                  type="text"
-                  name="title"
-                  placeholder="Title"
-                />
+              <div
+                className={`field ${
+                  touched.title && errors.title ? 'onError' : ''
+                }`}
+              >
+                <Field type="text" name="title" placeholder="Title" />
                 <div className="error">
                   {touched.title && errors.title && <span>{errors.title}</span>}
                 </div>
@@ -69,7 +93,7 @@ const EditColumn = ({ className, isOpen, onClose, onCreate, initialTitle }) => {
                 }
                 handlerFunction={() => {}}
                 isDisabled={isSubmitting}
-                className="edit-button new-button"
+                className="edit-button"
               />
             </Form>
           )}
@@ -77,6 +101,8 @@ const EditColumn = ({ className, isOpen, onClose, onCreate, initialTitle }) => {
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.getElementById('modal-root'));
 };
 
 export default EditColumn;

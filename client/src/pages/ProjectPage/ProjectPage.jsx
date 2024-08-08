@@ -11,6 +11,7 @@ import {
   EditIconButton,
 } from './ProjectPage.styled';
 import StyledAddColumn from '../../components/AddColumn/AddColumn.styled';
+import StyledEditColumn from '../../components/EditColumn/EditColumn.styled';
 import { loadImage } from '../../assets/images/loadImage';
 import { fetchColumns, createColumn } from '../../redux/slices/columnsSlice';
 import HeaderDashboard from '../../components/HeaderDashboard/HeaderDashboard';
@@ -22,6 +23,8 @@ const ProjectPage = () => {
   const selectedProject = projects.find(project => project._id === projectId);
   const { isOnMobile, isOnTablet, isOnDesktop } = useResponsive();
   const [isAddColumnOpen, setIsAddColumnOpen] = useState(false);
+  const [isEditColumnOpen, setIsEditColumnOpen] = useState(false);
+  const [currentColumnTitle, setCurrentColumnTitle] = useState('');
   const [backgroundPath, setBackgroundPath] = useState(null);
   const columns = useSelector(state => state.columns.items);
   const dispatch = useDispatch();
@@ -75,6 +78,21 @@ const ProjectPage = () => {
     handleCloseAddColumn();
   };
 
+  const handleOpenEditColumn = title => {
+    setCurrentColumnTitle(title);
+    setIsEditColumnOpen(true);
+  };
+  const handleCloseEditColumn = () => setIsEditColumnOpen(false);
+
+  const handleEditClick = title => {
+    console.log('Edit button clicked');
+    handleOpenEditColumn(title);
+  };
+
+  const handleDeleteClick = () => {
+    console.log('Delete button clicked');
+  };
+
   return (
     <ProjectPageContainer
       $selectedProject={selectedProject}
@@ -90,12 +108,12 @@ const ProjectPage = () => {
                 <h2>{column.title}</h2>
 
                 <IconsSection>
-                  <EditIconButton>
+                  <EditIconButton onClick={() => handleEditClick(column.title)}>
                     <svg>
                       <use href={`${sprite}#icon-pencil`}></use>
                     </svg>
                   </EditIconButton>
-                  <EditIconButton>
+                  <EditIconButton onClick={handleDeleteClick}>
                     <svg>
                       <use href={`${sprite}#icon-trash`}></use>
                     </svg>
@@ -122,6 +140,15 @@ const ProjectPage = () => {
             <StyledAddColumn
               isOpen={isAddColumnOpen}
               onClose={handleCloseAddColumn}
+              onCreate={handleCreateColumn}
+            />
+          )}
+
+          {isEditColumnOpen && (
+            <StyledEditColumn
+              isOpen={isEditColumnOpen}
+              onClose={handleCloseEditColumn}
+              initialTitle={currentColumnTitle}
               onCreate={handleCreateColumn}
             />
           )}
