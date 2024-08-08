@@ -2,11 +2,19 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
-import { ProjectPageContainer, AddColumnButton } from './ProjectPage.styled';
+import {
+  ProjectPageContainer,
+  ColumnsContainer,
+  Column,
+  CustomButton,
+  IconsSection,
+  EditIconButton,
+} from './ProjectPage.styled';
 import StyledAddColumn from '../../components/AddColumn/AddColumn.styled';
 import { loadImage } from '../../assets/images/loadImage';
 import { fetchColumns, createColumn } from '../../redux/slices/columnsSlice';
 import HeaderDashboard from '../../components/HeaderDashboard/HeaderDashboard';
+import sprite from '../../assets/icons/icons.svg';
 
 const ProjectPage = () => {
   const { projectId } = useParams();
@@ -23,7 +31,6 @@ const ProjectPage = () => {
   else if (isOnTablet) screenSize = 'tablet';
   else if (isOnMobile) screenSize = 'mobile';
 
-  // Ne asigurăm că `screenSize` are o valoare implicită în caz că toate sunt false:
   if (!screenSize) screenSize = 'desktop';
 
   const isRetina = window.devicePixelRatio > 1;
@@ -35,7 +42,7 @@ const ProjectPage = () => {
           .split('/')
           .pop()
           .replace('.png', '')
-          .replace('.jpg', ''); // Eliminăm extensia fișierului dacă există
+          .replace('.jpg', '');
         try {
           const path = await loadImage(fileName, screenSize, isRetina);
           setBackgroundPath(path);
@@ -44,7 +51,7 @@ const ProjectPage = () => {
           setBackgroundPath(null);
         }
       } else {
-        setBackgroundPath(null); // No background specified
+        setBackgroundPath(null);
       }
     };
     fetchBackground();
@@ -63,7 +70,6 @@ const ProjectPage = () => {
       createColumn({ ...columnData, boardId: projectId })
     );
     if (createColumn.fulfilled.match(resultAction)) {
-      // Fetch columns to refresh the state
       dispatch(fetchColumns(projectId));
     }
     handleCloseAddColumn();
@@ -78,10 +84,39 @@ const ProjectPage = () => {
       {selectedProject && (
         <>
           <HeaderDashboard title={selectedProject.title} />
+          <ColumnsContainer>
+            {columns.map((column, index) => (
+              <Column key={index}>
+                <h2>{column.title}</h2>
 
-          <AddColumnButton onClick={handleOpenAddColumn}>
-            Add another column
-          </AddColumnButton>
+                <IconsSection>
+                  <EditIconButton>
+                    <svg>
+                      <use href={`${sprite}#icon-pencil`}></use>
+                    </svg>
+                  </EditIconButton>
+                  <EditIconButton>
+                    <svg>
+                      <use href={`${sprite}#icon-trash`}></use>
+                    </svg>
+                  </EditIconButton>
+                </IconsSection>
+
+                {/* Aici adăugăm conținutul coloanei, cum ar fi cardurile */}
+              </Column>
+            ))}
+
+            <CustomButton onClick={handleOpenAddColumn}>
+              <>
+                <span className="plus-icon">
+                  <svg width="28" height="28">
+                    <use href={`${sprite}#icon-plus`}></use>
+                  </svg>
+                </span>
+                Add another column
+              </>
+            </CustomButton>
+          </ColumnsContainer>
 
           {isAddColumnOpen && (
             <StyledAddColumn
@@ -90,15 +125,6 @@ const ProjectPage = () => {
               onCreate={handleCreateColumn}
             />
           )}
-          <div>
-            {columns.length === 0 ? (
-              <p>No columns available. Add a new column to get started.</p>
-            ) : (
-              columns.map((column, index) => (
-                <div key={index}>{column.title}</div>
-              ))
-            )}
-          </div>
         </>
       )}
     </ProjectPageContainer>

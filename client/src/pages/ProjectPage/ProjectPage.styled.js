@@ -15,19 +15,127 @@ export const ProjectPageContainer = styled.div`
   padding: 20px;
   text-align: ${props => (props.$selectedProject ? 'left' : 'center')};
   width: 100%;
+  overflow: hidden; /* Adăugat pentru a preveni overflow */
 `;
 
-export const AddColumnButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 14px;
-  color: white;
-  background-color: #5255bc;
+export const ColumnsContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 0;
+  width: 100%;
+  flex-wrap: nowrap;
+
+  /* Scrollbar styling */
+  &::-webkit-scrollbar {
+    height: 8px; /* Adjust the height as needed */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(80, 80, 160, 0.7); /* Customize the color */
+    border-radius: 4px; /* Adjust the border radius as needed */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(80, 80, 160, 0.9); /* Change color on hover */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(200, 200, 200, 0.3); /* Customize the track color */
+  }
+`;
+
+export const Column = styled.div`
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  min-width: 335px;
+  height: 56px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const CustomButton = styled.button`
+  height: 56px;
+  min-width: 335px; /* Ensure the button has a minimum width */
+  padding: 14px;
+  background-color: #ffffff;
+  color: #161616;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #8385d1;
+    z-index: -1;
+    transition: width 0.35s ease-in-out;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
 
   &:hover {
-    background-color: #4146a3;
+    color: #ffffff;
+    transform: scale(1.01);
+  }
+
+  &:hover:not(:disabled) {
+    box-shadow: 0px 4px 10px 0px #8385d1;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .plus-icon svg {
+    margin-right: 8px;
+    fill: #5255bc;
+  }
+`;
+
+export const IconsSection = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
+export const EditIconButton = styled.button`
+  width: 16px;
+  height: 16px;
+  border: none;
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    color: rgba(22, 22, 22, 0.5);
+    fill: rgba(22, 22, 22, 0.5);
+    transition: fill 0.3s, color 0.3s;
+  }
+
+  &:hover svg {
+    color: black;
+    fill: black;
   }
 `;

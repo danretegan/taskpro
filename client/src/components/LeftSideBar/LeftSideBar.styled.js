@@ -9,6 +9,8 @@ const StyledLeftSideBar = styled(LeftSideBar)`
   color: white;
   height: 100dvh;
   width: 225px;
+  flex-shrink: 0;
+  overflow: hidden;
 
   .project-list-container {
     flex: 1;
