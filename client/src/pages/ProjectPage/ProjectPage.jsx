@@ -18,6 +18,8 @@ import { fetchColumns, createColumn } from '../../redux/slices/columnsSlice';
 import HeaderDashboard from '../../components/HeaderDashboard/HeaderDashboard';
 import sprite from '../../assets/icons/icons.svg';
 
+import { deleteColumn } from '../../redux/slices/columnsSlice';
+
 const ProjectPage = () => {
   const { projectId } = useParams();
   const projects = useSelector(state => state.projects.items);
@@ -103,10 +105,13 @@ const ProjectPage = () => {
     setIsConfirmModalOpen(false);
   };
 
-  const handleConfirmDelete = () => {
-    console.log('Deleting column:', columnToDelete);
-    // Logic to delete the column
-    handleCloseConfirmModal();
+  const handleConfirmDelete = async () => {
+    if (columnToDelete) {
+      await dispatch(
+        deleteColumn({ boardId: projectId, columnTitle: columnToDelete.title })
+      );
+      handleCloseConfirmModal();
+    }
   };
 
   return (

@@ -94,3 +94,24 @@ export const getColumnsByBoardId = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const deleteColumnFromBoard = async (req, res) => {
+  try {
+    const { boardId, columnTitle } = req.params;
+
+    const board = await Board.findById(boardId);
+    if (!board) {
+      return res.status(404).json({ message: 'Board not found' });
+    }
+
+    board.columns = board.columns.filter(
+      column => column.title !== columnTitle
+    );
+
+    await board.save();
+
+    res.status(200).json({ message: 'Column deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};

@@ -37,6 +37,22 @@ export const createColumn = createAsyncThunk(
   }
 );
 
+export const deleteColumn = createAsyncThunk(
+  'columns/deleteColumn',
+  async ({ boardId, columnTitle }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      await axios.delete(`/api/boards/${boardId}/columns/${columnTitle}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return columnTitle;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 const columnsSlice = createSlice({
   name: 'columns',
   initialState: {
@@ -68,6 +84,20 @@ const columnsSlice = createSlice({
         state.items.push(action.payload);
       })
       .addCase(createColumn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteColumn.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteColumn.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = state.items.filter(
+          column => column.title !== action.payload
+        );
+      })
+      .addCase(deleteColumn.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
