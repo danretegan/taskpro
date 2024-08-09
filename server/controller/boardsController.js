@@ -115,3 +115,27 @@ export const deleteColumnFromBoard = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const updateColumnTitle = async (req, res) => {
+  try {
+    const { boardId, columnTitle } = req.params;
+    const { newTitle } = req.body;
+
+    const board = await Board.findById(boardId);
+    if (!board) {
+      return res.status(404).json({ message: 'Board not found' });
+    }
+
+    const column = board.columns.find(column => column.title === columnTitle);
+    if (!column) {
+      return res.status(404).json({ message: 'Column not found' });
+    }
+
+    column.title = newTitle;
+    await board.save();
+
+    res.status(200).json(column);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};

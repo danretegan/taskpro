@@ -8,6 +8,7 @@ import {
   addColumnToBoard,
   getColumnsByBoardId,
   deleteColumnFromBoard,
+  updateColumnTitle,
 } from '../../controller/boardsController.js';
 
 const router = express.Router();
@@ -20,7 +21,7 @@ router.delete('/:id', validateAuth, deleteBoard);
 // Rute pentru gestionarea coloanelor
 router.post('/:boardId/columns', validateAuth, addColumnToBoard);
 router.get('/:boardId/columns', validateAuth, getColumnsByBoardId);
-
+router.patch('/:boardId/columns/:columnTitle', validateAuth, updateColumnTitle);
 router.delete(
   '/:boardId/columns/:columnTitle',
   validateAuth,

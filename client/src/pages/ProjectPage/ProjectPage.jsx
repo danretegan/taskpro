@@ -17,7 +17,7 @@ import { loadImage } from '../../assets/images/loadImage';
 import { fetchColumns, createColumn } from '../../redux/slices/columnsSlice';
 import HeaderDashboard from '../../components/HeaderDashboard/HeaderDashboard';
 import sprite from '../../assets/icons/icons.svg';
-
+import { updateColumn } from '../../redux/slices/columnsSlice';
 import { deleteColumn } from '../../redux/slices/columnsSlice';
 
 const ProjectPage = () => {
@@ -105,6 +105,17 @@ const ProjectPage = () => {
     setIsConfirmModalOpen(false);
   };
 
+  const handleUpdateColumn = async values => {
+    await dispatch(
+      updateColumn({
+        boardId: projectId,
+        columnTitle: currentColumnTitle,
+        newTitle: values.title,
+      })
+    );
+    handleCloseEditColumn();
+  };
+
   const handleConfirmDelete = async () => {
     if (columnToDelete) {
       await dispatch(
@@ -172,7 +183,7 @@ const ProjectPage = () => {
               isOpen={isEditColumnOpen}
               onClose={handleCloseEditColumn}
               initialTitle={currentColumnTitle}
-              onCreate={handleCreateColumn}
+              onCreate={handleUpdateColumn}
             />
           )}
 

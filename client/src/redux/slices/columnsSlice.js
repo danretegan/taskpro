@@ -53,6 +53,26 @@ export const deleteColumn = createAsyncThunk(
   }
 );
 
+export const updateColumn = createAsyncThunk(
+  'columns/updateColumn',
+  async ({ boardId, columnTitle, newTitle }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      const response = await axios.patch(
+        `/api/boards/${boardId}/columns/${columnTitle}`,
+        { newTitle },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      return { columnTitle, newTitle: response.data.title };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 const columnsSlice = createSlice({
   name: 'columns',
   initialState: {
@@ -98,6 +118,21 @@ const columnsSlice = createSlice({
         );
       })
       .addCase(deleteColumn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateColumn.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateColumn.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const column = state.items.find(column => column.title === action.payload.columnTitle);
+        if (column) {
+          column.title = action.payload.newTitle;
+        }
+      })
+      .addCase(updateColumn.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
