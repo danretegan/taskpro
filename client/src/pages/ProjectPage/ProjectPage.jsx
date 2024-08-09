@@ -13,7 +13,6 @@ import {
 import StyledAddColumn from '../../components/AddColumn/AddColumn.styled';
 import StyledEditColumn from '../../components/EditColumn/EditColumn.styled';
 import ConfirmModal from '../../components/common/ConfirmModal/ConfirmModal';
-import { loadImage } from '../../assets/images/loadImage';
 import { fetchColumns, createColumn } from '../../redux/slices/columnsSlice';
 import HeaderDashboard from '../../components/HeaderDashboard/HeaderDashboard';
 import sprite from '../../assets/icons/icons.svg';
@@ -35,36 +34,23 @@ const ProjectPage = () => {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [columnToDelete, setColumnToDelete] = useState(null);
 
-  let screenSize;
-  if (isOnDesktop) screenSize = 'desktop';
-  else if (isOnTablet) screenSize = 'tablet';
-  else if (isOnMobile) screenSize = 'mobile';
-
-  if (!screenSize) screenSize = 'desktop';
-
-  const isRetina = window.devicePixelRatio > 1;
-
   useEffect(() => {
-    const fetchBackground = async () => {
-      if (selectedProject?.background) {
-        const fileName = selectedProject.background
-          .split('/')
-          .pop()
-          .replace('.png', '')
-          .replace('.jpg', '');
-        try {
-          const path = await loadImage(fileName, screenSize, isRetina);
-          setBackgroundPath(path);
-        } catch (error) {
-          console.error(`Error loading image: ${fileName}`, error);
-          setBackgroundPath(null);
-        }
-      } else {
-        setBackgroundPath(null);
-      }
-    };
-    fetchBackground();
-  }, [selectedProject, screenSize, isRetina]);
+    if (selectedProject?.background) {
+      let folder = 'desktop';
+      if (isOnTablet) folder = 'tablet';
+      if (isOnMobile) folder = 'mobile';
+
+      // Înlocuim orice referință la .png cu .jpg
+      const fileName = selectedProject.background
+        .split('/')
+        .pop()
+        .replace('.png', '.jpg');
+      const path = `/images/${folder}/${fileName}`;
+      setBackgroundPath(path);
+    } else {
+      setBackgroundPath(null);
+    }
+  }, [selectedProject, isOnDesktop, isOnTablet, isOnMobile]);
 
   useEffect(() => {
     if (projectId) {
@@ -91,7 +77,6 @@ const ProjectPage = () => {
   const handleCloseEditColumn = () => setIsEditColumnOpen(false);
 
   const handleEditClick = title => {
-    console.log('Edit button clicked');
     handleOpenEditColumn(title);
   };
 
