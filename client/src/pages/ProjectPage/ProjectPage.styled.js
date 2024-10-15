@@ -27,6 +27,13 @@ export const ColumnsContainer = styled.div`
   width: 100%;
   flex-wrap: nowrap;
 
+  /* Stil pentru a păstra un spațiu între coloane și butonul de jos */
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrat butonul sub coloană */
+  }
+
   /* Scrollbar styling */
   &::-webkit-scrollbar {
     height: 8px; /* Adjust the height as needed */
@@ -47,15 +54,36 @@ export const ColumnsContainer = styled.div`
 `;
 
 export const Column = styled.div`
-  background-color: #ffffff;
+  background-color: white;
   padding: 10px;
   border-radius: 8px;
   min-width: 335px;
-  height: 56px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: auto;
+  align-items: center;
+  margin-bottom: 14px;
+
+  .column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Să ocupe toată lățimea coloanei */
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+`;
+
+export const CardsContainer = styled.div`
+  width: 100%;
+  flex-grow: 1; /* Asigură că se întinde pe toată înălțimea disponibilă */
+  display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 

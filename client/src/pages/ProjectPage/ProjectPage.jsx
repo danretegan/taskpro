@@ -9,6 +9,7 @@ import {
   CustomButton,
   IconsSection,
   EditIconButton,
+  CardsContainer,
 } from './ProjectPage.styled';
 import StyledAddColumn from '../../components/AddColumn/AddColumn.styled';
 import StyledEditColumn from '../../components/EditColumn/EditColumn.styled';
@@ -110,6 +111,11 @@ const ProjectPage = () => {
     }
   };
 
+  const handleAddCard = columnId => {
+    // Logica pentru a adăuga un card în coloana respectivă
+    console.log(`Add card to column with ID: ${columnId}`);
+  };
+
   return (
     <ProjectPageContainer
       $selectedProject={selectedProject}
@@ -121,37 +127,51 @@ const ProjectPage = () => {
           <HeaderDashboard title={selectedProject.title} />
           <ColumnsContainer>
             {columns.map((column, index) => (
-              <Column key={index}>
-                <h2>{column.title}</h2>
+              <div key={index}>
+                <Column>
+                  <div className="column-header">
+                    <h2>{column.title}</h2>
 
-                <IconsSection>
-                  <EditIconButton onClick={() => handleEditClick(column.title)}>
-                    <svg>
-                      <use href={`${sprite}#icon-pencil`}></use>
-                    </svg>
-                  </EditIconButton>
-                  <EditIconButton
-                    onClick={() => handleOpenConfirmModal(column)}
-                  >
-                    <svg>
-                      <use href={`${sprite}#icon-trash`}></use>
-                    </svg>
-                  </EditIconButton>
-                </IconsSection>
+                    <IconsSection>
+                      <EditIconButton
+                        onClick={() => handleEditClick(column.title)}
+                      >
+                        <svg>
+                          <use href={`${sprite}#icon-pencil`}></use>
+                        </svg>
+                      </EditIconButton>
+                      <EditIconButton
+                        onClick={() => handleOpenConfirmModal(column)}
+                      >
+                        <svg>
+                          <use href={`${sprite}#icon-trash`}></use>
+                        </svg>
+                      </EditIconButton>
+                    </IconsSection>
+                  </div>
 
-                {/* Aici adăugăm conținutul coloanei, cum ar fi cardurile */}
-              </Column>
-            ))}
+                  {/* Aici pot fi cardurile */}
+                  <CardsContainer></CardsContainer>
+                </Column>
 
-            <CustomButton onClick={handleOpenAddColumn}>
-              <>
-                <span className="plus-icon">
+                {/* Buton pentru a adăuga un card */}
+                <CustomButton onClick={() => handleAddCard(column._id)}>
                   <svg width="28" height="28">
                     <use href={`${sprite}#icon-plus`}></use>
                   </svg>
-                </span>
-                Add another column
-              </>
+                  Add another card
+                </CustomButton>
+              </div>
+            ))}
+
+            {/* Buton pentru a adăuga o nouă coloană */}
+            <CustomButton onClick={handleOpenAddColumn}>
+              <span className="plus-icon">
+                <svg width="28" height="28">
+                  <use href={`${sprite}#icon-plus`}></use>
+                </svg>
+              </span>
+              Add another column
             </CustomButton>
           </ColumnsContainer>
 
