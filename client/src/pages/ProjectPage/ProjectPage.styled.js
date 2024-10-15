@@ -104,7 +104,10 @@ export const CustomButton = styled.button`
   font-weight: 500;
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+  /* Setăm tranzițiile pe proprietățile care se schimbă */
+  transition: transform 0.3s ease-out, background-color 0.3s ease-out,
+    color 0.3s ease-out, box-shadow 0.3s ease-out;
 
   &:before {
     content: '';
@@ -115,7 +118,7 @@ export const CustomButton = styled.button`
     height: 100%;
     background-color: #8385d1;
     z-index: -1;
-    transition: width 0.35s ease-in-out;
+    transition: width 0.35s ease-out;
   }
 
   &:hover::before {
@@ -124,11 +127,11 @@ export const CustomButton = styled.button`
 
   &:hover {
     color: #ffffff;
-    transform: scale(1.01);
+    transform: scale(1.02); /* Scalează puțin mai vizibil */
   }
 
   &:hover:not(:disabled) {
-    box-shadow: 0px 4px 10px 0px #8385d1;
+    box-shadow: 0px 6px 12px 0px rgba(131, 133, 209, 0.8); /* Umbra mai mare și mai subtilă */
   }
 
   &:disabled {
@@ -139,6 +142,7 @@ export const CustomButton = styled.button`
   .plus-icon svg {
     margin-right: 8px;
     fill: #5255bc;
+    transition: fill 0.3s ease-out; /* Tranziție pentru iconiță */
   }
 `;
 
@@ -159,7 +163,7 @@ export const EditIconButton = styled.button`
     stroke: currentColor;
     color: rgba(22, 22, 22, 0.5);
     fill: rgba(22, 22, 22, 0.5);
-    transition: fill 0.3s, color 0.3s;
+    transition: color 0.3s ease-out, fill 0.3s ease-out;
   }
 
   &:hover svg {
