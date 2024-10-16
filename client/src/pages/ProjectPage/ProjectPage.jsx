@@ -19,6 +19,7 @@ import HeaderDashboard from '../../components/HeaderDashboard/HeaderDashboard';
 import sprite from '../../assets/icons/icons.svg';
 import { updateColumn } from '../../redux/slices/columnsSlice';
 import { deleteColumn } from '../../redux/slices/columnsSlice';
+import AddCard from '../../components/AddCard/AddCard';
 
 const ProjectPage = () => {
   const { projectId } = useParams();
@@ -35,13 +36,16 @@ const ProjectPage = () => {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [columnToDelete, setColumnToDelete] = useState(null);
 
+  // Stări pentru AddCard modal
+  const [isAddCardOpen, setIsAddCardOpen] = useState(false);
+  const [selectedColumnId, setSelectedColumnId] = useState(null); // pentru a stoca coloana selectată
+
   useEffect(() => {
     if (selectedProject?.background) {
       let folder = 'desktop';
       if (isOnTablet) folder = 'tablet';
       if (isOnMobile) folder = 'mobile';
 
-      // Înlocuim orice referință la .png cu .jpg
       const fileName = selectedProject.background
         .split('/')
         .pop()
@@ -61,6 +65,7 @@ const ProjectPage = () => {
 
   const handleOpenAddColumn = () => setIsAddColumnOpen(true);
   const handleCloseAddColumn = () => setIsAddColumnOpen(false);
+
   const handleCreateColumn = async columnData => {
     const resultAction = await dispatch(
       createColumn({ ...columnData, boardId: projectId })
@@ -76,10 +81,6 @@ const ProjectPage = () => {
     setIsEditColumnOpen(true);
   };
   const handleCloseEditColumn = () => setIsEditColumnOpen(false);
-
-  const handleEditClick = title => {
-    handleOpenEditColumn(title);
-  };
 
   const handleOpenConfirmModal = column => {
     setColumnToDelete(column);
@@ -111,9 +112,15 @@ const ProjectPage = () => {
     }
   };
 
+  // Deschide modalul AddCard
   const handleAddCard = columnId => {
-    // Logica pentru a adăuga un card în coloana respectivă
-    console.log(`Add card to column with ID: ${columnId}`);
+    setSelectedColumnId(columnId); // Setează coloana pentru care se adaugă cardul
+    setIsAddCardOpen(true); // Deschide modalul AddCard
+  };
+
+  const handleCloseAddCard = () => {
+    setIsAddCardOpen(false); // Închide modalul AddCard
+    setSelectedColumnId(null); // Resetează coloana selectată
   };
 
   return (
@@ -131,10 +138,9 @@ const ProjectPage = () => {
                 <Column>
                   <div className="column-header">
                     <h2>{column.title}</h2>
-
                     <IconsSection>
                       <EditIconButton
-                        onClick={() => handleEditClick(column.title)}
+                        onClick={() => handleOpenEditColumn(column.title)}
                       >
                         <svg>
                           <use href={`${sprite}#icon-pencil`}></use>
@@ -150,11 +156,9 @@ const ProjectPage = () => {
                     </IconsSection>
                   </div>
 
-                  {/* Aici pot fi cardurile */}
                   <CardsContainer></CardsContainer>
                 </Column>
 
-                {/* Buton pentru a adăuga un card */}
                 <CustomButton onClick={() => handleAddCard(column._id)}>
                   <svg width="28" height="28">
                     <use href={`${sprite}#icon-plus`}></use>
@@ -164,7 +168,6 @@ const ProjectPage = () => {
               </div>
             ))}
 
-            {/* Buton pentru a adăuga o nouă coloană */}
             <CustomButton onClick={handleOpenAddColumn}>
               <span className="plus-icon">
                 <svg width="28" height="28">
@@ -203,10 +206,23 @@ const ProjectPage = () => {
               cancelText="Cancel"
             />
           )}
+
+          {isAddCardOpen && (
+            <AddCard
+              isOpen={isAddCardOpen}
+              onClose={handleCloseAddCard}
+              columnId={selectedColumnId} // Trimite ID-ul coloanei pentru care adaugi cardul
+              onAdd={newCardData => {
+                console.log('New card added:', newCardData);
+                handleCloseAddCard();
+              }}
+            />
+          )}
         </>
       )}
     </ProjectPageContainer>
   );
 };
+
 
 export default ProjectPage;
