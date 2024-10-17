@@ -98,34 +98,31 @@ export const Button = styled.button`
   }
 `;
 
-export const AddButton = styled.button`
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 10px;
-  background-color: #5255bc;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  margin-top: 30px;
-`;
+// export const AddButton = styled.button`
+//   color: #fff;
+//   width: 100%;
+//   padding: 10px;
+//   background-color: #5255bc;
+//   border: none;
+//   border-radius: 5px;
+//   font-size: 18px;
+//   cursor: pointer;
+//   margin-top: 30px;
+// `;
 
-export const PlusIcon = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  margin-right: 5px;
-  width: 28px;
-  height: 28px;
-  color: #5255bc;
-  background-color: #fff;
-  border-radius: 8px;
-  margin-right: 8px;
-`;
+// export const PlusIcon = styled.span`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 20px;
+//   margin-right: 5px;
+//   width: 28px;
+//   height: 28px;
+//   color: #5255bc;
+//   background-color: #fff;
+//   border-radius: 8px;
+//   margin-right: 18px;
+// `;
 
 export const CustomDatePickerInput = styled.div`
   display: flex;
