@@ -6,15 +6,15 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import ProjectPage from './pages/ProjectPage/ProjectPage';
 
 // todo : => de integrat
-import StyledNewBoard from './components/NewBoard/NewBoard.styled';
-import StyledEditBoard from './components/EditBoard/EditBoard.styled';
-import StyledAddCard from './components/AddCard/AddCard.styled';
-import StyledEditCard from './components/EditCard/EditCard.styled';
-import StyledColumnContainer from './components/ColumnContainer/ColumnContainer.styled';
-import StyledCardContent from './components/CardContent/CardContent.styled';
-import StyledBoard from './components/Board/Board.styled';
-import StyledAddColumn from './components/AddColumn/AddColumn.styled';
-import StyledEditColumn from './components/EditColumn/EditColumn.styled';
+// import StyledNewBoard from './components/NewBoard/NewBoard.styled';
+// import StyledEditBoard from './components/EditBoard/EditBoard.styled';
+// import StyledAddCard from './components/AddCard/AddCard.styled';
+// import StyledEditCard from './components/EditCard/EditCard.styled';
+// import StyledColumnContainer from './components/ColumnContainer/ColumnContainer.styled';
+// import StyledCardContent from './components/CardContent/CardContent.styled';
+// import StyledBoard from './components/Board/Board.styled';
+// import StyledAddColumn from './components/AddColumn/AddColumn.styled';
+// import StyledEditColumn from './components/EditColumn/EditColumn.styled';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage.styled'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage.styled'));
@@ -22,6 +22,7 @@ const RegisterPage = lazy(() =>
   import('./pages/RegisterPage/RegisterPage.styled')
 );
 
+/** 
 const columnsData = [
   {
     title: 'To Do',
@@ -72,7 +73,8 @@ const columnsData = [
     ],
   },
   // Add more columns as needed
-];
+]; 
+*/
 
 const App = () => {
   return (
@@ -88,21 +90,21 @@ const App = () => {
           </Route>
 
           {/* todo: => astea sterse si intorduse elementele acolo unde trebuie */}
-          <Route path="/addcard" element={<StyledAddCard />}></Route>
-          <Route path="/editcard" element={<StyledEditCard />}></Route>
-          <Route path="/addcolumn" element={<StyledAddColumn />}></Route>
-          <Route path="/editcolumn" element={<StyledEditColumn />}></Route>
-          <Route path="/newboard" element={<StyledNewBoard />}></Route>
-          <Route path="/editboard" element={<StyledEditBoard />}></Route>
-          <Route
+          {/* <Route path="/addcard" element={<StyledAddCard />}></Route> */}
+          {/* <Route path="/editcard" element={<StyledEditCard />}></Route> */}
+          {/* <Route path="/addcolumn" element={<StyledAddColumn />}></Route> */}
+          {/* <Route path="/editcolumn" element={<StyledEditColumn />}></Route> */}
+          {/* <Route path="/newboard" element={<StyledNewBoard />}></Route> */}
+          {/* <Route path="/editboard" element={<StyledEditBoard />}></Route> */}
+          {/* <Route
             path="/columncontainer"
             element={<StyledColumnContainer />}
-          ></Route>
-          <Route path="/cardcontent" element={<StyledCardContent />}></Route>
-          <Route
+          ></Route> */}
+          {/* <Route path="/cardcontent" element={<StyledCardContent />}></Route> */}
+          {/* <Route
             path="/board"
             element={<StyledBoard columns={columnsData} />}
-          ></Route>
+          ></Route> */}
         </Routes>
       </Suspense>
       <Notification />

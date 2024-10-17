@@ -1,19 +1,4 @@
 import styled from 'styled-components';
-import AddCard from './AddCard';
-
-const StyledAddCard = styled(AddCard)`
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    z-index: 0;
-  }
-
-  .plus-icon {
-    display: flex;
-  }
-`;
 
 export const Overlay = styled.div`
   position: fixed;
@@ -260,5 +245,3 @@ export const CustomDatePickerInput = styled.div`
     color: #5255bc; /* Icon color */
   }
 `;
-
-export default StyledAddCard;
