@@ -83,20 +83,20 @@ export const LabelButton = styled.button`
       : 'none'};
 `;
 
-export const Button = styled.button`
-  background: #90ee90;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// export const Button = styled.button`
+//   background: #90ee90;
+//   border: none;
+//   padding: 10px;
+//   border-radius: 5px;
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
 
-  &:hover {
-    background: #76c776;
-  }
-`;
+//   &:hover {
+//     background: #76c776;
+//   }
+// `;
 
 // export const AddButton = styled.button`
 //   color: #fff;
