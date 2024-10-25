@@ -7,6 +7,7 @@ import passport from 'passport';
 
 import usersRouter from './routes/api/users.js';
 import boardsRouter from './routes/api/boards.js';
+import cardsRoutes from './routes/api/cards.js'; // Importă rutele pentru carduri
 
 configDotenv({ path: './environment/.env' });
 
@@ -20,6 +21,8 @@ app.use(passport.initialize());
 
 app.use('/api/users', usersRouter);
 app.use('/api/boards', boardsRouter);
+//* Folosește rutele pentru carduri:
+app.use('/api/cards', cardsRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
