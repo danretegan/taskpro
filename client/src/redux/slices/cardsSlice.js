@@ -9,7 +9,7 @@ export const fetchCards = createAsyncThunk(
       const state = thunkAPI.getState();
       const token = state.auth.token;
       const response = await axios.get(
-        `/api/boards/${boardId}/columns/${columnId}/cards`,
+        `/api/cards/boards/${boardId}/columns/${columnId}/cards`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -29,7 +29,7 @@ export const createCard = createAsyncThunk(
       const state = thunkAPI.getState();
       const token = state.auth.token;
       const response = await axios.post(
-        `/api/boards/${boardId}/columns/${columnId}/cards`,
+        `/api/cards/boards/${boardId}/columns/${columnId}/cards`,
         cardData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -50,7 +50,7 @@ export const updateCard = createAsyncThunk(
       const state = thunkAPI.getState();
       const token = state.auth.token;
       const response = await axios.patch(
-        `/api/boards/${boardId}/columns/${columnId}/cards/${cardId}`,
+        `/api/cards/boards/${boardId}/columns/${columnId}/cards/${cardId}`,
         updatedCardData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -71,7 +71,7 @@ export const deleteCard = createAsyncThunk(
       const state = thunkAPI.getState();
       const token = state.auth.token;
       await axios.delete(
-        `/api/boards/${boardId}/columns/${columnId}/cards/${cardId}`,
+        `/api/cards/boards/${boardId}/columns/${columnId}/cards/${cardId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
