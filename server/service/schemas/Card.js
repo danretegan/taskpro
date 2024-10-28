@@ -11,9 +11,10 @@ const cardSchema = new Schema(
     description: {
       type: String,
     },
-    priority: {
+    labelColor: {
       type: String,
-      enum: ['Low', 'Medium', 'High'],
+      enum: ['#8FA1D0', '#E09CB5', '#BEDBB0', '#1616164C'],
+      default: '#8FA1D0', // Culoarea implicită
     },
     deadline: {
       type: Date,

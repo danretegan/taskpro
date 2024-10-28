@@ -5,7 +5,6 @@ import Card from '../service/schemas/Card.js';
 export const getCards = async (req, res) => {
   try {
     const { boardId, columnId } = req.params;
-    // Găsim toate cardurile care aparțin de un anumit board și coloană
     const cards = await Card.find({ boardId, columnId });
     res.status(200).json(cards);
   } catch (error) {
@@ -17,19 +16,18 @@ export const getCards = async (req, res) => {
 export const createCard = async (req, res) => {
   try {
     const { boardId, columnId } = req.params;
-    const { title, description, priority, deadline } = req.body;
+    const { title, description, labelColor, deadline } = req.body;
 
-    // Creăm un nou card asociat cu boardId și columnId specific
+    // Creăm un nou card cu `labelColor` din frontend
     const newCard = new Card({
       boardId,
       columnId,
       title,
       description,
-      priority,
+      labelColor,
       deadline,
     });
 
-    // Salvăm noul card în baza de date
     await newCard.save();
     res.status(201).json(newCard);
   } catch (error) {
@@ -41,16 +39,14 @@ export const createCard = async (req, res) => {
 export const updateCard = async (req, res) => {
   try {
     const { cardId } = req.params;
-    const { title, description, priority, deadline } = req.body;
+    const { title, description, labelColor, deadline } = req.body;
 
-    // Găsim și actualizăm cardul folosind cardId
     const updatedCard = await Card.findByIdAndUpdate(
       cardId,
-      { title, description, priority, deadline },
+      { title, description, labelColor, deadline },
       { new: true }
     );
 
-    // Dacă cardul nu este găsit, returnăm un răspuns 404
     if (!updatedCard) {
       return res.status(404).json({ message: 'Card not found' });
     }
@@ -65,11 +61,8 @@ export const updateCard = async (req, res) => {
 export const deleteCard = async (req, res) => {
   try {
     const { cardId } = req.params;
-
-    // Găsim și ștergem cardul folosind cardId
     const deletedCard = await Card.findByIdAndDelete(cardId);
 
-    // Dacă cardul nu este găsit, returnăm un răspuns 404
     if (!deletedCard) {
       return res.status(404).json({ message: 'Card not found' });
     }

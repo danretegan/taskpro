@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useDispatch } from 'react-redux';
 import {
   Overlay,
   PopUpContainer,
@@ -19,6 +20,7 @@ import { VioletButton } from '../common/FormButton/FormButton.styled';
 import sprite from '../../assets/icons/icons.svg';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { createCard } from '../../redux/slices/cardsSlice';
 
 const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
   <CustomDatePickerInput onClick={onClick} ref={ref}>
@@ -34,9 +36,12 @@ CustomInput.displayName = 'CustomInput';
 const AddCard = ({
   className,
   isOpen = true,
-  onClose = () => console.log('Close function not implemented yet'),
-  onAdd = () => console.log('Create function not implemented yet'),
+  onClose,
+  onAdd,
+  boardId,
+  columnId,
 }) => {
+  const dispatch = useDispatch();
   const [labelColor, setLabelColor] = useState('#8FA1D0');
   const [deadline, setDeadline] = useState(new Date());
   const [isOnMobile, setIsOnMobile] = useState(false);
@@ -57,19 +62,43 @@ const AddCard = ({
     };
   }, []);
 
-  const handleAdd = values => {
-    console.log('Creating board:', {
-      ...values,
-      icon: labelColor,
-    });
-    if (onAdd) {
-      onAdd({
-        ...values,
-        icon: labelColor,
-      });
+  useEffect(() => {
+    console.log(
+      'AddCard modal opened. Board ID:',
+      boardId,
+      'Column ID:',
+      columnId
+    );
+  }, [boardId, columnId]);
+
+  const handleAdd = async values => {
+    if (!boardId || !columnId) {
+      console.error('boardId or columnId is missing.');
+      return;
     }
-    if (onClose) {
-      onClose();
+
+    const newCardData = {
+      ...values,
+      labelColor: labelColor,
+      deadline: deadline.toISOString(),
+    };
+
+    // Adăugăm un console.log pentru a verifica datele înainte de trimitere
+    console.log('Data to be sent to backend:', newCardData);
+
+    try {
+      const resultAction = await dispatch(
+        createCard({ boardId, columnId, ...newCardData })
+      );
+
+      if (createCard.fulfilled.match(resultAction)) {
+        if (onAdd) onAdd(resultAction.payload); // Callback pentru a actualiza UI-ul local
+        onClose(); // Închide modalul
+      } else {
+        console.error('Failed to add card:', resultAction.error);
+      }
+    } catch (error) {
+      console.error('Error while adding card:', error);
     }
   };
 
@@ -79,9 +108,7 @@ const AddCard = ({
         onClose();
       }
     };
-
     document.addEventListener('keydown', handleKeyDown);
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
@@ -113,56 +140,64 @@ const AddCard = ({
           validationSchema={validationSchema}
           onSubmit={handleAdd}
         >
-          {({ isSubmitting, errors, touched }) => (
+          {({
+            values,
+            handleChange,
+            setFieldValue,
+            isSubmitting,
+            errors,
+            touched,
+          }) => (
             <Form>
-              <div
-                className={`field ${
-                  touched.title && errors.title ? 'onError' : ''
-                }`}
-              ></div>
-              <Input name="title" type="text" placeholder="Title" />
-              <div className="error">
-                {touched.title && errors.title && <span>{errors.title}</span>}
-              </div>
-              <div
-                className={`field ${
-                  touched.description && errors.description ? 'onError' : ''
-                }`}
-              ></div>
+              <Input
+                name="title"
+                type="text"
+                placeholder="Title"
+                value={values.title}
+                onChange={handleChange}
+              />
+              {touched.title && errors.title && (
+                <div className="error">{errors.title}</div>
+              )}
+
               <Textarea
                 name="description"
                 type="text"
                 placeholder="Description"
+                value={values.description}
+                onChange={handleChange}
               />
-              <div className="error">
-                {touched.description && errors.description && (
-                  <span>{errors.description}</span>
-                )}
-              </div>
+              {touched.description && errors.description && (
+                <div className="error">{errors.description}</div>
+              )}
+
               <Label>Label color</Label>
               <LabelColors>
-                {['#8FA1D0', '#E09CB5', '#BEDBB0', '#d3d2d2'].map(color => (
+                {['#8FA1D0', '#E09CB5', '#BEDBB0', '#1616164C'].map(color => (
                   <LabelButton
+                    type="button" // Setăm tipul butonului la "button"
                     key={color}
                     color={color}
                     selected={labelColor === color}
-                    onClick={() => {
-                      setLabelColor(color);
-                      isSubmitting('labelColor', color);
-                    }}
+                    onClick={() => setLabelColor(color)}
                   />
                 ))}
               </LabelColors>
+
               <Label>Deadline</Label>
               <CustomDatePickerInput>
                 <DatePicker
+                  name="deadline"
                   selected={deadline}
-                  onChange={date => setDeadline(date)}
+                  onChange={date => {
+                    setDeadline(date);
+                    setFieldValue('deadline', date.toISOString());
+                  }}
                   dateFormat="MMMM d, yyyy"
                   customInput={
                     <CustomInput value={format(deadline, 'MMMM d, yyyy')} />
                   }
-                  withPortal={isOnMobile ? true : false}
+                  withPortal={isOnMobile}
                   toggleCalendarOnIconClick
                 />
               </CustomDatePickerInput>
@@ -179,7 +214,6 @@ const AddCard = ({
                     Add
                   </>
                 }
-                handlerFunction={() => {}}
                 isDisabled={isSubmitting}
                 className="add-button"
               />

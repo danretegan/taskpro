@@ -211,7 +211,8 @@ const ProjectPage = () => {
             <AddCard
               isOpen={isAddCardOpen}
               onClose={handleCloseAddCard}
-              columnId={selectedColumnId} // Trimite ID-ul coloanei pentru care adaugi cardul
+              boardId={projectId} // Asigurăm transmiterea corectă a boardId
+              columnId={selectedColumnId} // ID-ul coloanei pentru care adaugi cardul
               onAdd={newCardData => {
                 console.log('New card added:', newCardData);
                 handleCloseAddCard();

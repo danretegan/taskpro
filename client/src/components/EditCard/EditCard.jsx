@@ -141,7 +141,7 @@ const EditCard = ({
               </div>
               <Label>Label color</Label>
               <LabelColors>
-                {['#8FA1D0', '#E09CB5', '#BEDBB0', '#d3d2d2'].map(color => (
+                {['#8FA1D0', '#E09CB5', '#BEDBB0', '#1616164C'].map(color => (
                   <LabelButton
                     key={color}
                     color={color}
